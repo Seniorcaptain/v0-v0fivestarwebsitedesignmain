@@ -123,7 +123,7 @@ export function SimplifiedTeamSection() {
             <h3 className="text-4xl font-bold mb-4">Need Immediate Assistance?</h3>
             <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
               Our team is ready to help you choose the right course, schedule lessons, and answer any questions about
-              learning to drive with FIVE ST★R.
+              learning to drive with <span className="text-red-600">FIVE ST<span className="text-blue-600">★</span>R</span>.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

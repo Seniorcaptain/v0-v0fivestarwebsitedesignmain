@@ -274,7 +274,7 @@ export function InteractiveFAQ() {
           <CardContent className="p-8 text-center">
             <h3 className="text-3xl font-bold mb-4">Still Have Questions?</h3>
             <p className="text-xl mb-6 opacity-90">
-              Our friendly team is here to help you with any questions about learning to drive with FIVE ST★R
+              Our friendly team is here to help you with any questions about learning to drive with <span className="text-red-600">FIVE ST<span className="text-blue-600">★</span>R</span>
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button

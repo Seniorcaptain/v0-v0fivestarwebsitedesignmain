@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dialog"
 import { CalendarIcon, Phone, CheckCircle, Loader, Download } from "lucide-react"
 import { format } from "date-fns"
+import jsPDF from "jspdf"
 
 interface TimeSlot {
   time: string
@@ -189,54 +190,102 @@ export function EnhancedBookingSystem() {
     const selectedClassType = classTypes.find((ct) => ct.id === bookingData.classType)
     const selectedBranch = branches.find((b) => b.id === bookingData.branch)
 
-    const bookingDetails = `
-FIVE ST★R DRIVING SCHOOL
-BOOKING CONFIRMATION
-
-Booking Reference: ${bookingReference}
-Date: ${new Date().toLocaleDateString()}
-
-STUDENT INFORMATION:
-Name: ${bookingData.personalInfo.name}
-Phone: ${bookingData.personalInfo.phone}
-ID Number: ${bookingData.personalInfo.idNumber}
-
-COURSE DETAILS:
-Course: ${selectedCourse?.name}
-Price: ${selectedCourse?.price}
-Class Type: ${selectedClassType?.name}
-Branch: ${selectedBranch?.name} - ${selectedBranch?.address}
-Scheduled Date: ${selectedDate ? format(selectedDate, "PPP") : "Not selected"}
-Time: ${bookingData.timeSlot}
-
-COURSE FEATURES:
-• 30 Practical Lessons
-• Unlimited Theory Sessions
-• Basic Mechanics Training
-• FREE Learner's Manual
-• NTSA Certified Training
-
-OPERATING HOURS:
-Monday - Friday: 7:00 AM - 7:00 PM
-Saturday: 8:00 AM - 5:00 PM
-Sunday: Available Upon Request
-
-CONTACT INFORMATION:
-Branch Phone: ${selectedBranch?.phone}
-Main Office: 0794 478 773
-Email: info@fivestardrivingschool.co.ke
-
-Thank you for choosing FIVE ST★R Driving School!
-Driving Is Fun, Driving Is Freedom.
-    `
-
-    const element = document.createElement("a")
-    const file = new Blob([bookingDetails], { type: "text/plain" })
-    element.href = URL.createObjectURL(file)
-    element.download = `FIVE_ST★R_Booking_${bookingReference}.txt`
-    document.body.appendChild(element)
-    element.click()
-    document.body.removeChild(element)
+    const doc = new jsPDF()
+    
+    // Set up colors
+    const redColor = '#dc2626'
+    const blueColor = '#2563eb'
+    const grayColor = '#6b7280'
+    
+    // Title
+    doc.setFontSize(24)
+    doc.setTextColor(redColor)
+    doc.text('FIVE ST★R DRIVING SCHOOL', 105, 30, { align: 'center' })
+    
+    doc.setFontSize(18)
+    doc.setTextColor(grayColor)
+    doc.text('BOOKING CONFIRMATION', 105, 45, { align: 'center' })
+    
+    // Booking Reference
+    doc.setFontSize(12)
+    doc.setTextColor(0, 0, 0)
+    doc.text(`Booking Reference: ${bookingReference}`, 20, 70)
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 80)
+    
+    // Student Information
+    doc.setFontSize(14)
+    doc.setTextColor(redColor)
+    doc.text('STUDENT INFORMATION', 20, 100)
+    
+    doc.setFontSize(12)
+    doc.setTextColor(0, 0, 0)
+    doc.text(`Name: ${bookingData.personalInfo.name}`, 20, 115)
+    doc.text(`Phone: ${bookingData.personalInfo.phone}`, 20, 125)
+    doc.text(`ID Number: ${bookingData.personalInfo.idNumber}`, 20, 135)
+    
+    // Course Details
+    doc.setFontSize(14)
+    doc.setTextColor(redColor)
+    doc.text('COURSE DETAILS', 20, 155)
+    
+    doc.setFontSize(12)
+    doc.setTextColor(0, 0, 0)
+    doc.text(`Course: ${selectedCourse?.name}`, 20, 170)
+    doc.text(`Price: ${selectedCourse?.price}`, 20, 180)
+    doc.text(`Class Type: ${selectedClassType?.name}`, 20, 190)
+    doc.text(`Branch: ${selectedBranch?.name} - ${selectedBranch?.address}`, 20, 200)
+    doc.text(`Scheduled Date: ${selectedDate ? format(selectedDate, "PPP") : "Not selected"}`, 20, 210)
+    doc.text(`Time: ${bookingData.timeSlot}`, 20, 220)
+    
+    // Course Features
+    doc.setFontSize(14)
+    doc.setTextColor(redColor)
+    doc.text('COURSE FEATURES', 20, 240)
+    
+    doc.setFontSize(12)
+    doc.setTextColor(0, 0, 0)
+    const features = [
+      '✓ 30 Practical Lessons',
+      '✓ Unlimited Theory Sessions',
+      '✓ Basic Mechanics Training',
+      '✓ FREE Learner\'s Manual',
+      '✓ NTSA Certified Training'
+    ]
+    
+    features.forEach((feature, index) => {
+      doc.text(feature, 20, 255 + (index * 10))
+    })
+    
+    // Operating Hours
+    doc.setFontSize(14)
+    doc.setTextColor(redColor)
+    doc.text('OPERATING HOURS', 20, 320)
+    
+    doc.setFontSize(12)
+    doc.setTextColor(0, 0, 0)
+    doc.text('Monday - Friday: 7:00 AM - 7:00 PM', 20, 335)
+    doc.text('Saturday: 8:00 AM - 5:00 PM', 20, 345)
+    doc.text('Sunday: Available Upon Request', 20, 355)
+    
+    // Contact Information
+    doc.setFontSize(14)
+    doc.setTextColor(redColor)
+    doc.text('CONTACT INFORMATION', 20, 375)
+    
+    doc.setFontSize(12)
+    doc.setTextColor(0, 0, 0)
+    doc.text(`Branch Phone: ${selectedBranch?.phone}`, 20, 390)
+    doc.text('Main Office: 0794 478 773', 20, 400)
+    doc.text('Email: info@fivestardrivingschool.co.ke', 20, 410)
+    
+    // Footer
+    doc.setFontSize(14)
+    doc.setTextColor(redColor)
+    doc.text('Thank you for choosing FIVE ST★R Driving School!', 105, 440, { align: 'center' })
+    doc.text('Driving Is Fun, Driving Is Freedom.', 105, 450, { align: 'center' })
+    
+    // Save the PDF
+    doc.save(`FIVE_STAR_Booking_${bookingReference}.pdf`)
   }
 
   const sendWhatsAppMessage = () => {

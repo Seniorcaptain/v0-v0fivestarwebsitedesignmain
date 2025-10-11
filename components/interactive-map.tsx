@@ -2,11 +2,11 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { MapPin, Phone, Navigation, Clock, X, ZoomIn, ZoomOut, Maximize2 } from "lucide-react"
+import { MapPin, Phone, Navigation, Clock, X, ZoomIn, ZoomOut, Maximize2, Locate, Search, Filter, Star, Route } from "lucide-react"
 
 interface Branch {
   name: string
@@ -31,8 +31,100 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
   const [pan, setPan] = useState({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = useState(false)
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
+  
+  // New Tesla-style features
+  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null)
+  const [isLocating, setIsLocating] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [showFilters, setShowFilters] = useState(false)
+  const [filteredBranches, setFilteredBranches] = useState<Branch[]>([])
+  const [nearestBranches, setNearestBranches] = useState<Branch[]>([])
+  const [showNearest, setShowNearest] = useState(false)
 
-  const filteredBranches = branches.filter((branch) => branch.county === selectedCounty)
+  const countyBranches = branches.filter((branch) => branch.county === selectedCounty)
+
+  // Calculate distance between two coordinates using Haversine formula
+  const calculateDistance = (lat1: number, lng1: number, lat2: number, lng2: number): number => {
+    const R = 6371 // Earth's radius in kilometers
+    const dLat = (lat2 - lat1) * Math.PI / 180
+    const dLng = (lng2 - lng1) * Math.PI / 180
+    const a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+      Math.sin(dLng/2) * Math.sin(dLng/2)
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+    return R * c
+  }
+
+  // Get user's current location
+  const findMyLocation = () => {
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by this browser.")
+      return
+    }
+
+    setIsLocating(true)
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords
+        setUserLocation({ lat: latitude, lng: longitude })
+        
+        // Calculate distances to all branches
+        const branchesWithDistance = countyBranches.map(branch => ({
+          ...branch,
+          distance: calculateDistance(latitude, longitude, branch.coordinates.lat, branch.coordinates.lng)
+        }))
+        
+        // Sort by distance and get nearest 5
+        const nearest = branchesWithDistance
+          .sort((a, b) => a.distance - b.distance)
+          .slice(0, 5)
+        
+        setNearestBranches(nearest)
+        setShowNearest(true)
+        setIsLocating(false)
+        
+        // Center map on user location
+        const userPos = latLngToSVG(latitude, longitude, selectedCounty)
+        setPan({ x: -userPos.x + 400, y: -userPos.y + 300 })
+        setZoom(1.5)
+        
+        // Show success message
+        setTimeout(() => {
+          alert(`Location found! Found ${nearest.length} nearby branches. The closest is ${nearest[0]?.name} at ${nearest[0]?.distance?.toFixed(1)} km away.`)
+        }, 500)
+      },
+      (error) => {
+        console.error("Error getting location:", error)
+        alert("Unable to retrieve your location. Please check your browser settings.")
+        setIsLocating(false)
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 300000
+      }
+    )
+  }
+
+  // Filter branches based on search query
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      setFilteredBranches(countyBranches)
+    } else {
+      const filtered = countyBranches.filter(branch =>
+        branch.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        branch.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        branch.constituency.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      setFilteredBranches(filtered)
+    }
+  }, [searchQuery, countyBranches])
+
+  // Initialize filtered branches
+  useEffect(() => {
+    setFilteredBranches(countyBranches)
+  }, [countyBranches])
 
   const latLngToSVG = (lat: number, lng: number, county: "Nairobi" | "Kiambu") => {
     if (county === "Nairobi") {
@@ -67,6 +159,9 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
   const handleResetView = () => {
     setZoom(1)
     setPan({ x: 0, y: 0 })
+    setShowNearest(false)
+    setUserLocation(null)
+    setNearestBranches([])
   }
 
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -89,40 +184,120 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
 
   return (
     <div className="space-y-8">
-      {/* County Selector */}
-      <div className="flex justify-center gap-4 flex-wrap">
-        <Button
-          size="lg"
-          onClick={() => {
-            setSelectedCounty("Nairobi")
-            setSelectedBranch(null)
-            handleResetView()
-          }}
-          className={`px-8 py-6 text-lg font-bold transition-all ${
-            selectedCounty === "Nairobi"
-              ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-xl scale-105"
-              : "bg-white text-gray-700 border-2 border-gray-300 hover:border-green-500"
-          }`}
-        >
-          <MapPin className="w-5 h-5 mr-2" />
-          Nairobi County
-        </Button>
-        <Button
-          size="lg"
-          onClick={() => {
-            setSelectedCounty("Kiambu")
-            setSelectedBranch(null)
-            handleResetView()
-          }}
-          className={`px-8 py-6 text-lg font-bold transition-all ${
-            selectedCounty === "Kiambu"
-              ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-xl scale-105"
-              : "bg-white text-gray-700 border-2 border-gray-300 hover:border-blue-500"
-          }`}
-        >
-          <MapPin className="w-5 h-5 mr-2" />
-          Kiambu County
-        </Button>
+      {/* Tesla-style Search and Controls */}
+      <div className="space-y-4">
+        {/* Search Bar */}
+        <div className="relative max-w-2xl mx-auto">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="Search branches by name, location, or constituency..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-4 py-4 text-lg border-2 border-gray-200 rounded-2xl focus:border-red-500 focus:outline-none transition-colors shadow-lg"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Control Buttons */}
+        <div className="flex justify-center gap-4 flex-wrap">
+          {/* Find Me Button */}
+          <Button
+            size="lg"
+            onClick={findMyLocation}
+            disabled={isLocating}
+            className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-8 py-4 text-lg font-bold shadow-xl transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isLocating ? (
+              <div className="flex items-center">
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                Locating...
+              </div>
+            ) : (
+              <>
+                <Locate className="w-5 h-5 mr-2" />
+                Find Me
+              </>
+            )}
+          </Button>
+
+          {/* Show Nearest Button */}
+          {nearestBranches.length > 0 && (
+            <Button
+              size="lg"
+              onClick={() => setShowNearest(!showNearest)}
+              className={`px-8 py-4 text-lg font-bold shadow-xl transition-all transform hover:scale-105 ${
+                showNearest 
+                  ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white" 
+                  : "bg-white text-gray-700 border-2 border-gray-300 hover:border-green-500"
+              }`}
+            >
+              <Star className="w-5 h-5 mr-2" />
+              Nearest Branches
+            </Button>
+          )}
+
+          {/* Filter Button */}
+          <Button
+            size="lg"
+            onClick={() => setShowFilters(!showFilters)}
+            className={`px-8 py-4 text-lg font-bold shadow-xl transition-all transform hover:scale-105 ${
+              showFilters 
+                ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white" 
+                : "bg-white text-gray-700 border-2 border-gray-300 hover:border-purple-500"
+            }`}
+          >
+            <Filter className="w-5 h-5 mr-2" />
+            Filters
+          </Button>
+        </div>
+
+        {/* County Selector */}
+        <div className="flex justify-center gap-4 flex-wrap">
+          <Button
+            size="lg"
+            onClick={() => {
+              setSelectedCounty("Nairobi")
+              setSelectedBranch(null)
+              setShowNearest(false)
+              handleResetView()
+            }}
+            className={`px-8 py-6 text-lg font-bold transition-all ${
+              selectedCounty === "Nairobi"
+                ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-xl scale-105"
+                : "bg-white text-gray-700 border-2 border-gray-300 hover:border-green-500"
+            }`}
+          >
+            <MapPin className="w-5 h-5 mr-2" />
+            Nairobi County
+          </Button>
+          <Button
+            size="lg"
+            onClick={() => {
+              setSelectedCounty("Kiambu")
+              setSelectedBranch(null)
+              setShowNearest(false)
+              handleResetView()
+            }}
+            className={`px-8 py-6 text-lg font-bold transition-all ${
+              selectedCounty === "Kiambu"
+                ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-xl scale-105"
+                : "bg-white text-gray-700 border-2 border-gray-300 hover:border-blue-500"
+            }`}
+          >
+            <MapPin className="w-5 h-5 mr-2" />
+            Kiambu County
+          </Button>
+        </div>
       </div>
 
       {/* Map Section */}
@@ -256,9 +431,35 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
                   opacity="0.5"
                 />
 
+                {/* User Location Marker */}
+                {userLocation && (
+                  <g filter="url(#shadow)">
+                    <circle cx={latLngToSVG(userLocation.lat, userLocation.lng, selectedCounty).x} 
+                            cy={latLngToSVG(userLocation.lat, userLocation.lng, selectedCounty).y - 20} 
+                            r="12" 
+                            fill="#3b82f6" 
+                            stroke="white" 
+                            strokeWidth="3" />
+                    <circle cx={latLngToSVG(userLocation.lat, userLocation.lng, selectedCounty).x} 
+                            cy={latLngToSVG(userLocation.lat, userLocation.lng, selectedCounty).y - 20} 
+                            r="6" 
+                            fill="white" />
+                    {/* Pulse animation for user location */}
+                    <circle cx={latLngToSVG(userLocation.lat, userLocation.lng, selectedCounty).x} 
+                            cy={latLngToSVG(userLocation.lat, userLocation.lng, selectedCounty).y - 20} 
+                            r="15" 
+                            fill="#3b82f6" 
+                            opacity="0.3">
+                      <animate attributeName="r" from="15" to="30" dur="2s" repeatCount="indefinite" />
+                      <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite" />
+                    </circle>
+                  </g>
+                )}
+
                 {/* Branch Markers */}
                 {filteredBranches.map((branch, index) => {
                   const pos = latLngToSVG(branch.coordinates.lat, branch.coordinates.lng, selectedCounty)
+                  const isNearest = nearestBranches.some(nb => nb.name === branch.name)
                   return (
                     <g
                       key={index}
@@ -269,14 +470,21 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
                       {/* Marker Pin */}
                       <path
                         d={`M ${pos.x} ${pos.y - 30} C ${pos.x - 15} ${pos.y - 30} ${pos.x - 15} ${pos.y - 15} ${pos.x - 15} ${pos.y - 15} C ${pos.x - 15} ${pos.y - 5} ${pos.x} ${pos.y} ${pos.x} ${pos.y} C ${pos.x} ${pos.y} ${pos.x + 15} ${pos.y - 5} ${pos.x + 15} ${pos.y - 15} C ${pos.x + 15} ${pos.y - 15} ${pos.x + 15} ${pos.y - 30} ${pos.x} ${pos.y - 30} Z`}
-                        fill="#dc2626"
-                        stroke="#991b1b"
+                        fill={isNearest ? "#10b981" : "#dc2626"}
+                        stroke={isNearest ? "#059669" : "#991b1b"}
                         strokeWidth="2"
                       />
                       <circle cx={pos.x} cy={pos.y - 20} r="5" fill="white" />
+                      
+                      {/* Star icon for nearest branches */}
+                      {isNearest && (
+                        <text x={pos.x} y={pos.y - 18} textAnchor="middle" className="text-xs fill-green-600" style={{ fontSize: "8px", pointerEvents: "none" }}>
+                          ★
+                        </text>
+                      )}
 
                       {/* Pulse Animation */}
-                      <circle cx={pos.x} cy={pos.y - 20} r="8" fill="#dc2626" opacity="0.3">
+                      <circle cx={pos.x} cy={pos.y - 20} r="8" fill={isNearest ? "#10b981" : "#dc2626"} opacity="0.3">
                         <animate attributeName="r" from="8" to="20" dur="2s" repeatCount="indefinite" />
                         <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite" />
                       </circle>
@@ -352,6 +560,24 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
 
                       {/* Branch Details */}
                       <div className="space-y-4 mb-6">
+                        {/* Distance from user */}
+                        {userLocation && (
+                          <div className="flex items-start">
+                            <Route className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" />
+                            <div>
+                              <p className="text-sm font-medium text-gray-500 mb-1">Distance from You</p>
+                              <p className="text-blue-600 font-semibold">
+                                {calculateDistance(
+                                  userLocation.lat, 
+                                  userLocation.lng, 
+                                  selectedBranch.coordinates.lat, 
+                                  selectedBranch.coordinates.lng
+                                ).toFixed(1)} km away
+                              </p>
+                            </div>
+                          </div>
+                        )}
+
                         {/* Address */}
                         <div className="flex items-start">
                           <MapPin className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0 mt-0.5" />
@@ -439,8 +665,20 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
               <div className="space-y-2 text-sm">
                 <div className="flex items-center">
                   <MapPin className="w-4 h-4 text-red-600 fill-red-600 mr-3" />
-                  <span className="text-gray-700 font-medium">FIVE ST★R Branch Locations</span>
+                  <span className="text-gray-700 font-medium"><span className="text-red-600">FIVE ST<span className="text-blue-600">★</span>R</span> Branch Locations</span>
                 </div>
+                {nearestBranches.length > 0 && (
+                  <div className="flex items-center">
+                    <MapPin className="w-4 h-4 text-green-600 fill-green-600 mr-3" />
+                    <span className="text-gray-700 font-medium">Nearest Branches</span>
+                  </div>
+                )}
+                {userLocation && (
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 bg-blue-600 rounded-full mr-3"></div>
+                    <span className="text-gray-700 font-medium">Your Location</span>
+                  </div>
+                )}
                 <div className="mt-3 pt-3 border-t border-gray-200">
                   <p className="text-xs text-gray-600 italic">Click markers • Drag to pan • Use zoom controls</p>
                 </div>
@@ -473,6 +711,75 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
           </div>
         </CardContent>
       </Card>
+
+      {/* Nearest Branches Panel */}
+      {showNearest && nearestBranches.length > 0 && (
+        <Card className="bg-white border-0 shadow-2xl">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold text-gray-900 flex items-center">
+                <Star className="w-6 h-6 text-green-600 mr-2" />
+                Nearest Branches to You
+              </h3>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowNearest(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {nearestBranches.map((branch, index) => (
+                <Card key={branch.name} className="border-2 border-green-200 hover:border-green-400 transition-colors cursor-pointer" onClick={() => handleMarkerClick(branch)}>
+                  <CardContent className="p-4">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-center">
+                        <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                          <span className="text-green-600 font-bold text-sm">{index + 1}</span>
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-gray-900 text-sm">{branch.name}</h4>
+                          <p className="text-xs text-gray-600">{branch.location}</p>
+                        </div>
+                      </div>
+                      <Badge className="bg-green-100 text-green-800 text-xs">
+                        {branch.distance?.toFixed(1)} km
+                      </Badge>
+                    </div>
+                    
+                    <div className="space-y-2 text-xs text-gray-600">
+                      <div className="flex items-center">
+                        <MapPin className="w-3 h-3 mr-2 text-gray-400" />
+                        <span className="truncate">{branch.address}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Phone className="w-3 h-3 mr-2 text-gray-400" />
+                        <a href={`tel:${branch.phone}`} className="text-green-600 hover:underline">
+                          {branch.phone}
+                        </a>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-3 flex gap-2">
+                      <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1">
+                        <Phone className="w-3 h-3 mr-1" />
+                        Call
+                      </Button>
+                      <Button size="sm" variant="outline" className="border-green-500 text-green-600 hover:bg-green-50 text-xs px-3 py-1">
+                        <Route className="w-3 h-3 mr-1" />
+                        Directions
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Branch Statistics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

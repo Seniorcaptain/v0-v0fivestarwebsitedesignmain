@@ -13,7 +13,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Car, Clock, Users, Award, Calendar, CreditCard, CheckCircle, Filter, Zap, Truck } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Car, Clock, Users, Award, Calendar, CreditCard, CheckCircle, Filter, Zap, Truck, Download } from "lucide-react"
+import jsPDF from "jspdf"
 
 interface Course {
   id: string
@@ -44,6 +48,141 @@ export function InteractiveCourseCards() {
     priceRange: "all",
   })
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
+  const [showBookingDialog, setShowBookingDialog] = useState(false)
+  const [bookingData, setBookingData] = useState({
+    name: "",
+    phone: "",
+    idNumber: "",
+    branch: "",
+    date: "",
+    time: "",
+  })
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
+
+  // Generate booking reference
+  const generateBookingReference = () => {
+    const timestamp = Date.now().toString().slice(-6)
+    const random = Math.random().toString(36).substring(2, 5).toUpperCase()
+    return `FS${timestamp}${random}`
+  }
+
+  // Generate PDF for booking confirmation
+  const generateBookingPDF = (course: Course) => {
+    setIsGeneratingPDF(true)
+    const doc = new jsPDF()
+    const bookingRef = generateBookingReference()
+    
+    // Set up colors
+    const redColor = '#dc2626'
+    const blueColor = '#2563eb'
+    const grayColor = '#6b7280'
+    
+    // Title
+    doc.setFontSize(24)
+    doc.setTextColor(redColor)
+    doc.text('FIVE ST★R DRIVING SCHOOL', 105, 30, { align: 'center' })
+    
+    doc.setFontSize(18)
+    doc.setTextColor(grayColor)
+    doc.text('BOOKING CONFIRMATION', 105, 45, { align: 'center' })
+    
+    // Booking Reference
+    doc.setFontSize(12)
+    doc.setTextColor(0, 0, 0)
+    doc.text(`Booking Reference: ${bookingRef}`, 20, 70)
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 80)
+    
+    // Student Information
+    doc.setFontSize(14)
+    doc.setTextColor(redColor)
+    doc.text('STUDENT INFORMATION', 20, 100)
+    
+    doc.setFontSize(12)
+    doc.setTextColor(0, 0, 0)
+    doc.text(`Name: ${bookingData.name}`, 20, 115)
+    doc.text(`Phone: ${bookingData.phone}`, 20, 125)
+    doc.text(`ID Number: ${bookingData.idNumber}`, 20, 135)
+    
+    // Course Details
+    doc.setFontSize(14)
+    doc.setTextColor(redColor)
+    doc.text('COURSE DETAILS', 20, 155)
+    
+    doc.setFontSize(12)
+    doc.setTextColor(0, 0, 0)
+    doc.text(`Course: ${course.title}`, 20, 170)
+    doc.text(`Price: ${course.price}`, 20, 180)
+    doc.text(`Branch: ${bookingData.branch}`, 20, 190)
+    doc.text(`Scheduled Date: ${bookingData.date}`, 20, 200)
+    doc.text(`Time: ${bookingData.time}`, 20, 210)
+    
+    // Course Features
+    doc.setFontSize(14)
+    doc.setTextColor(redColor)
+    doc.text('COURSE FEATURES', 20, 230)
+    
+    doc.setFontSize(12)
+    doc.setTextColor(0, 0, 0)
+    const features = [
+      '✓ 30 Practical Lessons',
+      '✓ Unlimited Theory Sessions',
+      '✓ Basic Mechanics Training',
+      '✓ FREE Learner\'s Manual',
+      '✓ NTSA Certified Training'
+    ]
+    
+    features.forEach((feature, index) => {
+      doc.text(feature, 20, 245 + (index * 10))
+    })
+    
+    // Contact Information
+    doc.setFontSize(14)
+    doc.setTextColor(redColor)
+    doc.text('CONTACT INFORMATION', 20, 310)
+    
+    doc.setFontSize(12)
+    doc.setTextColor(0, 0, 0)
+    doc.text('Main Office: 0794 478 773', 20, 325)
+    doc.text('Email: info@fivestardrivingschool.co.ke', 20, 335)
+    doc.text('Website: www.fivestardrivingschool.co.ke', 20, 345)
+    
+    // Footer
+    doc.setFontSize(14)
+    doc.setTextColor(redColor)
+    doc.text('Thank you for choosing FIVE ST★R Driving School!', 105, 370, { align: 'center' })
+    doc.text('Driving Is Fun, Driving Is Freedom.', 105, 380, { align: 'center' })
+    
+    // Save the PDF
+    doc.save(`FIVE_STAR_Booking_${bookingRef}.pdf`)
+    setIsGeneratingPDF(false)
+  }
+
+  // Handle direct booking
+  const handleDirectBooking = (course: Course) => {
+    setSelectedCourse(course)
+    setShowBookingDialog(true)
+  }
+
+  // Handle booking form submission
+  const handleBookingSubmit = () => {
+    if (!bookingData.name || !bookingData.phone || !bookingData.idNumber || !bookingData.branch || !bookingData.date || !bookingData.time) {
+      alert('Please fill in all required fields')
+      return
+    }
+    
+    if (selectedCourse) {
+      generateBookingPDF(selectedCourse)
+      setShowBookingDialog(false)
+      setBookingData({
+        name: "",
+        phone: "",
+        idNumber: "",
+        branch: "",
+        date: "",
+        time: "",
+      })
+    }
+  }
 
   const courses: Course[] = [
     {
@@ -753,10 +892,7 @@ export function InteractiveCourseCards() {
                           <div className="space-y-3">
                             <Button
                               className="w-full bg-gradient-to-r from-red-500 to-blue-600 hover:from-red-600 hover:to-blue-700 text-white text-lg py-3 rounded-full shadow-lg"
-                              onClick={() => {
-                                const bookingSection = document.getElementById("booking")
-                                bookingSection?.scrollIntoView({ behavior: "smooth" })
-                              }}
+                              onClick={() => handleDirectBooking(course)}
                             >
                               <Calendar className="w-5 h-5 mr-2" />
                               Book This Course
@@ -821,6 +957,150 @@ export function InteractiveCourseCards() {
           </div>
         )}
       </div>
+
+      {/* Direct Booking Dialog */}
+      <Dialog open={showBookingDialog} onOpenChange={setShowBookingDialog}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-center">
+              Book <span className="text-red-600">{selectedCourse?.title}</span>
+            </DialogTitle>
+            <DialogDescription className="text-center">
+              Fill in your details to complete your booking and download your confirmation
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-6 py-4">
+            {/* Course Info */}
+            {selectedCourse && (
+              <div className="bg-gradient-to-r from-red-50 to-blue-50 p-4 rounded-lg">
+                <h3 className="font-semibold text-lg mb-2">{selectedCourse.title}</h3>
+                <p className="text-2xl font-bold text-red-600">{selectedCourse.price}</p>
+                <p className="text-sm text-gray-600">{selectedCourse.description}</p>
+              </div>
+            )}
+
+            {/* Booking Form */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Full Name *</Label>
+                <Input
+                  id="name"
+                  placeholder="Enter your full name"
+                  value={bookingData.name}
+                  onChange={(e) => setBookingData({ ...bookingData, name: e.target.value })}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone Number *</Label>
+                <Input
+                  id="phone"
+                  placeholder="0700123456"
+                  value={bookingData.phone}
+                  onChange={(e) => setBookingData({ ...bookingData, phone: e.target.value })}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="idNumber">ID Number *</Label>
+                <Input
+                  id="idNumber"
+                  placeholder="12345678"
+                  value={bookingData.idNumber}
+                  onChange={(e) => setBookingData({ ...bookingData, idNumber: e.target.value })}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="branch">Preferred Branch *</Label>
+                <Select value={bookingData.branch} onValueChange={(value) => setBookingData({ ...bookingData, branch: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select branch" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Roysambu">Roysambu - Jeda Plaza</SelectItem>
+                    <SelectItem value="Zimmerman">Zimmerman - Near Ocean Hardware</SelectItem>
+                    <SelectItem value="Tassia">Tassia/Nyayo Estate - Near Footbridge</SelectItem>
+                    <SelectItem value="Kahawa West">Kahawa West - Mukuyu Plaza</SelectItem>
+                    <SelectItem value="Utawala">Utawala - Benedicta Junction</SelectItem>
+                    <SelectItem value="Utawala B">Utawala B - Opposite AP Training Centre</SelectItem>
+                    <SelectItem value="Kahawa Wendani">Kahawa Wendani - Next to Magunas Supermarket</SelectItem>
+                    <SelectItem value="Sunton">Sunton - Opposite Murema Primary School</SelectItem>
+                    <SelectItem value="Maziwa/Kiamumbi">Maziwa/Kiamumbi - Opposite PCEA Kahawa Farmers</SelectItem>
+                    <SelectItem value="Ruiru">Ruiru - National Bank Building</SelectItem>
+                    <SelectItem value="Kahawa Sukari">Kahawa Sukari - Baraka House next to Quickmart</SelectItem>
+                    <SelectItem value="Juja">Juja - Next to Daykan College</SelectItem>
+                    <SelectItem value="Seasons">Seasons, Kasarani - Seasons Stage</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="date">Preferred Date *</Label>
+                <Input
+                  id="date"
+                  type="date"
+                  value={bookingData.date}
+                  onChange={(e) => setBookingData({ ...bookingData, date: e.target.value })}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="time">Preferred Time *</Label>
+                <Select value={bookingData.time} onValueChange={(value) => setBookingData({ ...bookingData, time: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select time" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="7:00 AM">7:00 AM</SelectItem>
+                    <SelectItem value="8:00 AM">8:00 AM</SelectItem>
+                    <SelectItem value="9:00 AM">9:00 AM</SelectItem>
+                    <SelectItem value="10:00 AM">10:00 AM</SelectItem>
+                    <SelectItem value="11:00 AM">11:00 AM</SelectItem>
+                    <SelectItem value="12:00 PM">12:00 PM</SelectItem>
+                    <SelectItem value="1:00 PM">1:00 PM</SelectItem>
+                    <SelectItem value="2:00 PM">2:00 PM</SelectItem>
+                    <SelectItem value="3:00 PM">3:00 PM</SelectItem>
+                    <SelectItem value="4:00 PM">4:00 PM</SelectItem>
+                    <SelectItem value="5:00 PM">5:00 PM</SelectItem>
+                    <SelectItem value="6:00 PM">6:00 PM</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 pt-4">
+              <Button
+                onClick={handleBookingSubmit}
+                disabled={isGeneratingPDF}
+                className="flex-1 bg-gradient-to-r from-red-500 to-blue-600 hover:from-red-600 hover:to-blue-700 text-white"
+              >
+                {isGeneratingPDF ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Generating PDF...
+                  </>
+                ) : (
+                  <>
+                    <Download className="w-4 h-4 mr-2" />
+                    Complete Booking & Download PDF
+                  </>
+                )}
+              </Button>
+              
+              <Button
+                variant="outline"
+                onClick={() => setShowBookingDialog(false)}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   )
 }

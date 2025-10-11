@@ -120,7 +120,7 @@ export function VideoTestimonials() {
             Student Success Stories
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto font-medium">
-            Hear from over 10,000 students who successfully learned to drive with FIVE ST★R
+            Hear from over 10,000 students who successfully learned to drive with <span className="text-red-600">FIVE ST<span className="text-blue-600">★</span>R</span>
           </p>
         </div>
 

@@ -3,13 +3,41 @@
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Play, Pause, Volume2, VolumeX, Phone, MessageCircle, MapPin, Award, Users, Star } from "lucide-react"
+import { Play, Pause, Volume2, VolumeX, Phone, MessageCircle, MapPin, Award, Users, Star, ChevronLeft, ChevronRight, Video } from "lucide-react"
 
 export function VideoHero() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(true)
   const [showControls, setShowControls] = useState(false)
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)
+
+  // Video options - you can add your own videos here
+  const videoOptions = [
+    {
+      id: 1,
+      title: "FIVE ST★R Driving School - Main Video",
+      src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      poster: "/placeholder.svg?height=1080&width=1920&text=FIVESTAR+Main+Video",
+      description: "Experience our professional driving instruction"
+    },
+    {
+      id: 2,
+      title: "Student Success Stories",
+      src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      poster: "/placeholder.svg?height=1080&width=1920&text=Student+Success+Stories",
+      description: "Hear from our successful graduates"
+    },
+    {
+      id: 3,
+      title: "Behind the Scenes",
+      src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      poster: "/placeholder.svg?height=1080&width=1920&text=Behind+the+Scenes",
+      description: "See our instructors and facilities in action"
+    }
+  ]
+
+  const currentVideo = videoOptions[currentVideoIndex]
 
   useEffect(() => {
     const video = videoRef.current
@@ -31,6 +59,21 @@ export function VideoHero() {
     setIsMuted(!isMuted)
   }
 
+  const switchVideo = (index: number) => {
+    setCurrentVideoIndex(index)
+    setIsPlaying(false) // Pause current video when switching
+  }
+
+  const nextVideo = () => {
+    setCurrentVideoIndex((prev) => (prev + 1) % videoOptions.length)
+    setIsPlaying(false)
+  }
+
+  const prevVideo = () => {
+    setCurrentVideoIndex((prev) => (prev - 1 + videoOptions.length) % videoOptions.length)
+    setIsPlaying(false)
+  }
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Video Background */}
@@ -41,10 +84,11 @@ export function VideoHero() {
           loop
           muted={isMuted}
           playsInline
-          poster="/placeholder.svg?height=1080&width=1920&text=FIVESTAR+Hero+Video"
+          poster={currentVideo.poster}
+          key={currentVideo.id} // Force re-render when video changes
         >
           <source
-            src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            src={currentVideo.src}
             type="video/mp4"
           />
           Your browser does not support the video tag.
@@ -61,12 +105,44 @@ export function VideoHero() {
         onMouseEnter={() => setShowControls(true)}
         onMouseLeave={() => setShowControls(false)}
       >
+        <Button size="sm" className="bg-black/50 hover:bg-black/70 text-white border-0" onClick={prevVideo}>
+          <ChevronLeft className="w-4 h-4" />
+        </Button>
         <Button size="sm" className="bg-black/50 hover:bg-black/70 text-white border-0" onClick={togglePlayPause}>
           {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+        </Button>
+        <Button size="sm" className="bg-black/50 hover:bg-black/70 text-white border-0" onClick={nextVideo}>
+          <ChevronRight className="w-4 h-4" />
         </Button>
         <Button size="sm" className="bg-black/50 hover:bg-black/70 text-white border-0" onClick={toggleMute}>
           {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
         </Button>
+      </div>
+
+      {/* Video Selector */}
+      <div className="absolute top-4 left-4 z-20 flex flex-col space-y-2">
+        {videoOptions.map((video, index) => (
+          <Button
+            key={video.id}
+            size="sm"
+            variant={currentVideoIndex === index ? "default" : "outline"}
+            className={`${
+              currentVideoIndex === index
+                ? "bg-red-600 hover:bg-red-700 text-white border-0"
+                : "bg-black/50 hover:bg-black/70 text-white border-white/30"
+            } text-xs px-3 py-2`}
+            onClick={() => switchVideo(index)}
+          >
+            <Video className="w-3 h-3 mr-1" />
+            {video.title.split(" - ")[0]}
+          </Button>
+        ))}
+      </div>
+
+      {/* Video Info Overlay */}
+      <div className="absolute bottom-20 left-4 z-20 bg-black/50 backdrop-blur-sm rounded-lg p-4 max-w-sm">
+        <h3 className="text-white font-semibold text-lg mb-1">{currentVideo.title}</h3>
+        <p className="text-white/80 text-sm">{currentVideo.description}</p>
       </div>
 
       {/* Hero Content */}
@@ -93,8 +169,8 @@ export function VideoHero() {
 
         {/* Main Heading */}
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in-up">
-          <span className="block text-white mb-2">
-            FIVE ST<span className="text-yellow-400">★</span>R
+          <span className="block text-red-600 mb-2">
+            FIVE ST<span className="text-blue-600">★</span>R
           </span>
           <span className="block bg-gradient-to-r from-red-400 to-blue-400 bg-clip-text text-transparent">
             Driving School
