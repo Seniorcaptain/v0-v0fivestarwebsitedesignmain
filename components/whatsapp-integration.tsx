@@ -1,5 +1,7 @@
 "use client"
 
+import { formatDateConsistent } from "@/lib/utils"
+
 interface WhatsAppMessage {
   branchWhatsApp: string
   mainWhatsApp: string
@@ -11,7 +13,7 @@ export class WhatsAppService {
     const message = `🚗 NEW BOOKING - FIVE ST★R DRIVING SCHOOL
 
 📋 Booking Reference: ${bookingData.reference}
-📅 Date: ${new Date().toLocaleDateString()}
+📅 Date: ${formatDateConsistent(new Date())}
 
 👤 STUDENT DETAILS:
 Name: ${bookingData.personalInfo.name}

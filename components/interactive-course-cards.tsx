@@ -18,6 +18,7 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Car, Clock, Users, Award, Calendar, CreditCard, CheckCircle, Filter, Zap, Truck, Download } from "lucide-react"
 import jsPDF from "jspdf"
+import { formatDateConsistent } from "@/lib/utils"
 
 interface Course {
   id: string
@@ -90,7 +91,7 @@ export function InteractiveCourseCards() {
     doc.setFontSize(12)
     doc.setTextColor(0, 0, 0)
     doc.text(`Booking Reference: ${bookingRef}`, 20, 70)
-    doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 80)
+    doc.text(`Date: ${formatDateConsistent(new Date())}`, 20, 80)
     
     // Student Information
     doc.setFontSize(14)
@@ -124,11 +125,11 @@ export function InteractiveCourseCards() {
     doc.setFontSize(12)
     doc.setTextColor(0, 0, 0)
     const features = [
-      '✓ 30 Practical Lessons',
-      '✓ Unlimited Theory Sessions',
-      '✓ Basic Mechanics Training',
-      '✓ FREE Learner\'s Manual',
-      '✓ NTSA Certified Training'
+      '✓ 30 Practical Lessons (NEW NTSA Curriculum)',
+      '✓ Unlimited Digital Theory Sessions',
+      '✓ Enhanced Mechanics Training (2024 Standards)',
+      '✓ FREE Learner\'s Manual (Latest Edition)',
+      '✓ NTSA Certified Training (Updated Standards)'
     ]
     
     features.forEach((feature, index) => {
@@ -207,8 +208,10 @@ export function InteractiveCourseCards() {
         "Unlimited Theory Sessions",
         "Motorcycle Safety Training",
         "Traffic Rules & Regulations",
-        "FREE Learner's Manual",
-        "NTSA Certified Training",
+        "FREE Learner's Manual (NEW NTSA Curriculum)",
+        "NTSA Certified Training (2024 Standards)",
+        "Enhanced Digital Theory Modules",
+        "Comprehensive Assessment Methods",
         "Inclusive of PDL Assessment & Final Exams",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
@@ -231,11 +234,12 @@ export function InteractiveCourseCards() {
       description:
         "Perfect for beginners who want to learn driving with automatic transmission vehicles. Comprehensive training with 30 practical lessons.",
       features: [
-        "30 Practical Lessons",
-        "Unlimited Theory Sessions",
-        "Basic Mechanics Training",
-        "FREE Learner's Manual",
-        "NTSA Certified Training",
+        "30 Practical Lessons (NEW NTSA Curriculum)",
+        "Unlimited Digital Theory Sessions",
+        "Enhanced Mechanics Training",
+        "FREE Learner's Manual (2024 Edition)",
+        "NTSA Certified Training (Latest Standards)",
+        "Comprehensive Assessment & Testing",
         "Inclusive of PDL, Assessment & Final Exams",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
@@ -258,11 +262,12 @@ export function InteractiveCourseCards() {
       description:
         "Master manual transmission driving with comprehensive clutch control and gear shifting training. 30 practical lessons included.",
       features: [
-        "30 Practical Lessons",
-        "Unlimited Theory Sessions",
-        "Basic Mechanics Training",
-        "FREE Learner's Manual",
-        "NTSA Certified Training",
+        "30 Practical Lessons (NEW NTSA Curriculum)",
+        "Unlimited Digital Theory Sessions",
+        "Enhanced Mechanics Training",
+        "FREE Learner's Manual (2024 Edition)",
+        "NTSA Certified Training (Latest Standards)",
+        "Comprehensive Assessment & Testing",
         "Inclusive of PDL, Assessment & Final Exams",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
@@ -285,11 +290,12 @@ export function InteractiveCourseCards() {
       description:
         "Get the best value! Learn both automatic and manual transmission driving in one comprehensive package. Save money with our combined course.",
       features: [
-        "30 Total Lessons (Both Transmissions)",
-        "Unlimited Theory Sessions",
-        "Basic Mechanics Training",
-        "FREE Learner's Manual",
-        "NTSA Certified Training",
+        "30 Total Lessons (Both Transmissions - NEW NTSA Curriculum)",
+        "Unlimited Digital Theory Sessions",
+        "Enhanced Mechanics Training",
+        "FREE Learner's Manual (2024 Edition)",
+        "NTSA Certified Training (Latest Standards)",
+        "Comprehensive Assessment & Testing",
         "Inclusive of PDL, Assessment & Final Exams",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
@@ -313,11 +319,12 @@ export function InteractiveCourseCards() {
       description:
         "Professional training for light truck driving. Perfect for delivery services and light commercial vehicle operation.",
       features: [
-        "30 Practical Lessons",
-        "Unlimited Theory Sessions",
-        "Commercial Vehicle Training",
-        "FREE Learner's Manual",
-        "NTSA Certified Training",
+        "30 Practical Lessons (NEW NTSA Curriculum)",
+        "Unlimited Digital Theory Sessions",
+        "Commercial Vehicle Training (Updated Standards)",
+        "FREE Learner's Manual (2024 Edition)",
+        "NTSA Certified Training (Latest Standards)",
+        "Comprehensive Assessment & Testing",
         "Inclusive of PDL, Assessment & Final Exams",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
@@ -340,11 +347,12 @@ export function InteractiveCourseCards() {
       description:
         "Advanced training for medium truck operation. Ideal for those looking to drive larger commercial vehicles and cargo trucks.",
       features: [
-        "30 Practical Lessons",
-        "Unlimited Theory Sessions",
-        "Heavy Vehicle Training",
-        "FREE Learner's Manual",
-        "NTSA Certified Training",
+        "30 Practical Lessons (NEW NTSA Curriculum)",
+        "Unlimited Digital Theory Sessions",
+        "Heavy Vehicle Training (Updated Standards)",
+        "FREE Learner's Manual (2024 Edition)",
+        "NTSA Certified Training (Latest Standards)",
+        "Comprehensive Assessment & Testing",
         "Inclusive of PDL, Assessment & Final Exams",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
@@ -367,11 +375,12 @@ export function InteractiveCourseCards() {
       description:
         "Comprehensive package combining car and light truck licenses. Perfect for those who need both personal and commercial driving capabilities.",
       features: [
-        "30 Total Lessons (Cars & Trucks)",
-        "Unlimited Theory Sessions",
-        "Dual Vehicle Training",
-        "FREE Learner's Manual",
-        "NTSA Certified Training",
+        "30 Total Lessons (Cars & Trucks - NEW NTSA Curriculum)",
+        "Unlimited Digital Theory Sessions",
+        "Dual Vehicle Training (Updated Standards)",
+        "FREE Learner's Manual (2024 Edition)",
+        "NTSA Certified Training (Latest Standards)",
+        "Comprehensive Assessment & Testing",
         "Inclusive of PDL, Assessment & Final Exams",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
@@ -396,12 +405,13 @@ export function InteractiveCourseCards() {
       features: [
         "Option 1: B3/D1/D2 Professional 7 Seater - Ksh 8,500 (Test & Theory)",
         "Option 2: B3/D1/D2 14 Seater Van - Ksh 11,000 (10 Lessons)",
-        "Duration: 21 Days",
-        "Unlimited Theory Sessions",
-        "Professional Driving Standards",
-        "Large Vehicle Handling",
-        "FREE Learner's Manual",
-        "NTSA Certified Training",
+        "Duration: 21 Days (NEW NTSA Curriculum)",
+        "Unlimited Digital Theory Sessions",
+        "Professional Driving Standards (Updated)",
+        "Large Vehicle Handling (Enhanced Training)",
+        "FREE Learner's Manual (2024 Edition)",
+        "NTSA Certified Training (Latest Standards)",
+        "Comprehensive Assessment & Testing",
         "Inclusive of PDL, Assessment & Final Exams",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
@@ -472,12 +482,22 @@ export function InteractiveCourseCards() {
       <div className="container mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-red-600 bg-clip-text text-transparent">
+          <div className="mb-4">
+            <div className="inline-flex items-center bg-gradient-to-r from-red-600 to-orange-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
+              🆕 LATEST UPDATE
+            </div>
+          </div>
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-red-600 via-orange-500 to-blue-600 bg-clip-text text-transparent">
             NEW NTSA CURRICULUM
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto font-medium">
-            Choose from our comprehensive range of NTSA-certified driving courses
-          </p>
+          <div className="bg-gradient-to-r from-red-50 to-blue-50 rounded-2xl p-6 mx-auto max-w-4xl mb-6">
+            <p className="text-xl text-gray-800 font-semibold mb-3">
+              🎯 Now Fully Compliant with Latest NTSA Standards (2024)
+            </p>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto font-medium">
+              Experience our updated curriculum featuring enhanced practical training, digital theory modules, and comprehensive assessment methods aligned with Kenya's new driving education requirements.
+            </p>
+          </div>
           <div className="mt-6 inline-flex items-center bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-full px-8 py-4 shadow-lg">
             <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-4">
               <Award className="w-5 h-5 text-white" />
@@ -487,7 +507,34 @@ export function InteractiveCourseCards() {
               <div className="text-sm font-medium">DISCOUNT</div>
             </div>
           </div>
-          <div className="mt-4 inline-flex items-center bg-red-50 border border-red-200 rounded-full px-6 py-3">
+          {/* NEW NTSA CURRICULUM Benefits */}
+          <div className="mt-6 grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            <div className="bg-white border-2 border-green-200 rounded-xl p-4 shadow-lg">
+              <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Award className="w-5 h-5 text-white" />
+              </div>
+              <h3 className="font-bold text-green-700 text-sm mb-1">Updated Standards</h3>
+              <p className="text-xs text-gray-600">2024 NTSA Compliant Training</p>
+            </div>
+            
+            <div className="bg-white border-2 border-blue-200 rounded-xl p-4 shadow-lg">
+              <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                <CheckCircle className="w-5 h-5 text-white" />
+              </div>
+              <h3 className="font-bold text-blue-700 text-sm mb-1">Digital Integration</h3>
+              <p className="text-xs text-gray-600">Modern Theory Modules</p>
+            </div>
+            
+            <div className="bg-white border-2 border-purple-200 rounded-xl p-4 shadow-lg">
+              <div className="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Users className="w-5 h-5 text-white" />
+              </div>
+              <h3 className="font-bold text-purple-700 text-sm mb-1">Enhanced Assessment</h3>
+              <p className="text-xs text-gray-600">Comprehensive Testing</p>
+            </div>
+          </div>
+
+          <div className="mt-6 inline-flex items-center bg-red-50 border border-red-200 rounded-full px-6 py-3">
             <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center mr-3">
               <Award className="w-4 h-4 text-white" />
             </div>

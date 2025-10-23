@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { ChevronLeft, ChevronRight, X, Camera, Users, Car, Award, MapPin, Search, Filter, Download, Share2, Heart, Eye, Star, Clock, Calendar, Phone } from "lucide-react"
+import { formatDateConsistent } from "@/lib/utils"
 
 interface GalleryImage {
   id: string
@@ -402,7 +403,7 @@ export function GalleryShowcase() {
                         {image.date && (
                           <div className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
-                            {new Date(image.date).toLocaleDateString()}
+                            {formatDateConsistent(new Date(image.date))}
                           </div>
                         )}
                       </div>

@@ -17,9 +17,9 @@ export function VideoHero() {
     {
       id: 1,
       title: "FIVE ST★R Driving School - Main Video",
-      src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      src: "/videos/hero-video.mp4",
       poster: "/placeholder.svg?height=1080&width=1920&text=FIVESTAR+Main+Video",
-      description: "Experience our professional driving instruction"
+      description: "Experience our professional driving instruction with Five Star Driving School"
     },
     {
       id: 2,

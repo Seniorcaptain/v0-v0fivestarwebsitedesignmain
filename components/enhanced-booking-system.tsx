@@ -20,6 +20,7 @@ import {
 import { CalendarIcon, Phone, CheckCircle, Loader, Download } from "lucide-react"
 import { format } from "date-fns"
 import jsPDF from "jspdf"
+import { formatDateConsistent } from "@/lib/utils"
 
 interface TimeSlot {
   time: string
@@ -192,100 +193,281 @@ export function EnhancedBookingSystem() {
 
     const doc = new jsPDF()
     
-    // Set up colors
-    const redColor = '#dc2626'
-    const blueColor = '#2563eb'
-    const grayColor = '#6b7280'
+    // Set up modern colors
+    const primaryRed = '#dc2626'
+    const primaryBlue = '#2563eb'
+    const darkGray = '#1f2937'
+    const mediumGray = '#6b7280'
+    const lightGray = '#9ca3af'
+    const successGreen = '#10b981'
     
-    // Title
-    doc.setFontSize(24)
-    doc.setTextColor(redColor)
-    doc.text('FIVE ST★R DRIVING SCHOOL', 105, 30, { align: 'center' })
+    // Add subtle background pattern
+    doc.setFillColor(248, 250, 252) // Very light blue-gray background
+    doc.rect(0, 0, 210, 297, 'F')
     
+    // Header section with gradient effect
+    doc.setFillColor(220, 38, 38) // Red background
+    doc.rect(0, 0, 210, 60, 'F')
+    
+    // Main title with shadow effect
+    doc.setFontSize(28)
+    doc.setTextColor(255, 255, 255) // White text
+    doc.text('FIVE ST★R DRIVING SCHOOL', 105, 25, { align: 'center' })
+    
+    doc.setFontSize(16)
+    doc.setTextColor(255, 255, 255)
+    doc.text('BOOKING CONFIRMATION', 105, 40, { align: 'center' })
+    
+    doc.setFontSize(12)
+    doc.setTextColor(255, 255, 255)
+    doc.text('"Driving Is Fun, Driving Is Freedom"', 105, 50, { align: 'center' })
+    
+    // Booking Reference Box
+    doc.setFillColor(255, 255, 255)
+    doc.setDrawColor(220, 38, 38)
+    doc.setLineWidth(2)
+    doc.rect(15, 75, 180, 25, 'FD')
+    
+    doc.setFontSize(14)
+    doc.setTextColor(darkGray)
+    doc.text('BOOKING REFERENCE', 25, 85)
     doc.setFontSize(18)
-    doc.setTextColor(grayColor)
-    doc.text('BOOKING CONFIRMATION', 105, 45, { align: 'center' })
-    
-    // Booking Reference
-    doc.setFontSize(12)
-    doc.setTextColor(0, 0, 0)
-    doc.text(`Booking Reference: ${bookingReference}`, 20, 70)
-    doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 80)
-    
-    // Student Information
-    doc.setFontSize(14)
-    doc.setTextColor(redColor)
-    doc.text('STUDENT INFORMATION', 20, 100)
+    doc.setTextColor(primaryRed)
+    doc.text(bookingReference, 25, 95)
     
     doc.setFontSize(12)
-    doc.setTextColor(0, 0, 0)
-    doc.text(`Name: ${bookingData.personalInfo.name}`, 20, 115)
-    doc.text(`Phone: ${bookingData.personalInfo.phone}`, 20, 125)
-    doc.text(`ID Number: ${bookingData.personalInfo.idNumber}`, 20, 135)
+    doc.setTextColor(mediumGray)
+    doc.text(`Generated: ${formatDateConsistent(new Date())}`, 130, 95)
     
-    // Course Details
-    doc.setFontSize(14)
-    doc.setTextColor(redColor)
-    doc.text('COURSE DETAILS', 20, 155)
+    // Student Information Section
+    let currentY = 120
     
+    // Section header with background
+    doc.setFillColor(37, 99, 235) // Blue background
+    doc.rect(15, currentY - 8, 180, 20, 'F')
+    
+    doc.setFontSize(16)
+    doc.setTextColor(255, 255, 255)
+    doc.text('👤 STUDENT INFORMATION', 25, currentY + 2)
+    
+    currentY += 25
+    
+    // Student details with better spacing
     doc.setFontSize(12)
-    doc.setTextColor(0, 0, 0)
-    doc.text(`Course: ${selectedCourse?.name}`, 20, 170)
-    doc.text(`Price: ${selectedCourse?.price}`, 20, 180)
-    doc.text(`Class Type: ${selectedClassType?.name}`, 20, 190)
-    doc.text(`Branch: ${selectedBranch?.name} - ${selectedBranch?.address}`, 20, 200)
-    doc.text(`Scheduled Date: ${selectedDate ? format(selectedDate, "PPP") : "Not selected"}`, 20, 210)
-    doc.text(`Time: ${bookingData.timeSlot}`, 20, 220)
-    
-    // Course Features
-    doc.setFontSize(14)
-    doc.setTextColor(redColor)
-    doc.text('COURSE FEATURES', 20, 240)
-    
-    doc.setFontSize(12)
-    doc.setTextColor(0, 0, 0)
-    const features = [
-      '✓ 30 Practical Lessons',
-      '✓ Unlimited Theory Sessions',
-      '✓ Basic Mechanics Training',
-      '✓ FREE Learner\'s Manual',
-      '✓ NTSA Certified Training'
+    doc.setTextColor(darkGray)
+    const studentInfo = [
+      { label: 'Full Name:', value: bookingData.personalInfo.name },
+      { label: 'Phone Number:', value: bookingData.personalInfo.phone },
+      { label: 'ID Number:', value: bookingData.personalInfo.idNumber }
     ]
     
-    features.forEach((feature, index) => {
-      doc.text(feature, 20, 255 + (index * 10))
+    studentInfo.forEach((info) => {
+      doc.setTextColor(mediumGray)
+      doc.text(info.label, 25, currentY)
+      doc.setTextColor(darkGray)
+      doc.text(info.value, 85, currentY)
+      currentY += 12
     })
     
-    // Operating Hours
+    currentY += 10
+    
+    // Course Details Section
+    doc.setFillColor(16, 185, 129) // Green background
+    doc.rect(15, currentY - 8, 180, 20, 'F')
+    
+    doc.setFontSize(16)
+    doc.setTextColor(255, 255, 255)
+    doc.text('🎓 COURSE DETAILS', 25, currentY + 2)
+    
+    currentY += 25
+    
+    // Course information with better layout
+    const courseDetails = [
+      { label: 'Course:', value: selectedCourse?.name || 'Not selected' },
+      { label: 'Price:', value: selectedCourse?.price || 'N/A' },
+      { label: 'Class Type:', value: selectedClassType?.name || 'Not selected' },
+      { label: 'Branch Location:', value: `${selectedBranch?.name} - ${selectedBranch?.address}` || 'Not selected' },
+      { label: 'Scheduled Date:', value: selectedDate ? format(selectedDate, "EEEE, MMMM dd, yyyy") : "Not selected" },
+      { label: 'Time Slot:', value: bookingData.timeSlot || 'Not selected' }
+    ]
+    
+    courseDetails.forEach((detail) => {
+      doc.setFontSize(12)
+      doc.setTextColor(mediumGray)
+      doc.text(detail.label, 25, currentY)
+      doc.setTextColor(darkGray)
+      doc.text(detail.value, 85, currentY)
+      currentY += 12
+    })
+    
+    currentY += 15
+    
+    // Course Features Section
+    doc.setFillColor(245, 158, 11) // Orange background
+    doc.rect(15, currentY - 8, 180, 20, 'F')
+    
+    doc.setFontSize(16)
+    doc.setTextColor(255, 255, 255)
+    doc.text('⭐ COURSE FEATURES & BENEFITS', 25, currentY + 2)
+    
+    currentY += 25
+    
+    // Enhanced features list
+    const enhancedFeatures = [
+      '✅ 30 Comprehensive Practical Lessons (NEW NTSA Curriculum)',
+      '✅ Unlimited Digital Theory Sessions with Expert Instructors',
+      '✅ Enhanced Vehicle Mechanics Training (2024 Standards)',
+      '✅ FREE Official NTSA Learner\'s Manual (Latest Edition)',
+      '✅ NTSA Certified Professional Training (Updated Standards)',
+      '✅ All-Inclusive Fee Structure',
+      '✅ Multiple Branch Locations for Convenience',
+      '✅ Flexible Scheduling Options'
+    ]
+    
+    const leftFeatures = enhancedFeatures.slice(0, 4)
+    const rightFeatures = enhancedFeatures.slice(4)
+    
+    doc.setFontSize(11)
+    doc.setTextColor(darkGray)
+    
+    leftFeatures.forEach((feature, index) => {
+      doc.text(feature, 25, currentY + (index * 12))
+    })
+    
+    rightFeatures.forEach((feature, index) => {
+      doc.text(feature, 115, currentY + (index * 12))
+    })
+    
+    currentY += 60
+    
+    // Operating Hours Section
+    doc.setFillColor(139, 92, 246) // Purple background
+    doc.rect(15, currentY - 8, 85, 20, 'F')
+    
     doc.setFontSize(14)
-    doc.setTextColor(redColor)
-    doc.text('OPERATING HOURS', 20, 320)
+    doc.setTextColor(255, 255, 255)
+    doc.text('🕒 OPERATING HOURS', 25, currentY + 2)
+    
+    currentY += 25
+    
+    const operatingHours = [
+      { day: 'Mon - Fri:', hours: '7:00 AM - 7:00 PM' },
+      { day: 'Saturday:', hours: '8:00 AM - 5:00 PM' },
+      { day: 'Sunday:', hours: 'Available Upon Request' }
+    ]
+    
+    doc.setFontSize(11)
+    operatingHours.forEach((schedule) => {
+      doc.setTextColor(mediumGray)
+      doc.text(schedule.day, 25, currentY)
+      doc.setTextColor(darkGray)
+      doc.text(schedule.hours, 70, currentY)
+      currentY += 10
+    })
+    
+    // Contact Information Section (right side)
+    let contactY = currentY - 45
+    doc.setFillColor(236, 72, 153) // Pink background
+    doc.rect(110, contactY - 8, 85, 20, 'F')
+    
+    doc.setFontSize(14)
+    doc.setTextColor(255, 255, 255)
+    doc.text('📞 CONTACT INFO', 120, contactY + 2)
+    
+    contactY += 25
+    
+    const contactInfo = [
+      { label: 'Branch:', value: selectedBranch?.phone || 'N/A' },
+      { label: 'Main Office:', value: '0794 478 773' },
+      { label: 'Email:', value: 'info@fivestardrivingschool.co.ke' }
+    ]
+    
+    doc.setFontSize(10)
+    contactInfo.forEach((contact) => {
+      doc.setTextColor(mediumGray)
+      doc.text(contact.label, 120, contactY)
+      doc.setTextColor(darkGray)
+      doc.text(contact.value, 120, contactY + 8)
+      contactY += 15
+    })
+    
+    // Special requests if any
+    if (bookingData.specialRequests && bookingData.specialRequests.trim()) {
+      currentY += 20
+      doc.setFillColor(168, 85, 247) // Purple background
+      doc.rect(15, currentY - 8, 180, 15, 'F')
+      
+      doc.setFontSize(14)
+      doc.setTextColor(255, 255, 255)
+      doc.text('📝 SPECIAL REQUESTS', 25, currentY + 2)
+      
+      currentY += 20
+      doc.setFontSize(11)
+      doc.setTextColor(darkGray)
+      const splitText = doc.splitTextToSize(bookingData.specialRequests, 160)
+      doc.text(splitText, 25, currentY)
+      currentY += splitText.length * 6
+    }
+    
+    // Footer section
+    const footerY = 270
+    doc.setFillColor(31, 41, 55) // Dark background
+    doc.rect(0, footerY, 210, 27, 'F')
+    
+    doc.setFontSize(16)
+    doc.setTextColor(255, 255, 255)
+    doc.text('Thank you for choosing FIVE ST★R Driving School!', 105, footerY + 10, { align: 'center' })
     
     doc.setFontSize(12)
-    doc.setTextColor(0, 0, 0)
-    doc.text('Monday - Friday: 7:00 AM - 7:00 PM', 20, 335)
-    doc.text('Saturday: 8:00 AM - 5:00 PM', 20, 345)
-    doc.text('Sunday: Available Upon Request', 20, 355)
-    
-    // Contact Information
-    doc.setFontSize(14)
-    doc.setTextColor(redColor)
-    doc.text('CONTACT INFORMATION', 20, 375)
-    
-    doc.setFontSize(12)
-    doc.setTextColor(0, 0, 0)
-    doc.text(`Branch Phone: ${selectedBranch?.phone}`, 20, 390)
-    doc.text('Main Office: 0794 478 773', 20, 400)
-    doc.text('Email: info@fivestardrivingschool.co.ke', 20, 410)
-    
-    // Footer
-    doc.setFontSize(14)
-    doc.setTextColor(redColor)
-    doc.text('Thank you for choosing FIVE ST★R Driving School!', 105, 440, { align: 'center' })
-    doc.text('Driving Is Fun, Driving Is Freedom.', 105, 450, { align: 'center' })
+    doc.setTextColor(220, 38, 38)
+    doc.text('🚗 "Driving Is Fun, Driving Is Freedom" 🚗', 105, footerY + 20, { align: 'center' })
     
     // Save the PDF
     doc.save(`FIVE_STAR_Booking_${bookingReference}.pdf`)
+  }
+  
+  const sendMainWhatsAppMessage = () => {
+    const selectedCourse = courses.find((c) => c.id === bookingData.course)
+    const selectedClassType = classTypes.find((ct) => ct.id === bookingData.classType)
+    const selectedBranch = branches.find((b) => b.id === bookingData.branch)
+
+    const message = `🌟 NEW BOOKING CONFIRMATION - FIVE ST★R DRIVING SCHOOL 🌟
+
+📋 Booking Reference: ${bookingReference}
+📅 Date Generated: ${formatDateConsistent(new Date())}
+
+👤 STUDENT DETAILS:
+• Name: ${bookingData.personalInfo.name}
+• Phone: ${bookingData.personalInfo.phone}
+• ID Number: ${bookingData.personalInfo.idNumber}
+
+🎓 COURSE BOOKING:
+• Course: ${selectedCourse?.name}
+• Price: ${selectedCourse?.price}
+• Class Type: ${selectedClassType?.name}
+• Branch: ${selectedBranch?.name} - ${selectedBranch?.address}
+• Scheduled Date: ${selectedDate ? format(selectedDate, "EEEE, MMMM dd, yyyy") : "Not selected"}
+• Time: ${bookingData.timeSlot}
+
+${bookingData.specialRequests ? `📝 Special Requests:\n${bookingData.specialRequests}\n\n` : ""}
+✅ Booking confirmation PDF has been downloaded by the student.
+
+Please follow up with the student to confirm and finalize the booking details.
+
+🚗 Five Star Driving School - "Driving Is Fun, Driving Is Freedom"`
+
+    const mainWhatsApp = `https://wa.me/254794478773?text=${encodeURIComponent(message)}`
+    window.open(mainWhatsApp, "_blank")
+  }
+  
+  const downloadAndSendWhatsApp = () => {
+    // First download the PDF
+    downloadBookingPDF()
+    
+    // Then send WhatsApp message to main office
+    setTimeout(() => {
+      sendMainWhatsAppMessage()
+    }, 500)
   }
 
   const sendWhatsAppMessage = () => {
@@ -296,7 +478,7 @@ export function EnhancedBookingSystem() {
     const message = `🚗 NEW BOOKING - FIVE ST★R DRIVING SCHOOL
 
 📋 Booking Reference: ${bookingReference}
-📅 Date: ${new Date().toLocaleDateString()}
+📅 Date: ${formatDateConsistent(new Date())}
 
 👤 STUDENT DETAILS:
 Name: ${bookingData.personalInfo.name}
@@ -331,9 +513,16 @@ Please confirm this booking and contact the student.`
     await new Promise((resolve) => setTimeout(resolve, 2000))
     setIsSubmitting(false)
     setBookingComplete(true)
+    
+    // Automatically send booking to main WhatsApp number
+    setTimeout(() => {
+      sendMainWhatsAppMessage()
+    }, 500)
+    
+    // Also send to branch WhatsApp for backup
     setTimeout(() => {
       sendWhatsAppMessage()
-    }, 500)
+    }, 1000)
   }
 
   const validatePhoneNumber = (phone: string) => {
@@ -390,12 +579,26 @@ Please confirm this booking and contact the student.`
               </div>
 
               <div className="space-y-4">
+                <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                  <p className="text-sm text-green-700 text-center">
+                    ✅ Booking automatically sent to main office WhatsApp: 0794 478 773
+                  </p>
+                </div>
+                
                 <Button
                   className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white"
                   onClick={downloadBookingPDF}
                 >
                   <Download className="w-4 h-4 mr-2" />
-                  Download Booking Confirmation
+                  Download PDF Confirmation
+                </Button>
+
+                <Button
+                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white"
+                  onClick={sendMainWhatsAppMessage}
+                >
+                  <Phone className="w-4 h-4 mr-2" />
+                  Send Again to Main Office
                 </Button>
 
                 <Button
@@ -879,14 +1082,14 @@ Please confirm this booking and contact the student.`
                         <DialogTitle>Confirm Your Booking</DialogTitle>
                         <DialogDescription>
                           Please review your booking details before confirming. You will receive a booking confirmation
-                          and WhatsApp messages will be sent to the branch.
+                          and the booking will be automatically sent to both the main office (0794 478 773) and your selected branch.
                         </DialogDescription>
                       </DialogHeader>
 
                       <div className="py-4">
                         <p className="text-sm text-gray-600 mb-4">
                           By confirming this booking, you agree to our terms and conditions. You will receive a
-                          downloadable confirmation and WhatsApp messages will be sent to the branch.
+                          downloadable confirmation and booking notifications will be automatically sent to the main office and your selected branch.
                         </p>
 
                         <div className="flex space-x-3">
