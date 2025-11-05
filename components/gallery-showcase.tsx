@@ -1,13 +1,31 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import { ChevronLeft, ChevronRight, X, Camera, Users, Car, Award, MapPin, Search, Filter, Download, Share2, Heart, Eye, Star, Clock, Calendar, Phone } from "lucide-react"
+import {
+  ChevronLeft,
+  ChevronRight,
+  X,
+  Camera,
+  Users,
+  Car,
+  Award,
+  MapPin,
+  Search,
+  Filter,
+  Share2,
+  Heart,
+  Eye,
+  Star,
+  Calendar,
+  Phone,
+} from "lucide-react"
 import { formatDateConsistent } from "@/lib/utils"
+import { GALLERY_IMAGES } from "@/lib/gallery-config"
 
 interface GalleryImage {
   id: string
@@ -33,119 +51,7 @@ export function GalleryShowcase() {
   const [likedImages, setLikedImages] = useState<Set<string>>(new Set())
   const [sortBy, setSortBy] = useState<"newest" | "oldest" | "popular">("newest")
 
-  const galleryImages: GalleryImage[] = [
-    {
-      id: "training-1",
-      src: "/placeholder.svg?height=400&width=600&text=Practical+Driving+Lesson",
-      title: "Practical Driving Lessons",
-      description: "Students learning with our professional instructors on real roads",
-      category: "training",
-      location: "Roysambu Branch",
-      featured: true,
-      likes: 124,
-      views: 856,
-      date: "2024-01-15",
-      tags: ["driving", "lessons", "instructor", "practical"]
-    },
-    {
-      id: "training-2",
-      src: "/placeholder.svg?height=400&width=600&text=Theory+Class+Session",
-      title: "Theory Class Sessions",
-      description: "Interactive classroom learning with modern teaching methods",
-      category: "training",
-      location: "Zimmerman Branch",
-      featured: false,
-      likes: 89,
-      views: 642,
-      date: "2024-01-12",
-      tags: ["theory", "classroom", "learning", "education"]
-    },
-    {
-      id: "vehicles-1",
-      src: "/placeholder.svg?height=400&width=600&text=Modern+Training+Vehicles",
-      title: "Modern Training Fleet",
-      description: "Well-maintained automatic and manual vehicles for training",
-      category: "vehicles",
-      location: "Multiple Locations",
-      featured: true,
-      likes: 156,
-      views: 1203,
-      date: "2024-01-20",
-      tags: ["vehicles", "fleet", "modern", "training"]
-    },
-    {
-      id: "vehicles-2",
-      src: "/placeholder.svg?height=400&width=600&text=Motorcycle+Training",
-      title: "Motorcycle Training",
-      description: "Professional motorcycle and tuk-tuk training sessions",
-      category: "vehicles",
-      location: "Tassia Branch",
-    },
-    {
-      id: "facilities-1",
-      src: "/placeholder.svg?height=400&width=600&text=Modern+Classroom",
-      title: "Modern Classrooms",
-      description: "Air-conditioned classrooms with multimedia learning equipment",
-      category: "facilities",
-      location: "Kahawa West Branch",
-    },
-    {
-      id: "facilities-2",
-      src: "/placeholder.svg?height=400&width=600&text=Branch+Office",
-      title: "Branch Offices",
-      description: "Professional branch offices across Nairobi and Kiambu",
-      category: "facilities",
-      location: "Utawala Branch",
-    },
-    {
-      id: "graduation-1",
-      src: "/placeholder.svg?height=400&width=600&text=Graduation+Ceremony",
-      title: "Graduation Ceremonies",
-      description: "Celebrating successful students who passed their driving tests",
-      category: "events",
-      location: "Main Office",
-    },
-    {
-      id: "graduation-2",
-      src: "/placeholder.svg?height=400&width=600&text=Certificate+Presentation",
-      title: "Certificate Presentations",
-      description: "Proud moments as students receive their driving certificates",
-      category: "events",
-      location: "Various Branches",
-    },
-    {
-      id: "instructors-1",
-      src: "/placeholder.svg?height=400&width=600&text=NTSA+Certified+Instructors",
-      title: "NTSA Certified Instructors",
-      description: "Our team of professional, certified driving instructors",
-      category: "team",
-      location: "All Branches",
-    },
-    {
-      id: "instructors-2",
-      src: "/placeholder.svg?height=400&width=600&text=Instructor+Training",
-      title: "Instructor Training",
-      description: "Continuous professional development for our instructors",
-      category: "team",
-      location: "Training Center",
-    },
-    {
-      id: "success-1",
-      src: "/placeholder.svg?height=400&width=600&text=Happy+Students",
-      title: "Happy Students",
-      description: "Satisfied students who successfully learned to drive with us",
-      category: "success",
-      location: "Multiple Branches",
-    },
-    {
-      id: "success-2",
-      src: "/placeholder.svg?height=400&width=600&text=First+Time+Pass",
-      title: "First Time Pass",
-      description: "Students celebrating their first-time driving test success",
-      category: "success",
-      location: "NTSA Testing Centers",
-    },
-  ]
+  const galleryImages = GALLERY_IMAGES
 
   const categories = [
     { id: "all", label: "All Photos", icon: Camera },
@@ -161,10 +67,11 @@ export function GalleryShowcase() {
   const filteredImages = galleryImages
     .filter((img) => {
       const matchesCategory = selectedCategory === "all" || img.category === selectedCategory
-      const matchesSearch = searchQuery === "" || 
+      const matchesSearch =
+        searchQuery === "" ||
         img.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         img.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        img.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+        img.tags?.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()))
       return matchesCategory && matchesSearch
     })
     .sort((a, b) => {
@@ -181,7 +88,7 @@ export function GalleryShowcase() {
     })
 
   const toggleLike = (imageId: string) => {
-    setLikedImages(prev => {
+    setLikedImages((prev) => {
       const newSet = new Set(prev)
       if (newSet.has(imageId)) {
         newSet.delete(imageId)
@@ -220,9 +127,10 @@ export function GalleryShowcase() {
             Our Gallery
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium mb-8">
-            Discover our world-class facilities, training excellence, and student success stories through our comprehensive photo collection
+            Discover our world-class facilities, training excellence, and student success stories through our
+            comprehensive photo collection
           </p>
-          
+
           {/* Search and Controls */}
           <div className="flex flex-col md:flex-row gap-4 justify-center items-center max-w-4xl mx-auto">
             <div className="relative flex-1 max-w-md">
@@ -234,17 +142,13 @@ export function GalleryShowcase() {
                 className="pl-10 pr-4 py-3 rounded-full border-gray-300 focus:border-red-500 focus:ring-red-500"
               />
             </div>
-            
+
             <div className="flex gap-2">
-              <Button
-                variant="outline"
-                onClick={() => setShowFilters(!showFilters)}
-                className="rounded-full px-6 py-3"
-              >
+              <Button variant="outline" onClick={() => setShowFilters(!showFilters)} className="rounded-full px-6 py-3">
                 <Filter className="w-4 h-4 mr-2" />
                 Filters
               </Button>
-              
+
               <div className="flex border rounded-full overflow-hidden">
                 <Button
                   variant={viewMode === "grid" ? "default" : "ghost"}
@@ -282,31 +186,24 @@ export function GalleryShowcase() {
                     <option value="popular">Most Popular</option>
                   </select>
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Show Only</label>
                   <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="rounded-full"
-                    >
+                    <Button variant="outline" size="sm" className="rounded-full bg-transparent">
                       Featured
                     </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="rounded-full"
-                    >
+                    <Button variant="outline" size="sm" className="rounded-full bg-transparent">
                       Recent
                     </Button>
                   </div>
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Quick Stats</label>
                   <div className="text-sm text-gray-600">
-                    {filteredImages.length} photos • {new Set(filteredImages.map(img => img.category)).size} categories
+                    {filteredImages.length} photos • {new Set(filteredImages.map((img) => img.category)).size}{" "}
+                    categories
                   </div>
                 </div>
               </div>
@@ -334,11 +231,11 @@ export function GalleryShowcase() {
         </div>
 
         {/* Gallery Grid */}
-        <div className={`grid gap-6 ${
-          viewMode === "grid" 
-            ? "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" 
-            : "md:grid-cols-2 lg:grid-cols-3"
-        }`}>
+        <div
+          className={`grid gap-6 ${
+            viewMode === "grid" ? "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" : "md:grid-cols-2 lg:grid-cols-3"
+          }`}
+        >
           {filteredImages.map((image, index) => (
             <Card
               key={image.id}
@@ -352,7 +249,7 @@ export function GalleryShowcase() {
                     alt={image.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  
+
                   {/* Overlay with modern effects */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
                     <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
@@ -367,7 +264,7 @@ export function GalleryShowcase() {
                           {categories.find((cat) => cat.id === image.category)?.label}
                         </Badge>
                       </div>
-                      
+
                       <div className="flex gap-2">
                         <Button
                           size="sm"
@@ -378,7 +275,9 @@ export function GalleryShowcase() {
                             toggleLike(image.id)
                           }}
                         >
-                          <Heart className={`w-4 h-4 ${likedImages.has(image.id) ? 'fill-red-500 text-red-500' : ''}`} />
+                          <Heart
+                            className={`w-4 h-4 ${likedImages.has(image.id) ? "fill-red-500 text-red-500" : ""}`}
+                          />
                         </Button>
                         <Button
                           size="sm"
@@ -389,7 +288,7 @@ export function GalleryShowcase() {
                         </Button>
                       </div>
                     </div>
-                    
+
                     <div className="absolute bottom-4 left-4 right-4">
                       <div className="flex items-center gap-4 text-white text-sm mb-2">
                         <div className="flex items-center gap-1">
@@ -408,7 +307,7 @@ export function GalleryShowcase() {
                         )}
                       </div>
                     </div>
-                    
+
                     {/* Center play button */}
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform scale-75 group-hover:scale-100">
@@ -417,22 +316,20 @@ export function GalleryShowcase() {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="p-6">
                   <h3 className="font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors text-lg">
                     {image.title}
                   </h3>
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-2 leading-relaxed">
-                    {image.description}
-                  </p>
-                  
+                  <p className="text-sm text-gray-600 mb-4 line-clamp-2 leading-relaxed">{image.description}</p>
+
                   {image.location && (
                     <div className="flex items-center text-xs text-gray-500 mb-3">
                       <MapPin className="w-4 h-4 mr-2 text-red-500" />
                       {image.location}
                     </div>
                   )}
-                  
+
                   {/* Tags */}
                   {image.tags && image.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1">
@@ -520,11 +417,13 @@ export function GalleryShowcase() {
           <div className="bg-gradient-to-r from-red-600 to-blue-600 rounded-3xl p-12 text-white relative overflow-hidden">
             <div className="absolute inset-0 bg-black/10"></div>
             <div className="relative z-10">
-              <h3 className="text-4xl md:text-5xl font-bold mb-6">
-                Ready to Join Our Success Stories?
-              </h3>
+              <h3 className="text-4xl md:text-5xl font-bold mb-6">Ready to Join Our Success Stories?</h3>
               <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-                Be part of our gallery of successful drivers. Start your journey with <span className="text-yellow-300">FIVE ST<span className="text-yellow-200">★</span>R</span> Driving School today!
+                Be part of our gallery of successful drivers. Start your journey with{" "}
+                <span className="text-yellow-300">
+                  FIVE ST<span className="text-yellow-200">★</span>R
+                </span>{" "}
+                Driving School today!
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
@@ -539,7 +438,7 @@ export function GalleryShowcase() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-2 border-white text-white hover:bg-white hover:text-red-600 px-8 py-4 text-lg rounded-full font-semibold transform hover:scale-105 transition-all duration-300"
+                  className="border-2 border-white text-white hover:bg-white hover:text-red-600 px-8 py-4 text-lg rounded-full font-semibold transform hover:scale-105 transition-all duration-300 bg-transparent"
                   onClick={() => window.open("tel:0794478773", "_self")}
                 >
                   <Phone className="w-5 h-5 mr-2" />

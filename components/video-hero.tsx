@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Play, Pause, Volume2, VolumeX, Phone, MessageCircle, MapPin, Award, Users, Star, ChevronLeft, ChevronRight, Video } from "lucide-react"
+import { Phone, MessageCircle, MapPin, Award, Users, Star, ChevronLeft, ChevronRight, Video } from "lucide-react"
 
 export function VideoHero() {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -16,25 +16,36 @@ export function VideoHero() {
   const videoOptions = [
     {
       id: 1,
-      title: "FIVE ST★R Driving School - Main Video",
-      src: "/videos/hero-video.mp4",
-      poster: "/placeholder.svg?height=1080&width=1920&text=FIVESTAR+Main+Video",
-      description: "Experience our professional driving instruction with Five Star Driving School"
+      title: "FIVE ST★R Fleet Overview",
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0268.JPG-LI3pXMpgWg36Jr5HPP9Ti5WJ6TikX1.jpeg",
+      poster:
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0268.JPG-LI3pXMpgWg36Jr5HPP9Ti5WJ6TikX1.jpeg",
+      description: "Our complete 50+ vehicle training fleet - proudly serving Kenya's drivers",
     },
     {
       id: 2,
-      title: "Student Success Stories",
-      src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-      poster: "/placeholder.svg?height=1080&width=1920&text=Student+Success+Stories",
-      description: "Hear from our successful graduates"
+      title: "Training in Action",
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0261.JPG-EgmzqOlJX1SbbrG7IyJDS1RS1xZiNX.jpeg",
+      poster:
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0261.JPG-EgmzqOlJX1SbbrG7IyJDS1RS1xZiNX.jpeg",
+      description: "Students learning with our professional instructors at our modern facility",
     },
     {
       id: 3,
-      title: "Behind the Scenes",
-      src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-      poster: "/placeholder.svg?height=1080&width=1920&text=Behind+the+Scenes",
-      description: "See our instructors and facilities in action"
-    }
+      title: "Fleet Showcase",
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0267.JPG-E298hLbH6XQEcyOl9wC7OYlTk8H9Gc.jpeg",
+      poster:
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0267.JPG-E298hLbH6XQEcyOl9wC7OYlTk8H9Gc.jpeg",
+      description: "Organized and well-maintained vehicles ready for training",
+    },
+    {
+      id: 4,
+      title: "Hands-On Training",
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0264.JPG-xXoqsSkv27es7i7BIFwiBchY4rR9KY.jpeg",
+      poster:
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0264.JPG-xXoqsSkv27es7i7BIFwiBchY4rR9KY.jpeg",
+      description: "Engine mechanics training - practical learning at its finest",
+    },
   ]
 
   const currentVideo = videoOptions[currentVideoIndex]
@@ -78,21 +89,11 @@ export function VideoHero() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full">
-        <video
-          ref={videoRef}
-          className="w-full h-full object-cover"
-          loop
-          muted={isMuted}
-          playsInline
-          poster={currentVideo.poster}
-          key={currentVideo.id} // Force re-render when video changes
-        >
-          <source
-            src={currentVideo.src}
-            type="video/mp4"
-          />
-          Your browser does not support the video tag.
-        </video>
+        <img
+          src={currentVideo.poster || "/placeholder.svg"}
+          alt={currentVideo.title}
+          className="w-full h-full object-cover transition-all duration-500"
+        />
 
         {/* Video Overlay */}
         <div className="absolute inset-0 bg-black/50"></div>
@@ -108,14 +109,8 @@ export function VideoHero() {
         <Button size="sm" className="bg-black/50 hover:bg-black/70 text-white border-0" onClick={prevVideo}>
           <ChevronLeft className="w-4 h-4" />
         </Button>
-        <Button size="sm" className="bg-black/50 hover:bg-black/70 text-white border-0" onClick={togglePlayPause}>
-          {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-        </Button>
         <Button size="sm" className="bg-black/50 hover:bg-black/70 text-white border-0" onClick={nextVideo}>
           <ChevronRight className="w-4 h-4" />
-        </Button>
-        <Button size="sm" className="bg-black/50 hover:bg-black/70 text-white border-0" onClick={toggleMute}>
-          {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
         </Button>
       </div>
 
@@ -134,7 +129,7 @@ export function VideoHero() {
             onClick={() => switchVideo(index)}
           >
             <Video className="w-3 h-3 mr-1" />
-            {video.title.split(" - ")[0]}
+            {video.title.split(" ")[0]}
           </Button>
         ))}
       </div>
