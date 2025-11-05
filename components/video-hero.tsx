@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Phone, MessageCircle, MapPin, Award, Users, Star, ChevronLeft, ChevronRight, Video } from "lucide-react"
+import { Phone, MessageCircle, MapPin, Award, Users, Star, ChevronLeft, ChevronRight } from "lucide-react"
 
 export function VideoHero() {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -120,26 +120,6 @@ export function VideoHero() {
         <Button size="sm" className="bg-black/50 hover:bg-black/70 text-white border-0" onClick={nextVideo}>
           <ChevronRight className="w-4 h-4" />
         </Button>
-      </div>
-
-      {/* Video Selector */}
-      <div className="absolute top-4 left-4 z-20 flex flex-col space-y-2">
-        {videoOptions.map((video, index) => (
-          <Button
-            key={video.id}
-            size="sm"
-            variant={currentVideoIndex === index ? "default" : "outline"}
-            className={`${
-              currentVideoIndex === index
-                ? "bg-red-600 hover:bg-red-700 text-white border-0"
-                : "bg-black/50 hover:bg-black/70 text-white border-white/30"
-            } text-xs px-3 py-2`}
-            onClick={() => switchVideo(index)}
-          >
-            <Video className="w-3 h-3 mr-1" />
-            {video.title.split(" ")[0]}
-          </Button>
-        ))}
       </div>
 
       {/* Video Info Overlay */}
