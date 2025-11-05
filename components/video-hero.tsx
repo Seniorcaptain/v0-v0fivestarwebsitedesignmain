@@ -62,6 +62,14 @@ export function VideoHero() {
     }
   }, [isPlaying, isMuted])
 
+  useEffect(() => {
+    const autoRotateInterval = setInterval(() => {
+      setCurrentVideoIndex((prev) => (prev + 1) % videoOptions.length)
+    }, 10000) // 10 seconds
+
+    return () => clearInterval(autoRotateInterval)
+  }, [videoOptions.length])
+
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying)
   }
