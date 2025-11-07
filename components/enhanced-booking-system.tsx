@@ -645,7 +645,7 @@ Please confirm this booking and contact the student.`
             Book Your Lesson
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto font-medium">
-            Schedule your driving lesson with our expert instructors across 14 locations
+            Schedule your driving lesson with our expert instructors across 20+ locations
           </p>
           <div className="mt-6 p-4 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl border-2 border-yellow-300">
             <p className="text-2xl font-bold text-orange-800">🎉 Our Fee is All Inclusive 🎉</p>
@@ -844,7 +844,7 @@ Please confirm this booking and contact the student.`
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
                           <span className="font-medium">Monday - Friday:</span>
-                          <span>8:00 AM - 5:00 PM</span>
+                          <span>7:00 AM - 7:00 PM</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="font-medium">Saturday:</span>

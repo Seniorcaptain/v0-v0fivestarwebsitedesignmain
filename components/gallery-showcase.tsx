@@ -465,7 +465,7 @@ export function GalleryShowcase() {
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Car className="w-8 h-8 text-blue-600" />
               </div>
-              <div className="text-4xl font-bold text-blue-600 mb-2">50+</div>
+              <div className="text-4xl font-bold text-blue-600 mb-2">40+</div>
               <p className="text-gray-600 font-medium">Training Vehicles</p>
             </CardContent>
           </Card>
@@ -474,7 +474,7 @@ export function GalleryShowcase() {
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-green-600" />
               </div>
-              <div className="text-4xl font-bold text-green-600 mb-2">30+</div>
+              <div className="text-4xl font-bold text-green-600 mb-2">50+</div>
               <p className="text-gray-600 font-medium">Certified Instructors</p>
             </CardContent>
           </Card>
@@ -483,7 +483,7 @@ export function GalleryShowcase() {
               <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="w-8 h-8 text-yellow-600" />
               </div>
-              <div className="text-4xl font-bold text-yellow-600 mb-2">10,000+</div>
+              <div className="text-4xl font-bold text-yellow-600 mb-2">20,000+</div>
               <p className="text-gray-600 font-medium">Happy Students</p>
             </CardContent>
           </Card>

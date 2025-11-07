@@ -96,7 +96,7 @@ export function AboutSection() {
             About <span className="text-red-600">FIVE ST<span className="text-blue-600">★</span>R</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium leading-relaxed">
-            Kenya's premier driving school with over 10,000 successful graduates. We've been teaching safe, confident
+            Kenya's premier driving school with over 20,000+ successful graduates. We've been teaching safe, confident
             driving across Nairobi for years, making driving education accessible and enjoyable.
           </p>
         </div>
@@ -107,11 +107,11 @@ export function AboutSection() {
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
                 <span className="text-red-600">FIVE ST<span className="text-blue-600">★</span>R</span> Driving School was founded with a simple mission: to make quality driving education accessible
-                to everyone in Nairobi. What started as a single location has grown into a network of 21 branches
+                to everyone in Nairobi. What started as a single location has grown into a network of 20+ branches
                 serving communities across the city.
               </p>
               <p>
-                Our commitment to excellence has helped over 10,000 students successfully obtain their driving licenses.
+                Our commitment to excellence has helped over 20,000+ students successfully obtain their driving licenses.
                 We believe that learning to drive should be fun, safe, and stress-free, which is why we've developed our
                 comprehensive training programs with student success as our top priority.
               </p>
@@ -147,7 +147,7 @@ export function AboutSection() {
               <CardContent className="p-8">
                 <div className="grid grid-cols-2 gap-6 text-center">
                   <div>
-                    <div className="text-4xl font-bold text-red-600 mb-2">10,000+</div>
+                    <div className="text-4xl font-bold text-red-600 mb-2">20,000+</div>
                     <p className="text-gray-600 font-medium">Students Trained</p>
                   </div>
                   <div>
@@ -240,7 +240,7 @@ export function AboutSection() {
           <CardContent className="p-12 text-center">
             <h3 className="text-4xl font-bold mb-4">Ready to Start Your Driving Journey?</h3>
             <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Join over 10,000 successful students who chose <span className="text-red-600">FIVE ST<span className="text-blue-600">★</span>R</span> for their driving education. Experience the
+              Join over 20,000+ successful students who chose <span className="text-red-600">FIVE ST<span className="text-blue-600">★</span>R</span> for their driving education. Experience the
               difference of professional, comprehensive training.
             </p>
 

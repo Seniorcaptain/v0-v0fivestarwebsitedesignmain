@@ -8,19 +8,19 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "FIVE ST★R Driving School - Driving is Fun",
   description:
-    "Learn to drive with Kenya's most trusted NTSA-certified instructors. Modern vehicles, structured programs, all-inclusive pricing. 20+ locations across Nairobi and Kiambu - Over 10,000 students trained.",
+    "Learn to drive with Kenya's most trusted NTSA-certified instructors. Modern vehicles, structured programs, all-inclusive pricing. 20+ locations across Nairobi and Kiambu - Over 20,000+ students trained.",
   keywords:
     "driving school Kenya, NTSA certified, learn to drive Nairobi, driving lessons, automatic car lessons, manual car lessons, motorcycle license, truck license, 20+ locations, all inclusive fees",
   openGraph: {
     title: "FIVE ST★R Driving School - Kenya's Premier Driving School",
-    description: "Driving is Fun. Learn from NTSA-certified instructors. 20+ locations, 10,000+ students trained.",
+    description: "Driving is Fun. Learn from NTSA-certified instructors. 20+ locations, 20,000+ students trained.",
     images: ["/placeholder.svg?height=630&width=1200&text=FIVE ST★R+Driving+School"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "FIVE ST★R Driving School - Kenya's Premier Driving School",
-    description: "Driving is Fun. Learn from NTSA-certified instructors. 20+ locations, 10,000+ students trained.",
+    description: "Driving is Fun. Learn from NTSA-certified instructors. 20+ locations, 20,000+ students trained.",
     images: ["/placeholder.svg?height=630&width=1200&text=FIVE ST★R+Driving+School"],
   },
   generator: "v0.app",
