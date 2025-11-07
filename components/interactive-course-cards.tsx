@@ -382,6 +382,7 @@ export function InteractiveCourseCards() {
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
         "Inclusive of PDL, Assessment & Final Exams",
+        "Has Two Seperate Exams",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid National ID", "Passport photos (2)"],
@@ -836,7 +837,7 @@ export function InteractiveCourseCards() {
                                     </div>
                                     <div className="text-center mb-4">
                                       <div className="text-4xl font-bold text-pink-600 mb-2">8,500 KSH</div>
-                                      <div className="text-sm text-gray-600">B3 Professional 7 Seater</div>
+                                      <div className="text-sm text-gray-600">B3/D1/D2 Professional 7 Seater</div>
                                     </div>
                                     <div className="space-y-2 text-sm bg-white rounded-lg p-4">
                                       <div className="flex justify-between">
@@ -865,7 +866,7 @@ export function InteractiveCourseCards() {
                                     </div>
                                     <div className="text-center mb-4">
                                       <div className="text-4xl font-bold text-purple-600 mb-2">11,000 KSH</div>
-                                      <div className="text-sm text-gray-600">D1 14 Seater / D2 33 Seater</div>
+                                      <div className="text-sm text-gray-600">B3 ,D1 14 Seater / D2 33 Seater</div>
                                     </div>
                                     <div className="space-y-2 text-sm bg-white rounded-lg p-4">
                                       <div className="flex justify-between">
