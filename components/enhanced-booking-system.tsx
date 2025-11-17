@@ -95,20 +95,20 @@ export function EnhancedBookingSystem() {
     {
       id: "combined",
       name: "B1 & B2 Combined Package",
-      price: "Ksh 20,000",
+      price: "Ksh 14,000",
       description: "Best value package - Our Fee is All Inclusive",
       features: ["30 Practical Lessons", "Unlimited Theory", "Basic Mechanics", "FREE Learner's Manual"],
     },
     {
       id: "truck",
       name: "C1/C2 Light Truck License",
-      price: "Ksh 18,000",
+      price: "Ksh 16,000",
       description: "Commercial driving - Our Fee is All Inclusive",
       features: ["30 Practical Lessons", "Unlimited Theory", "Basic Mechanics", "FREE Learner's Manual"],
     },
     {
       id: "van",
-      name: "B3/D1/D2 Professional Van License",
+      name: "B3/D1/D2 Professional Van License,TSV,UBER",
       price: "Ksh 8,500 - 11,000",
       description:
         "Professional van training with multiple pricing options - B3 (8,500) Test & Theory or D1/D2 (11,000) 10 Lessons",
