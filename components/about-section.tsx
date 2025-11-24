@@ -15,7 +15,7 @@ export function AboutSection() {
     },
     {
       icon: Users,
-      title: "Over 10,000+ Students Trained",
+      title: "Over 20,000+ Students Trained",
       description: "Join thousands of successful drivers who learned with us",
       color: "text-blue-600 bg-blue-100",
     },
@@ -93,7 +93,10 @@ export function AboutSection() {
       <div className="container mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-red-600 bg-clip-text text-transparent">
-            About <span className="text-red-600">FIVE ST<span className="text-blue-600">★</span>R</span>
+            About{" "}
+            <span className="text-red-600">
+              FIVE ST<span className="text-blue-600">★</span>R
+            </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium leading-relaxed">
             Kenya's premier driving school with over 20,000+ successful graduates. We've been teaching safe, confident
@@ -106,19 +109,26 @@ export function AboutSection() {
             <h3 className="text-3xl font-bold text-gray-900 mb-6">Our Story</h3>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
-                <span className="text-red-600">FIVE ST<span className="text-blue-600">★</span>R</span> Driving School was founded with a simple mission: to make quality driving education accessible
-                to everyone in Nairobi. What started as a single location has grown into a network of 20+ branches
-                serving communities across the city.
+                <span className="text-red-600">
+                  FIVE ST<span className="text-blue-600">★</span>R
+                </span>{" "}
+                Driving School was founded with a simple mission: to make quality driving education accessible to
+                everyone in Nairobi. What started as a single location has grown into a network of 20+ branches serving
+                communities across the city.
               </p>
               <p>
-                Our commitment to excellence has helped over 20,000+ students successfully obtain their driving licenses.
-                We believe that learning to drive should be fun, safe, and stress-free, which is why we've developed our
-                comprehensive training programs with student success as our top priority.
+                Our commitment to excellence has helped over 20,000+ students successfully obtain their driving
+                licenses. We believe that learning to drive should be fun, safe, and stress-free, which is why we've
+                developed our comprehensive training programs with student success as our top priority.
               </p>
               <p>
-                Today, <span className="text-red-600">FIVE ST<span className="text-blue-600">★</span>R</span> stands as one of Kenya's most trusted driving schools, known for our professional
-                instructors, modern fleet, and industry-leading pass rates. We continue to innovate and expand to serve
-                more communities across Nairobi.
+                Today,{" "}
+                <span className="text-red-600">
+                  FIVE ST<span className="text-blue-600">★</span>R
+                </span>{" "}
+                stands as one of Kenya's most trusted driving schools, known for our professional instructors, modern
+                fleet, and industry-leading pass rates. We continue to innovate and expand to serve more communities
+                across Nairobi.
               </p>
             </div>
 
@@ -170,7 +180,13 @@ export function AboutSection() {
 
         <div className="mb-20">
           <div className="text-center mb-12">
-            <h3 className="text-4xl font-bold text-gray-900 mb-4">Why Choose <span className="text-red-600">FIVE ST<span className="text-blue-600">★</span>R</span>?</h3>
+            <h3 className="text-4xl font-bold text-gray-900 mb-4">
+              Why Choose{" "}
+              <span className="text-red-600">
+                FIVE ST<span className="text-blue-600">★</span>R
+              </span>
+              ?
+            </h3>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Discover what makes us Kenya's most trusted driving school
             </p>
@@ -240,8 +256,11 @@ export function AboutSection() {
           <CardContent className="p-12 text-center">
             <h3 className="text-4xl font-bold mb-4">Ready to Start Your Driving Journey?</h3>
             <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Join over 20,000+ successful students who chose <span className="text-red-600">FIVE ST<span className="text-blue-600">★</span>R</span> for their driving education. Experience the
-              difference of professional, comprehensive training.
+              Join over 20,000+ successful students who chose{" "}
+              <span className="text-red-600">
+                FIVE ST<span className="text-blue-600">★</span>R
+              </span>{" "}
+              for their driving education. Experience the difference of professional, comprehensive training.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

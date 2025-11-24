@@ -284,7 +284,7 @@ export function GoogleReviewsTestimonials() {
             Student Success Stories
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto font-medium mb-8">
-            Real reviews from over 10,000 students who successfully learned to drive with FIVE STAR
+            Real reviews from over 20,000 students who successfully learned to drive with FIVE STAR
           </p>
 
           {/* Google Reviews Summary */}
@@ -384,7 +384,7 @@ export function GoogleReviewsTestimonials() {
         <div className="grid md:grid-cols-4 gap-8">
           <Card className="bg-white border-0 shadow-lg text-center">
             <CardContent className="p-8">
-              <div className="text-4xl font-bold text-red-600 mb-2">10,000+</div>
+              <div className="text-4xl font-bold text-red-600 mb-2">20,000+</div>
               <p className="text-gray-600 font-medium">Students Trained</p>
             </CardContent>
           </Card>

@@ -199,8 +199,7 @@ export default function HomePage() {
               Find Our Locations
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto font-medium mb-8">
-              Explore all our branches across Nairobi and Kiambu counties on our interactive map - Click markers for
-              details and directions
+              Explore all our branches on our interactive map - Click markers for details and directions
             </p>
           </div>
 

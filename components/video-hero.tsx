@@ -17,33 +17,29 @@ export function VideoHero() {
     {
       id: 1,
       title: "FIVE ST★R Fleet Overview",
-      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0268.JPG-LI3pXMpgWg36Jr5HPP9Ti5WJ6TikX1.jpeg",
-      poster:
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0268.JPG-LI3pXMpgWg36Jr5HPP9Ti5WJ6TikX1.jpeg",
+      src: "/images/dji-0268.jpeg",
+      poster: "/images/dji-0268.jpeg",
       description: "Our complete 50+ vehicle training fleet - proudly serving Kenya's drivers",
     },
     {
       id: 2,
       title: "Training in Action",
-      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0261.JPG-EgmzqOlJX1SbbrG7IyJDS1RS1xZiNX.jpeg",
-      poster:
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0261.JPG-EgmzqOlJX1SbbrG7IyJDS1RS1xZiNX.jpeg",
+      src: "/images/dji-0261.jpeg",
+      poster: "/images/dji-0261.jpeg",
       description: "Students learning with our professional instructors at our modern facility",
     },
     {
       id: 3,
       title: "Fleet Showcase",
-      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0267.JPG-E298hLbH6XQEcyOl9wC7OYlTk8H9Gc.jpeg",
-      poster:
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0267.JPG-E298hLbH6XQEcyOl9wC7OYlTk8H9Gc.jpeg",
+      src: "/images/dji-0267.jpeg",
+      poster: "/images/dji-0267.jpeg",
       description: "Organized and well-maintained vehicles ready for training",
     },
     {
       id: 4,
       title: "Hands-On Training",
-      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0264.JPG-xXoqsSkv27es7i7BIFwiBchY4rR9KY.jpeg",
-      poster:
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DJI_0264.JPG-xXoqsSkv27es7i7BIFwiBchY4rR9KY.jpeg",
+      src: "/images/dji-0264.jpeg",
+      poster: "/images/dji-0264.jpeg",
       description: "Engine mechanics training - practical learning at its finest",
     },
   ]
@@ -138,7 +134,7 @@ export function VideoHero() {
           </Badge>
           <Badge className="bg-blue-600 text-white border-0 px-4 py-2 text-sm font-semibold">
             <Users className="w-4 h-4 mr-2" />
-            10,000+ Students Trained
+            20,000+ Students Trained
           </Badge>
           <Badge className="bg-green-600 text-white border-0 px-4 py-2 text-sm font-semibold">
             <MapPin className="w-4 h-4 mr-2" />

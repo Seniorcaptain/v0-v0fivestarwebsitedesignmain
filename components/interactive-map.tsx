@@ -1,11 +1,11 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useMemo, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
 import {
   MapPin,
   Phone,
@@ -17,7 +17,6 @@ import {
   Maximize2,
   Locate,
   Search,
-  Filter,
   Star,
   Route,
 } from "lucide-react"
@@ -39,7 +38,6 @@ interface InteractiveMapProps {
 }
 
 export function InteractiveMap({ branches }: InteractiveMapProps) {
-  const [selectedCounty, setSelectedCounty] = useState<"Nairobi" | "Kiambu">("Nairobi")
   const [selectedBranch, setSelectedBranch] = useState<Branch | null>(null)
   const [zoom, setZoom] = useState(1)
   const [pan, setPan] = useState({ x: 0, y: 0 })
@@ -50,26 +48,21 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null)
   const [isLocating, setIsLocating] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
-  const [showFilters, setShowFilters] = useState(false)
   const [nearestBranches, setNearestBranches] = useState<Branch[]>([])
   const [showNearest, setShowNearest] = useState(false)
 
-  const countyBranches = useMemo(
-    () => branches.filter((branch) => branch.county === selectedCounty),
-    [branches, selectedCounty],
-  )
-
   const filteredBranches = useMemo(() => {
     if (searchQuery.trim() === "") {
-      return countyBranches
+      return branches
     }
-    return countyBranches.filter(
+    return branches.filter(
       (branch) =>
         branch.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         branch.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        branch.constituency.toLowerCase().includes(searchQuery.toLowerCase()),
+        branch.constituency.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        branch.county.toLowerCase().includes(searchQuery.toLowerCase()),
     )
-  }, [searchQuery, countyBranches])
+  }, [searchQuery, branches])
 
   const calculateDistance = useCallback((lat1: number, lng1: number, lat2: number, lng2: number): number => {
     const R = 6371 // Earth's radius in kilometers
@@ -82,18 +75,11 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
     return R * c
   }, [])
 
-  const latLngToSVG = useCallback((lat: number, lng: number, county: "Nairobi" | "Kiambu") => {
-    if (county === "Nairobi") {
-      // Nairobi bounds: lat -1.45 to -1.15, lng 36.65 to 37.1
-      const x = ((lng - 36.65) / (37.1 - 36.65)) * 800
-      const y = ((lat - -1.15) / (-1.45 - -1.15)) * 600
-      return { x, y }
-    } else {
-      // Kiambu bounds: lat -1.25 to -0.9, lng 36.7 to 37.05
-      const x = ((lng - 36.7) / (37.05 - 36.7)) * 800
-      const y = ((lat - -0.9) / (-1.25 - -0.9)) * 600
-      return { x, y }
-    }
+  const latLngToSVG = useCallback((lat: number, lng: number) => {
+    // Combined bounds for both counties: lat -1.45 to -1.1, lng 36.65 to 37.05
+    const x = ((lng - 36.65) / (37.05 - 36.65)) * 800
+    const y = ((lat - -1.1) / (-1.45 - -1.1)) * 600
+    return { x, y }
   }, [])
 
   // Get user's current location
@@ -110,7 +96,7 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
         setUserLocation({ lat: latitude, lng: longitude })
 
         // Calculate distances to all branches
-        const branchesWithDistance = countyBranches.map((branch) => ({
+        const branchesWithDistance = branches.map((branch) => ({
           ...branch,
           distance: calculateDistance(latitude, longitude, branch.coordinates.lat, branch.coordinates.lng),
         }))
@@ -123,7 +109,7 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
         setIsLocating(false)
 
         // Center map on user location
-        const userPos = latLngToSVG(latitude, longitude, selectedCounty)
+        const userPos = latLngToSVG(latitude, longitude)
         setPan({ x: -userPos.x + 400, y: -userPos.y + 300 })
         setZoom(1.5)
 
@@ -194,24 +180,16 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
       {/* Tesla-style Search and Controls */}
       <div className="space-y-4">
         {/* Search Bar */}
-        <div className="relative max-w-2xl mx-auto">
-          <div className="relative">
+        <div className="flex flex-col md:flex-row gap-6 items-center justify-between bg-white p-6 rounded-2xl shadow-lg border border-gray-100 relative z-10 -mt-10 mx-6">
+          <div className="relative w-full md:w-96">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <input
+            <Input
               type="text"
-              placeholder="Search branches by name, location, or constituency..."
+              placeholder="Search branch name (e.g., Town House)"
+              className="pl-12 h-12 text-lg rounded-xl border-gray-200 focus:border-blue-500 focus:ring-blue-500"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 text-lg border-2 border-gray-200 rounded-2xl focus:border-red-500 focus:outline-none transition-colors shadow-lg"
             />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            )}
           </div>
         </div>
 
@@ -253,19 +231,19 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
             </Button>
           )}
 
-          {/* Filter Button */}
-          <Button
-            size="lg"
-            onClick={() => setShowFilters(!showFilters)}
-            className={`px-8 py-4 text-lg font-bold shadow-xl transition-all transform hover:scale-105 ${
-              showFilters
-                ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white"
-                : "bg-white text-gray-700 border-2 border-gray-300 hover:border-purple-500"
-            }`}
-          >
-            <Filter className="w-5 h-5 mr-2" />
-            Filters
-          </Button>
+          {/* Quick Actions */}
+          <div className="absolute top-6 right-6 z-[500] hidden md:block">
+            <Button
+              size="sm"
+              className="bg-white/95 backdrop-blur-sm text-gray-700 hover:bg-white border-2 border-gray-200 shadow-xl"
+              onClick={() =>
+                window.open("https://www.google.com/maps/search/FIVESTAR+Driving+School+Nairobi", "_blank")
+              }
+            >
+              <Navigation className="w-4 h-4 mr-2" />
+              Open in Google Maps
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -301,86 +279,44 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
                 <rect width="800" height="600" fill="#f0f9ff" />
                 <rect width="800" height="600" fill="url(#grid)" />
 
-                {/* County Regions - Stylized areas */}
-                {selectedCounty === "Nairobi" ? (
-                  <>
-                    {/* Nairobi constituencies as colored regions */}
-                    <path
-                      d="M 100 150 L 250 100 L 350 150 L 300 250 L 150 280 Z"
-                      fill="#86efac"
-                      opacity="0.3"
-                      stroke="#22c55e"
-                      strokeWidth="2"
-                    />
-                    <path
-                      d="M 350 150 L 500 120 L 550 200 L 480 280 L 300 250 Z"
-                      fill="#7dd3fc"
-                      opacity="0.3"
-                      stroke="#0ea5e9"
-                      strokeWidth="2"
-                    />
-                    <path
-                      d="M 150 280 L 300 250 L 350 380 L 200 420 Z"
-                      fill="#fbbf24"
-                      opacity="0.3"
-                      stroke="#f59e0b"
-                      strokeWidth="2"
-                    />
-                    <path
-                      d="M 300 250 L 480 280 L 500 400 L 350 380 Z"
-                      fill="#c084fc"
-                      opacity="0.3"
-                      stroke="#a855f7"
-                      strokeWidth="2"
-                    />
-                    <path
-                      d="M 480 280 L 550 200 L 680 250 L 650 380 L 500 400 Z"
-                      fill="#fb923c"
-                      opacity="0.3"
-                      stroke="#f97316"
-                      strokeWidth="2"
-                    />
-                  </>
-                ) : (
-                  <>
-                    {/* Kiambu constituencies as colored regions */}
-                    <path
-                      d="M 120 100 L 280 80 L 350 180 L 250 250 L 150 220 Z"
-                      fill="#a78bfa"
-                      opacity="0.3"
-                      stroke="#8b5cf6"
-                      strokeWidth="2"
-                    />
-                    <path
-                      d="M 280 80 L 450 100 L 500 200 L 350 180 Z"
-                      fill="#86efac"
-                      opacity="0.3"
-                      stroke="#22c55e"
-                      strokeWidth="2"
-                    />
-                    <path
-                      d="M 150 220 L 250 250 L 300 380 L 180 400 Z"
-                      fill="#fca5a5"
-                      opacity="0.3"
-                      stroke="#ef4444"
-                      strokeWidth="2"
-                    />
-                    <path
-                      d="M 250 250 L 350 180 L 500 200 L 480 320 L 300 380 Z"
-                      fill="#fde047"
-                      opacity="0.3"
-                      stroke="#eab308"
-                      strokeWidth="2"
-                    />
-                    <path
-                      d="M 500 200 L 650 180 L 680 300 L 580 380 L 480 320 Z"
-                      fill="#67e8f9"
-                      opacity="0.3"
-                      stroke="#06b6d4"
-                      strokeWidth="2"
-                    />
-                  </>
-                )}
+                {/* Nairobi regions */}
+                <path
+                  d="M 100 250 L 250 200 L 350 250 L 300 350 L 150 380 Z"
+                  fill="#86efac"
+                  opacity="0.2"
+                  stroke="#22c55e"
+                  strokeWidth="2"
+                />
+                <path
+                  d="M 350 250 L 500 220 L 550 300 L 480 380 L 300 350 Z"
+                  fill="#7dd3fc"
+                  opacity="0.2"
+                  stroke="#0ea5e9"
+                  strokeWidth="2"
+                />
+                <path
+                  d="M 150 380 L 300 350 L 350 480 L 200 520 Z"
+                  fill="#fbbf24"
+                  opacity="0.2"
+                  stroke="#f59e0b"
+                  strokeWidth="2"
+                />
+
+                {/* Kiambu regions */}
+                <path
+                  d="M 120 50 L 280 30 L 350 130 L 250 200 L 150 170 Z"
+                  fill="#a78bfa"
+                  opacity="0.2"
+                  stroke="#8b5cf6"
+                  strokeWidth="2"
+                />
+                <path
+                  d="M 280 30 L 450 50 L 500 150 L 350 130 Z"
+                  fill="#fca5a5"
+                  opacity="0.2"
+                  stroke="#ef4444"
+                  strokeWidth="2"
+                />
 
                 {/* Roads/Highways */}
                 <path
@@ -404,23 +340,23 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
                 {userLocation && (
                   <g filter="url(#shadow)">
                     <circle
-                      cx={latLngToSVG(userLocation.lat, userLocation.lng, selectedCounty).x}
-                      cy={latLngToSVG(userLocation.lat, userLocation.lng, selectedCounty).y - 20}
+                      cx={latLngToSVG(userLocation.lat, userLocation.lng).x}
+                      cy={latLngToSVG(userLocation.lat, userLocation.lng).y - 20}
                       r="12"
                       fill="#3b82f6"
                       stroke="white"
                       strokeWidth="3"
                     />
                     <circle
-                      cx={latLngToSVG(userLocation.lat, userLocation.lng, selectedCounty).x}
-                      cy={latLngToSVG(userLocation.lat, userLocation.lng, selectedCounty).y - 20}
+                      cx={latLngToSVG(userLocation.lat, userLocation.lng).x}
+                      cy={latLngToSVG(userLocation.lat, userLocation.lng).y - 20}
                       r="6"
                       fill="white"
                     />
                     {/* Pulse animation for user location */}
                     <circle
-                      cx={latLngToSVG(userLocation.lat, userLocation.lng, selectedCounty).x}
-                      cy={latLngToSVG(userLocation.lat, userLocation.lng, selectedCounty).y - 20}
+                      cx={latLngToSVG(userLocation.lat, userLocation.lng).x}
+                      cy={latLngToSVG(userLocation.lat, userLocation.lng).y - 20}
                       r="15"
                       fill="#3b82f6"
                       opacity="0.3"
@@ -431,10 +367,10 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
                   </g>
                 )}
 
-                {/* Branch Markers */}
                 {filteredBranches.map((branch, index) => {
-                  const pos = latLngToSVG(branch.coordinates.lat, branch.coordinates.lng, selectedCounty)
+                  const pos = latLngToSVG(branch.coordinates.lat, branch.coordinates.lng)
                   const isNearest = nearestBranches.some((nb) => nb.name === branch.name)
+                  const isNairobi = branch.county === "Nairobi"
                   return (
                     <g
                       key={index}
@@ -445,8 +381,8 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
                       {/* Marker Pin */}
                       <path
                         d={`M ${pos.x} ${pos.y - 30} C ${pos.x - 15} ${pos.y - 30} ${pos.x - 15} ${pos.y - 15} ${pos.x - 15} ${pos.y - 15} C ${pos.x - 15} ${pos.y - 5} ${pos.x} ${pos.y} ${pos.x} ${pos.y} C ${pos.x} ${pos.y} ${pos.x + 15} ${pos.y - 5} ${pos.x + 15} ${pos.y - 15} C ${pos.x + 15} ${pos.y - 15} ${pos.x + 15} ${pos.y - 30} ${pos.x} ${pos.y - 30} Z`}
-                        fill={isNearest ? "#10b981" : "#dc2626"}
-                        stroke={isNearest ? "#059669" : "#991b1b"}
+                        fill={isNearest ? "#10b981" : isNairobi ? "#dc2626" : "#3b82f6"}
+                        stroke={isNearest ? "#059669" : isNairobi ? "#991b1b" : "#1e40af"}
                         strokeWidth="2"
                       />
                       <circle cx={pos.x} cy={pos.y - 20} r="5" fill="white" />
@@ -465,7 +401,13 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
                       )}
 
                       {/* Pulse Animation */}
-                      <circle cx={pos.x} cy={pos.y - 20} r="8" fill={isNearest ? "#10b981" : "#dc2626"} opacity="0.3">
+                      <circle
+                        cx={pos.x}
+                        cy={pos.y - 20}
+                        r="8"
+                        fill={isNearest ? "#10b981" : isNairobi ? "#dc2626" : "#3b82f6"}
+                        opacity="0.3"
+                      >
                         <animate attributeName="r" from="8" to="20" dur="2s" repeatCount="indefinite" />
                         <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite" />
                       </circle>
@@ -670,20 +612,6 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
                   <p className="text-xs text-gray-600 italic">Click markers • Drag to pan • Use zoom controls</p>
                 </div>
               </div>
-            </div>
-
-            {/* Quick Actions */}
-            <div className="absolute top-6 right-6 z-[500] hidden md:block">
-              <Button
-                size="sm"
-                className="bg-white/95 backdrop-blur-sm text-gray-700 hover:bg-white border-2 border-gray-200 shadow-xl"
-                onClick={() =>
-                  window.open("https://www.google.com/maps/search/FIVESTAR+Driving+School+Nairobi", "_blank")
-                }
-              >
-                <Navigation className="w-4 h-4 mr-2" />
-                Open in Google Maps
-              </Button>
             </div>
           </div>
         </CardContent>
