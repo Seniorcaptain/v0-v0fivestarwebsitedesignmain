@@ -267,44 +267,6 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
             Filters
           </Button>
         </div>
-
-        {/* County Selector */}
-        <div className="flex justify-center gap-4 flex-wrap">
-          <Button
-            size="lg"
-            onClick={() => {
-              setSelectedCounty("Nairobi")
-              setSelectedBranch(null)
-              setShowNearest(false)
-              handleResetView()
-            }}
-            className={`px-8 py-6 text-lg font-bold transition-all ${
-              selectedCounty === "Nairobi"
-                ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-xl scale-105"
-                : "bg-white text-gray-700 border-2 border-gray-300 hover:border-green-500"
-            }`}
-          >
-            <MapPin className="w-5 h-5 mr-2" />
-            Nairobi County
-          </Button>
-          <Button
-            size="lg"
-            onClick={() => {
-              setSelectedCounty("Kiambu")
-              setSelectedBranch(null)
-              setShowNearest(false)
-              handleResetView()
-            }}
-            className={`px-8 py-6 text-lg font-bold transition-all ${
-              selectedCounty === "Kiambu"
-                ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-xl scale-105"
-                : "bg-white text-gray-700 border-2 border-gray-300 hover:border-blue-500"
-            }`}
-          >
-            <MapPin className="w-5 h-5 mr-2" />
-            Kiambu County
-          </Button>
-        </div>
       </div>
 
       {/* Map Section */}
@@ -710,16 +672,6 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
               </div>
             </div>
 
-            {/* County Info Badge */}
-            <div className="absolute top-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl px-6 py-3 z-[500] border-2 border-gray-200">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-800">
-                {selectedCounty === "Nairobi" ? "NAIROBI COUNTY" : "KIAMBU COUNTY"}
-              </h3>
-              <p className="text-xs md:text-sm text-gray-600 mt-1">
-                {filteredBranches.length} Branch{filteredBranches.length !== 1 ? "es" : ""} Available
-              </p>
-            </div>
-
             {/* Quick Actions */}
             <div className="absolute top-6 right-6 z-[500] hidden md:block">
               <Button
@@ -811,28 +763,6 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
           </CardContent>
         </Card>
       )}
-
-      {/* Branch Statistics */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="bg-gradient-to-br from-green-500 to-emerald-600 text-white border-0 shadow-lg">
-          <CardContent className="p-6 text-center">
-            <div className="text-4xl font-bold mb-2">{filteredBranches.length}</div>
-            <div className="text-sm text-green-100">{selectedCounty === "Nairobi" ? "Nairobi" : "Kiambu"} Branches</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-gradient-to-br from-blue-500 to-cyan-600 text-white border-0 shadow-lg">
-          <CardContent className="p-6 text-center">
-            <div className="text-4xl font-bold mb-2">20+</div>
-            <div className="text-sm text-blue-100">Total Locations</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-gradient-to-br from-purple-500 to-pink-600 text-white border-0 shadow-lg">
-          <CardContent className="p-6 text-center">
-            <div className="text-4xl font-bold mb-2">2</div>
-            <div className="text-sm text-purple-100">Counties Covered</div>
-          </CardContent>
-        </Card>
-      </div>
 
       {/* Help Card */}
       <Card className="bg-gradient-to-r from-green-500 to-emerald-600 text-white border-0 shadow-xl">

@@ -72,43 +72,43 @@ export function InteractiveCourseCards() {
     setIsGeneratingPDF(true)
     const doc = new jsPDF()
     const bookingRef = generateBookingReference()
-    
+
     // Set up colors
-    const redColor = '#dc2626'
-    const blueColor = '#2563eb'
-    const grayColor = '#6b7280'
-    
+    const redColor = "#dc2626"
+    const blueColor = "#2563eb"
+    const grayColor = "#6b7280"
+
     // Title
     doc.setFontSize(24)
     doc.setTextColor(redColor)
-    doc.text('FIVE ST★R DRIVING SCHOOL', 105, 30, { align: 'center' })
-    
+    doc.text("FIVE ST★R DRIVING SCHOOL", 105, 30, { align: "center" })
+
     doc.setFontSize(18)
     doc.setTextColor(grayColor)
-    doc.text('BOOKING CONFIRMATION', 105, 45, { align: 'center' })
-    
+    doc.text("BOOKING CONFIRMATION", 105, 45, { align: "center" })
+
     // Booking Reference
     doc.setFontSize(12)
     doc.setTextColor(0, 0, 0)
     doc.text(`Booking Reference: ${bookingRef}`, 20, 70)
     doc.text(`Date: ${formatDateConsistent(new Date())}`, 20, 80)
-    
+
     // Student Information
     doc.setFontSize(14)
     doc.setTextColor(redColor)
-    doc.text('STUDENT INFORMATION', 20, 100)
-    
+    doc.text("STUDENT INFORMATION", 20, 100)
+
     doc.setFontSize(12)
     doc.setTextColor(0, 0, 0)
     doc.text(`Name: ${bookingData.name}`, 20, 115)
     doc.text(`Phone: ${bookingData.phone}`, 20, 125)
     doc.text(`ID Number: ${bookingData.idNumber}`, 20, 135)
-    
+
     // Course Details
     doc.setFontSize(14)
     doc.setTextColor(redColor)
-    doc.text('COURSE DETAILS', 20, 155)
-    
+    doc.text("COURSE DETAILS", 20, 155)
+
     doc.setFontSize(12)
     doc.setTextColor(0, 0, 0)
     doc.text(`Course: ${course.title}`, 20, 170)
@@ -116,43 +116,43 @@ export function InteractiveCourseCards() {
     doc.text(`Branch: ${bookingData.branch}`, 20, 190)
     doc.text(`Scheduled Date: ${bookingData.date}`, 20, 200)
     doc.text(`Time: ${bookingData.time}`, 20, 210)
-    
+
     // Course Features
     doc.setFontSize(14)
     doc.setTextColor(redColor)
-    doc.text('COURSE FEATURES', 20, 230)
-    
+    doc.text("COURSE FEATURES", 20, 230)
+
     doc.setFontSize(12)
     doc.setTextColor(0, 0, 0)
     const features = [
-      '✓ 30 Practical Lessons (NEW NTSA Curriculum)',
-      '✓ Unlimited Digital Theory Sessions',
-      '✓ Enhanced Mechanics Training (2024 Standards)',
-      '✓ FREE Learner\'s Manual (Latest Edition)',
-      '✓ NTSA Certified Training (Updated Standards)'
+      "✓ 30 Practical Lessons (NEW NTSA Curriculum)",
+      "✓ Unlimited Digital Theory Sessions",
+      "✓ Enhanced Mechanics Training (2024 Standards)",
+      "✓ FREE Learner's Manual (Latest Edition)",
+      "✓ NTSA Certified Training (Updated Standards)",
     ]
-    
+
     features.forEach((feature, index) => {
-      doc.text(feature, 20, 245 + (index * 10))
+      doc.text(feature, 20, 245 + index * 10)
     })
-    
+
     // Contact Information
     doc.setFontSize(14)
     doc.setTextColor(redColor)
-    doc.text('CONTACT INFORMATION', 20, 310)
-    
+    doc.text("CONTACT INFORMATION", 20, 310)
+
     doc.setFontSize(12)
     doc.setTextColor(0, 0, 0)
-    doc.text('Main Office: 0794 478 773', 20, 325)
-    doc.text('Email: info@fivestardrivingschool.co.ke', 20, 335)
-    doc.text('Website: www.fivestardrivingschool.co.ke', 20, 345)
-    
+    doc.text("Main Office: 0794 478 773", 20, 325)
+    doc.text("Email: info@fivestardrivingschool.co.ke", 20, 335)
+    doc.text("Website: www.fivestardrivingschool.co.ke", 20, 345)
+
     // Footer
     doc.setFontSize(14)
     doc.setTextColor(redColor)
-    doc.text('Thank you for choosing FIVE ST★R Driving School!', 105, 370, { align: 'center' })
-    doc.text('Driving Is Fun, Driving Is Freedom.', 105, 380, { align: 'center' })
-    
+    doc.text("Thank you for choosing FIVE ST★R Driving School!", 105, 370, { align: "center" })
+    doc.text("Driving Is Fun, Driving Is Freedom.", 105, 380, { align: "center" })
+
     // Save the PDF
     doc.save(`FIVE_STAR_Booking_${bookingRef}.pdf`)
     setIsGeneratingPDF(false)
@@ -166,13 +166,39 @@ export function InteractiveCourseCards() {
 
   // Handle booking form submission
   const handleBookingSubmit = () => {
-    if (!bookingData.name || !bookingData.phone || !bookingData.idNumber || !bookingData.branch || !bookingData.date || !bookingData.time) {
-      alert('Please fill in all required fields')
+    if (
+      !bookingData.name ||
+      !bookingData.phone ||
+      !bookingData.idNumber ||
+      !bookingData.branch ||
+      !bookingData.date ||
+      !bookingData.time
+    ) {
+      alert("Please fill in all required fields")
       return
     }
-    
+
     if (selectedCourse) {
+      // Generate WhatsApp message with booking details
+      const whatsappMessage =
+        `Hi! I would like to book the following course:%0A%0A` +
+        `*Course:* ${selectedCourse.title}%0A` +
+        `*Price:* ${selectedCourse.price}%0A` +
+        `*Name:* ${bookingData.name}%0A` +
+        `*Phone:* ${bookingData.phone}%0A` +
+        `*ID Number:* ${bookingData.idNumber}%0A` +
+        `*Branch:* ${bookingData.branch}%0A` +
+        `*Date:* ${bookingData.date}%0A` +
+        `*Time:* ${bookingData.time}%0A%0A` +
+        `Please confirm my booking. Thank you!`
+
+      // Send to WhatsApp
+      window.open(`https://wa.me/254794478773?text=${whatsappMessage}`, "_blank")
+
+      // Also generate PDF for user's records
       generateBookingPDF(selectedCourse)
+
+      // Close dialog and reset form
       setShowBookingDialog(false)
       setBookingData({
         name: "",
@@ -189,7 +215,7 @@ export function InteractiveCourseCards() {
     {
       id: "a2-a3-motorcycle",
       title: "A2/A3 Motorcycle License",
-      price: "Ksh 7,000 ",
+      price: "Ksh 7,000",
       duration: "21 Days",
       lessons: "Multiple Options",
       category: "motorcycle",
@@ -201,9 +227,8 @@ export function InteractiveCourseCards() {
       description:
         "Complete motorcycle training program covering both A2 standard motorcycles and A3 commercial motorcycle taxi & 3-wheelers. Multiple pricing options available for different training needs.",
       features: [
-        "Option 1: A2 Motorcycle - Ksh 7,000 (Test & Theory)",
-        "Option 2: A2/A3 Motorcycle - Ksh 12,000 (10 Lessons)",
-
+        "Option 1: A2 Motorcycle - Ksh 6,500 (Test & Theory) - SAVE KES 500!",
+        "Option 2: A2/A3 Motorcycle - Ksh 11,500 (10 Lessons) - SAVE KES 500!",
         "Duration: 21 Days",
         "Unlimited Theory Sessions",
         "Motorcycle Safety Training",
@@ -218,6 +243,7 @@ export function InteractiveCourseCards() {
       requirements: ["Minimum age: 18 years and over", "A2/A3 Motorcycle: Valid National ID", "Passport photos (2)"],
       icon: "🏍️",
       popular: false,
+      discount: 500,
     },
     {
       id: "b1-automatic",
@@ -240,12 +266,14 @@ export function InteractiveCourseCards() {
         "FREE Learner's Manual (2024 Edition)",
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
-        "Inclusive of PDL, Assessment & Final Exams",
+        "Inclusive of PDL Assessment & Final Exams",
+        "SAVE KES 500 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid National ID", "Passport photos (2)"],
       icon: "🚗",
       popular: true,
+      discount: 500,
     },
     {
       id: "b2-manual",
@@ -268,12 +296,14 @@ export function InteractiveCourseCards() {
         "FREE Learner's Manual (2024 Edition)",
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
-        "Inclusive of PDL, Assessment & Final Exams",
+        "Inclusive of PDL Assessment & Final Exams",
+        "SAVE KES 500 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid National ID", "Passport photos (2)"],
       icon: "🚙",
       popular: true,
+      discount: 500,
     },
     {
       id: "b1-b2-combined",
@@ -296,13 +326,14 @@ export function InteractiveCourseCards() {
         "FREE Learner's Manual (2024 Edition)",
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
-        "Inclusive of PDL, Assessment & Final Exams",
+        "Inclusive of PDL Assessment & Final Exams",
+        "SAVE KES 500 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid B2 License (2 years)", "Passport photos (2)"],
       icon: "🚘",
       popular: false,
-      discount: 5000,
+      discount: 500,
     },
     {
       id: "c1-light-trucks",
@@ -325,12 +356,14 @@ export function InteractiveCourseCards() {
         "FREE Learner's Manual (2024 Edition)",
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
-        "Inclusive of PDL, Assessment & Final Exams",
+        "Inclusive of PDL Assessment & Final Exams",
+        "SAVE KES 500 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid B2 License (2 years)", "Passport photos (2)"],
       icon: "🚚",
       popular: false,
+      discount: 500,
     },
     {
       id: "c2-medium-trucks",
@@ -353,12 +386,14 @@ export function InteractiveCourseCards() {
         "FREE Learner's Manual (2024 Edition)",
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
-        "Inclusive of PDL, Assessment & Final Exams",
+        "Inclusive of PDL Assessment & Final Exams",
+        "SAVE KES 500 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid C1 License", "Passport photos (2)"],
       icon: "🚛",
       popular: false,
+      discount: 500,
     },
     {
       id: "b2-c1-combined",
@@ -381,13 +416,15 @@ export function InteractiveCourseCards() {
         "FREE Learner's Manual (2024 Edition)",
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
-        "Inclusive of PDL, Assessment & Final Exams",
+        "Inclusive of PDL Assessment & Final Exams",
         "Has Two Seperate Exams",
+        "SAVE KES 500 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid National ID", "Passport photos (2)"],
       icon: "🚗🚚",
       popular: false,
+      discount: 500,
     },
     {
       id: "b3-d1-d2-van-license",
@@ -404,8 +441,8 @@ export function InteractiveCourseCards() {
       description:
         "Comprehensive van license program covering 7-seater, 14-seater, and 33-seater vehicles. Multiple pricing options available for different training needs.",
       features: [
-        "Option 1: B3/D1/D2 Professional 7 Seater - Ksh 8,500 (Test & Theory)",
-        "Option 2: B3/D1/D2 14 Seater Van - Ksh 11,000 (10 Lessons)",
+        "Option 1: B3/D1/D2 Professional 7 Seater - Ksh 8,000 (Test & Theory) - SAVE KES 500!",
+        "Option 2: B3/D1/D2 14 Seater Van - Ksh 10,500 (10 Lessons) - SAVE KES 500!",
         "Duration: 21 Days (NEW NTSA Curriculum)",
         "Unlimited Digital Theory Sessions",
         "Professional Driving Standards (Updated)",
@@ -413,17 +450,18 @@ export function InteractiveCourseCards() {
         "FREE Learner's Manual (2024 Edition)",
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
-        "Inclusive of PDL, Assessment & Final Exams",
+        "Inclusive of PDL Assessment & Final Exams",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: [
         "Age: 18 years and over",
         "B3/D1/D2 Professional: Valid B2 License",
         "Passport photos (2)",
-        "Inclusive of PDL, Assessment & Final Exams",
+        "Inclusive of PDL Assessment & Final Exams",
       ],
       icon: "🚐",
       popular: false,
+      discount: 500,
     },
   ]
 
@@ -496,7 +534,8 @@ export function InteractiveCourseCards() {
               🎯 Now Fully Compliant with Latest NTSA Standards (2024)
             </p>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto font-medium">
-              Experience our updated curriculum featuring enhanced practical training, digital theory modules, and comprehensive assessment methods aligned with Kenya's new driving education requirements.
+              Experience our updated curriculum featuring enhanced practical training, digital theory modules, and
+              comprehensive assessment methods aligned with Kenya's new driving education requirements.
             </p>
           </div>
           <div className="mt-6 inline-flex items-center bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-full px-8 py-4 shadow-lg">
@@ -504,7 +543,7 @@ export function InteractiveCourseCards() {
               <Award className="w-5 h-5 text-white" />
             </div>
             <div className="text-left">
-              <div className="text-2xl font-bold">5TH ANNIVERSARY</div>
+              <div className="text-2xl font-bold">6TH ANNIVERSARY</div>
               <div className="text-sm font-medium">DISCOUNT</div>
             </div>
           </div>
@@ -517,7 +556,7 @@ export function InteractiveCourseCards() {
               <h3 className="font-bold text-green-700 text-sm mb-1">Updated Standards</h3>
               <p className="text-xs text-gray-600">2024 NTSA Compliant Training</p>
             </div>
-            
+
             <div className="bg-white border-2 border-blue-200 rounded-xl p-4 shadow-lg">
               <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
                 <CheckCircle className="w-5 h-5 text-white" />
@@ -525,7 +564,7 @@ export function InteractiveCourseCards() {
               <h3 className="font-bold text-blue-700 text-sm mb-1">Digital Integration</h3>
               <p className="text-xs text-gray-600">Modern Theory Modules</p>
             </div>
-            
+
             <div className="bg-white border-2 border-purple-200 rounded-xl p-4 shadow-lg">
               <div className="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
                 <Users className="w-5 h-5 text-white" />
@@ -681,11 +720,6 @@ export function InteractiveCourseCards() {
                   <CardDescription className="text-3xl font-bold bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
                     {course.price}
                   </CardDescription>
-                  {course.discount && (
-                    <span className="text-sm text-gray-500 line-through">
-                      Ksh {(Number.parseInt(course.price.replace(/[^\d]/g, "")) + course.discount).toLocaleString()}
-                    </span>
-                  )}
                 </div>
               </CardHeader>
 
@@ -775,13 +809,13 @@ export function InteractiveCourseCards() {
                                       Pricing Option 1
                                     </div>
                                     <div className="text-center mb-4">
-                                      <div className="text-4xl font-bold text-pink-600 mb-2">7,000 KSH</div>
+                                      <div className="text-4xl font-bold text-pink-600 mb-2">6,500 KSH</div>
                                       <div className="text-sm text-gray-600">A2 Motorcycle</div>
                                     </div>
                                     <div className="space-y-2 text-sm bg-white rounded-lg p-4">
                                       <div className="flex justify-between">
                                         <span className="text-gray-600">Course Fee:</span>
-                                        <span className="font-semibold">Ksh 7,000 (A2)</span>
+                                        <span className="font-semibold">Ksh 6,500 (A2)</span>
                                       </div>
                                       <div className="flex justify-between">
                                         <span className="text-gray-600">Duration:</span>
@@ -804,13 +838,13 @@ export function InteractiveCourseCards() {
                                       Pricing Option 2
                                     </div>
                                     <div className="text-center mb-4">
-                                      <div className="text-4xl font-bold text-purple-600 mb-2">12,000 KSH</div>
+                                      <div className="text-4xl font-bold text-purple-600 mb-2">11,500 KSH</div>
                                       <div className="text-sm text-gray-600">A2 Motorcycle / A3 M/Cycle Taxi</div>
                                     </div>
                                     <div className="space-y-2 text-sm bg-white rounded-lg p-4">
                                       <div className="flex justify-between">
                                         <span className="text-gray-600">Course Fee:</span>
-                                        <span className="font-semibold">Ksh 12,000 (A2/A3)</span>
+                                        <span className="font-semibold">Ksh 11,500 (A2/A3)</span>
                                       </div>
                                       <div className="flex justify-between">
                                         <span className="text-gray-600">Duration:</span>
@@ -836,13 +870,13 @@ export function InteractiveCourseCards() {
                                       Pricing Option 1
                                     </div>
                                     <div className="text-center mb-4">
-                                      <div className="text-4xl font-bold text-pink-600 mb-2">8,500 KSH</div>
+                                      <div className="text-4xl font-bold text-pink-600 mb-2">8,000 KSH</div>
                                       <div className="text-sm text-gray-600">B3/D1/D2 Professional 7 Seater</div>
                                     </div>
                                     <div className="space-y-2 text-sm bg-white rounded-lg p-4">
                                       <div className="flex justify-between">
                                         <span className="text-gray-600">Course Fee:</span>
-                                        <span className="font-semibold">Ksh 8,500 (B3)</span>
+                                        <span className="font-semibold">Ksh 8,000 (B3)</span>
                                       </div>
                                       <div className="flex justify-between">
                                         <span className="text-gray-600">Duration:</span>
@@ -865,13 +899,13 @@ export function InteractiveCourseCards() {
                                       Pricing Option 2
                                     </div>
                                     <div className="text-center mb-4">
-                                      <div className="text-4xl font-bold text-purple-600 mb-2">11,000 KSH</div>
+                                      <div className="text-4xl font-bold text-purple-600 mb-2">10,500 KSH</div>
                                       <div className="text-sm text-gray-600">B3 ,D1 14 Seater / D2 33 Seater</div>
                                     </div>
                                     <div className="space-y-2 text-sm bg-white rounded-lg p-4">
                                       <div className="flex justify-between">
                                         <span className="text-gray-600">Course Fee:</span>
-                                        <span className="font-semibold">Ksh 11,000 (D1/D2)</span>
+                                        <span className="font-semibold">Ksh 10,500 (D1/D2)</span>
                                       </div>
                                       <div className="flex justify-between">
                                         <span className="text-gray-600">Duration:</span>
@@ -1017,7 +1051,7 @@ export function InteractiveCourseCards() {
               Fill in your details to complete your booking and download your confirmation
             </DialogDescription>
           </DialogHeader>
-          
+
           <div className="space-y-6 py-4">
             {/* Course Info */}
             {selectedCourse && (
@@ -1039,7 +1073,7 @@ export function InteractiveCourseCards() {
                   onChange={(e) => setBookingData({ ...bookingData, name: e.target.value })}
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone Number *</Label>
                 <Input
@@ -1049,7 +1083,7 @@ export function InteractiveCourseCards() {
                   onChange={(e) => setBookingData({ ...bookingData, phone: e.target.value })}
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="idNumber">ID Number *</Label>
                 <Input
@@ -1059,10 +1093,13 @@ export function InteractiveCourseCards() {
                   onChange={(e) => setBookingData({ ...bookingData, idNumber: e.target.value })}
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="branch">Preferred Branch *</Label>
-                <Select value={bookingData.branch} onValueChange={(value) => setBookingData({ ...bookingData, branch: value })}>
+                <Select
+                  value={bookingData.branch}
+                  onValueChange={(value) => setBookingData({ ...bookingData, branch: value })}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select branch" />
                   </SelectTrigger>
@@ -1083,7 +1120,7 @@ export function InteractiveCourseCards() {
                   </SelectContent>
                 </Select>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="date">Preferred Date *</Label>
                 <Input
@@ -1093,10 +1130,13 @@ export function InteractiveCourseCards() {
                   onChange={(e) => setBookingData({ ...bookingData, date: e.target.value })}
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="time">Preferred Time *</Label>
-                <Select value={bookingData.time} onValueChange={(value) => setBookingData({ ...bookingData, time: value })}>
+                <Select
+                  value={bookingData.time}
+                  onValueChange={(value) => setBookingData({ ...bookingData, time: value })}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select time" />
                   </SelectTrigger>
@@ -1137,12 +1177,8 @@ export function InteractiveCourseCards() {
                   </>
                 )}
               </Button>
-              
-              <Button
-                variant="outline"
-                onClick={() => setShowBookingDialog(false)}
-                className="flex-1"
-              >
+
+              <Button variant="outline" onClick={() => setShowBookingDialog(false)} className="flex-1">
                 Cancel
               </Button>
             </div>

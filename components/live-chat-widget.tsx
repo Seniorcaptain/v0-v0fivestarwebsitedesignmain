@@ -87,19 +87,19 @@ export function LiveChatWidget() {
     const message = userMessage.toLowerCase()
 
     if (message.includes("price") || message.includes("cost") || message.includes("fee")) {
-      return "Our fees are all-inclusive! B1/B2 car licenses are Ksh 13,000, motorcycles are Ksh 7,000. This includes 30 practical lessons, unlimited theory, basic mechanics, and a FREE learner's manual. Would you like to know more about any specific course?"
+      return "Our fees are all-inclusive! B1/B2 car licenses are Ksh 12,500 (SAVE KES 500!), motorcycles are Ksh 6,500 (SAVE KES 500!). This includes 30 practical lessons, unlimited theory, basic mechanics, and a FREE learner's manual. Would you like to know more about any specific course?"
     }
 
     if (message.includes("location") || message.includes("branch")) {
-      return "We have 14 convenient locations across Nairobi including Roysambu, Zimmerman, Tassia, Kahawa West, and more. Which area would be most convenient for you? I can provide specific branch details and contact information."
+      return "We have 14 convenient locations across Nairobi and Kiambu including Roysambu, Zimmerman, Tassia, Kahawa West, and more. Which area would be most convenient for you? I can provide specific branch details and contact information."
     }
 
     if (message.includes("book") || message.includes("schedule")) {
-      return "Great! I can help you book a lesson. We offer Private Classes (with pick & drop), Open Classes, and Refresher sessions. Our hours are Mon-Fri 8AM-5PM, Sat 8AM-5PM. Which course interests you?"
+      return "Great! I can help you book a lesson. We offer Private Classes (with pick & drop), Open Classes, and Refresher sessions. Our hours are Mon-Fri 7:00 AM - 7:00 PM, Sat 8:00 AM - 5:00 PM. Which course interests you?"
     }
 
     if (message.includes("time") || message.includes("hour") || message.includes("schedule")) {
-      return "We're open Monday-Friday 8:00 AM - 5:00 PM, and Saturday 8:00 AM - 5:00 PM. Sunday lessons are available upon request. We offer flexible scheduling to fit your needs!"
+      return "We're open Monday-Friday 7:00 AM - 7:00 PM, and Saturday 8:00 AM - 5:00 PM. Sunday lessons are available upon request. We offer flexible scheduling to fit your needs!"
     }
 
     return "Thank you for your question! For detailed information about our courses, pricing, and scheduling, I'd recommend calling our main office at 0794 478 773 or visiting your nearest branch. Is there anything specific I can help clarify?"
@@ -111,16 +111,7 @@ export function LiveChatWidget() {
   }
 
   if (isMinimized) {
-    return (
-      <div className="fixed bottom-6 right-6 z-50">
-        <Button
-          className="bg-gradient-to-r from-red-500 to-blue-600 hover:from-red-600 hover:to-blue-700 text-white rounded-full w-16 h-16 shadow-2xl animate-bounce"
-          onClick={() => setIsMinimized(false)}
-        >
-          <MessageCircle className="w-8 h-8" />
-        </Button>
-      </div>
-    )
+    return null
   }
 
   return (

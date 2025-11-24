@@ -196,10 +196,11 @@ export default function HomePage() {
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
-              Find Our Locations In Nairobi and Kiambu
+              Find Our Locations
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto font-medium mb-8">
-              Interactive Branch Locator - Click on any branch marker to view detailed information
+              Explore all our branches across Nairobi and Kiambu counties on our interactive map - Click markers for
+              details and directions
             </p>
           </div>
 
