@@ -230,20 +230,6 @@ export function InteractiveMap({ branches }: InteractiveMapProps) {
               Nearest Branches
             </Button>
           )}
-
-          {/* Quick Actions */}
-          <div className="absolute top-6 right-6 z-[500] hidden md:block">
-            <Button
-              size="sm"
-              className="bg-white/95 backdrop-blur-sm text-gray-700 hover:bg-white border-2 border-gray-200 shadow-xl"
-              onClick={() =>
-                window.open("https://www.google.com/maps/search/FIVESTAR+Driving+School+Nairobi", "_blank")
-              }
-            >
-              <Navigation className="w-4 h-4 mr-2" />
-              Open in Google Maps
-            </Button>
-          </div>
         </div>
       </div>
 

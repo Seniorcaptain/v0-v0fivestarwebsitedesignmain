@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { VideoHero } from "@/components/video-hero"
 import { MegaMenu } from "@/components/mega-menu"
 import { InteractiveCourseCards } from "@/components/interactive-course-cards"
+import { RefresherPackages } from "@/components/refresher-packages"
 import { EnhancedBookingSystem } from "@/components/enhanced-booking-system"
 import { GoogleReviewsTestimonials } from "@/components/google-reviews-testimonials"
 import { GalleryShowcase } from "@/components/gallery-showcase"
@@ -188,6 +189,7 @@ export default function HomePage() {
       <MegaMenu isScrolled={isScrolled} />
       <VideoHero />
       <InteractiveCourseCards />
+      <RefresherPackages />
       <GalleryShowcase />
       <EnhancedBookingSystem />
       <AboutSection />
