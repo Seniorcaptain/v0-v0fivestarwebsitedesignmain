@@ -121,6 +121,76 @@ export function EnhancedBookingSystem() {
         "FREE Learner's Manual",
       ],
     },
+    {
+      id: "refresher-8km",
+      name: "8km Refresher Package - 5 Days",
+      price: "Ksh 4,000",
+      description: "Quick refresher training - 8km route with 5 intensive days",
+      features: [
+        "8km Route Coverage",
+        "5 Intensive Days Training",
+        "Focus on Core Skills",
+        "Skill Improvement & Confidence",
+        "Professional Instruction",
+        "Suitable for beginners",
+      ],
+    },
+    {
+      id: "refresher-10km",
+      name: "10km Refresher Package - 5 Days",
+      price: "Ksh 5,000",
+      description: "Intermediate refresher training - 10km route with 5 intensive days",
+      features: [
+        "10km Route Coverage",
+        "5 Intensive Days Training",
+        "Enhanced Skill Development",
+        "Urban Driving Techniques",
+        "Professional Instruction",
+        "Intermediate Level",
+      ],
+    },
+    {
+      id: "refresher-12km",
+      name: "12km Refresher Package - 5 Days",
+      price: "Ksh 6,000",
+      description: "Advanced refresher training - 12km route with 5 intensive days",
+      features: [
+        "12km Route Coverage",
+        "5 Intensive Days Training",
+        "Advanced Driving Skills",
+        "Complex Traffic Scenarios",
+        "Professional Instruction",
+        "Advanced Level",
+      ],
+    },
+    {
+      id: "refresher-14km",
+      name: "14km Refresher Package - 5 Days",
+      price: "Ksh 7,000",
+      description: "Professional refresher training - 14km route with 5 intensive days",
+      features: [
+        "14km Route Coverage",
+        "5 Intensive Days Training",
+        "Professional Techniques",
+        "Highway Driving Skills",
+        "Expert Instruction",
+        "Professional Level",
+      ],
+    },
+    {
+      id: "refresher-16km",
+      name: "16km Refresher Package - 5 Days",
+      price: "Ksh 8,000",
+      description: "Comprehensive refresher training - 16km route with 5 intensive days",
+      features: [
+        "16km Route Coverage",
+        "5 Intensive Days Training",
+        "Comprehensive Skill Mastery",
+        "Advanced Highway Techniques",
+        "Expert Instruction",
+        "Master Level",
+      ],
+    },
   ]
 
   const classTypes = [
@@ -192,75 +262,75 @@ export function EnhancedBookingSystem() {
     const selectedBranch = branches.find((b) => b.id === bookingData.branch)
 
     const doc = new jsPDF()
-    
+
     // Set up modern colors
-    const primaryRed = '#dc2626'
-    const primaryBlue = '#2563eb'
-    const darkGray = '#1f2937'
-    const mediumGray = '#6b7280'
-    const lightGray = '#9ca3af'
-    const successGreen = '#10b981'
-    
+    const primaryRed = "#dc2626"
+    const primaryBlue = "#2563eb"
+    const darkGray = "#1f2937"
+    const mediumGray = "#6b7280"
+    const lightGray = "#9ca3af"
+    const successGreen = "#10b981"
+
     // Add subtle background pattern
     doc.setFillColor(248, 250, 252) // Very light blue-gray background
-    doc.rect(0, 0, 210, 297, 'F')
-    
+    doc.rect(0, 0, 210, 297, "F")
+
     // Header section with gradient effect
     doc.setFillColor(220, 38, 38) // Red background
-    doc.rect(0, 0, 210, 60, 'F')
-    
+    doc.rect(0, 0, 210, 60, "F")
+
     // Main title with shadow effect
     doc.setFontSize(28)
     doc.setTextColor(255, 255, 255) // White text
-    doc.text('FIVE ST★R DRIVING SCHOOL', 105, 25, { align: 'center' })
-    
+    doc.text("FIVE ST★R DRIVING SCHOOL", 105, 25, { align: "center" })
+
     doc.setFontSize(16)
     doc.setTextColor(255, 255, 255)
-    doc.text('BOOKING CONFIRMATION', 105, 40, { align: 'center' })
-    
+    doc.text("BOOKING CONFIRMATION", 105, 40, { align: "center" })
+
     doc.setFontSize(12)
     doc.setTextColor(255, 255, 255)
-    doc.text('"Driving Is Fun, Driving Is Freedom"', 105, 50, { align: 'center' })
-    
+    doc.text('"Driving Is Fun, Driving Is Freedom"', 105, 50, { align: "center" })
+
     // Booking Reference Box
     doc.setFillColor(255, 255, 255)
     doc.setDrawColor(220, 38, 38)
     doc.setLineWidth(2)
-    doc.rect(15, 75, 180, 25, 'FD')
-    
+    doc.rect(15, 75, 180, 25, "FD")
+
     doc.setFontSize(14)
     doc.setTextColor(darkGray)
-    doc.text('BOOKING REFERENCE', 25, 85)
+    doc.text("BOOKING REFERENCE", 25, 85)
     doc.setFontSize(18)
     doc.setTextColor(primaryRed)
     doc.text(bookingReference, 25, 95)
-    
+
     doc.setFontSize(12)
     doc.setTextColor(mediumGray)
     doc.text(`Generated: ${formatDateConsistent(new Date())}`, 130, 95)
-    
+
     // Student Information Section
     let currentY = 120
-    
+
     // Section header with background
     doc.setFillColor(37, 99, 235) // Blue background
-    doc.rect(15, currentY - 8, 180, 20, 'F')
-    
+    doc.rect(15, currentY - 8, 180, 20, "F")
+
     doc.setFontSize(16)
     doc.setTextColor(255, 255, 255)
-    doc.text('👤 STUDENT INFORMATION', 25, currentY + 2)
-    
+    doc.text("👤 STUDENT INFORMATION", 25, currentY + 2)
+
     currentY += 25
-    
+
     // Student details with better spacing
     doc.setFontSize(12)
     doc.setTextColor(darkGray)
     const studentInfo = [
-      { label: 'Full Name:', value: bookingData.personalInfo.name },
-      { label: 'Phone Number:', value: bookingData.personalInfo.phone },
-      { label: 'ID Number:', value: bookingData.personalInfo.idNumber }
+      { label: "Full Name:", value: bookingData.personalInfo.name },
+      { label: "Phone Number:", value: bookingData.personalInfo.phone },
+      { label: "ID Number:", value: bookingData.personalInfo.idNumber },
     ]
-    
+
     studentInfo.forEach((info) => {
       doc.setTextColor(mediumGray)
       doc.text(info.label, 25, currentY)
@@ -268,29 +338,29 @@ export function EnhancedBookingSystem() {
       doc.text(info.value, 85, currentY)
       currentY += 12
     })
-    
+
     currentY += 10
-    
+
     // Course Details Section
     doc.setFillColor(16, 185, 129) // Green background
-    doc.rect(15, currentY - 8, 180, 20, 'F')
-    
+    doc.rect(15, currentY - 8, 180, 20, "F")
+
     doc.setFontSize(16)
     doc.setTextColor(255, 255, 255)
-    doc.text('🎓 COURSE DETAILS', 25, currentY + 2)
-    
+    doc.text("🎓 COURSE DETAILS", 25, currentY + 2)
+
     currentY += 25
-    
+
     // Course information with better layout
     const courseDetails = [
-      { label: 'Course:', value: selectedCourse?.name || 'Not selected' },
-      { label: 'Price:', value: selectedCourse?.price || 'N/A' },
-      { label: 'Class Type:', value: selectedClassType?.name || 'Not selected' },
-      { label: 'Branch Location:', value: `${selectedBranch?.name} - ${selectedBranch?.address}` || 'Not selected' },
-      { label: 'Scheduled Date:', value: selectedDate ? format(selectedDate, "EEEE, MMMM dd, yyyy") : "Not selected" },
-      { label: 'Time Slot:', value: bookingData.timeSlot || 'Not selected' }
+      { label: "Course:", value: selectedCourse?.name || "Not selected" },
+      { label: "Price:", value: selectedCourse?.price || "N/A" },
+      { label: "Class Type:", value: selectedClassType?.name || "Not selected" },
+      { label: "Branch Location:", value: `${selectedBranch?.name} - ${selectedBranch?.address}` || "Not selected" },
+      { label: "Scheduled Date:", value: selectedDate ? format(selectedDate, "EEEE, MMMM dd, yyyy") : "Not selected" },
+      { label: "Time Slot:", value: bookingData.timeSlot || "Not selected" },
     ]
-    
+
     courseDetails.forEach((detail) => {
       doc.setFontSize(12)
       doc.setTextColor(mediumGray)
@@ -299,63 +369,63 @@ export function EnhancedBookingSystem() {
       doc.text(detail.value, 85, currentY)
       currentY += 12
     })
-    
+
     currentY += 15
-    
+
     // Course Features Section
     doc.setFillColor(245, 158, 11) // Orange background
-    doc.rect(15, currentY - 8, 180, 20, 'F')
-    
+    doc.rect(15, currentY - 8, 180, 20, "F")
+
     doc.setFontSize(16)
     doc.setTextColor(255, 255, 255)
-    doc.text('⭐ COURSE FEATURES & BENEFITS', 25, currentY + 2)
-    
+    doc.text("⭐ COURSE FEATURES & BENEFITS", 25, currentY + 2)
+
     currentY += 25
-    
+
     // Enhanced features list
     const enhancedFeatures = [
-      '✅ 30 Comprehensive Practical Lessons (NEW NTSA Curriculum)',
-      '✅ Unlimited Digital Theory Sessions with Expert Instructors',
-      '✅ Enhanced Vehicle Mechanics Training (2024 Standards)',
-      '✅ FREE Official NTSA Learner\'s Manual (Latest Edition)',
-      '✅ NTSA Certified Professional Training (Updated Standards)',
-      '✅ All-Inclusive Fee Structure',
-      '✅ Multiple Branch Locations for Convenience',
-      '✅ Flexible Scheduling Options'
+      "✅ 30 Comprehensive Practical Lessons (NEW NTSA Curriculum)",
+      "✅ Unlimited Digital Theory Sessions with Expert Instructors",
+      "✅ Enhanced Vehicle Mechanics Training (2024 Standards)",
+      "✅ FREE Official NTSA Learner's Manual (Latest Edition)",
+      "✅ NTSA Certified Professional Training (Updated Standards)",
+      "✅ All-Inclusive Fee Structure",
+      "✅ Multiple Branch Locations for Convenience",
+      "✅ Flexible Scheduling Options",
     ]
-    
+
     const leftFeatures = enhancedFeatures.slice(0, 4)
     const rightFeatures = enhancedFeatures.slice(4)
-    
+
     doc.setFontSize(11)
     doc.setTextColor(darkGray)
-    
+
     leftFeatures.forEach((feature, index) => {
-      doc.text(feature, 25, currentY + (index * 12))
+      doc.text(feature, 25, currentY + index * 12)
     })
-    
+
     rightFeatures.forEach((feature, index) => {
-      doc.text(feature, 115, currentY + (index * 12))
+      doc.text(feature, 115, currentY + index * 12)
     })
-    
+
     currentY += 60
-    
+
     // Operating Hours Section
     doc.setFillColor(139, 92, 246) // Purple background
-    doc.rect(15, currentY - 8, 85, 20, 'F')
-    
+    doc.rect(15, currentY - 8, 85, 20, "F")
+
     doc.setFontSize(14)
     doc.setTextColor(255, 255, 255)
-    doc.text('🕒 OPERATING HOURS', 25, currentY + 2)
-    
+    doc.text("🕒 OPERATING HOURS", 25, currentY + 2)
+
     currentY += 25
-    
+
     const operatingHours = [
-      { day: 'Mon - Fri:', hours: '7:00 AM - 7:00 PM' },
-      { day: 'Saturday:', hours: '8:00 AM - 5:00 PM' },
-      { day: 'Sunday:', hours: 'Available Upon Request' }
+      { day: "Mon - Fri:", hours: "7:00 AM - 7:00 PM" },
+      { day: "Saturday:", hours: "8:00 AM - 5:00 PM" },
+      { day: "Sunday:", hours: "Available Upon Request" },
     ]
-    
+
     doc.setFontSize(11)
     operatingHours.forEach((schedule) => {
       doc.setTextColor(mediumGray)
@@ -364,24 +434,24 @@ export function EnhancedBookingSystem() {
       doc.text(schedule.hours, 70, currentY)
       currentY += 10
     })
-    
+
     // Contact Information Section (right side)
     let contactY = currentY - 45
     doc.setFillColor(236, 72, 153) // Pink background
-    doc.rect(110, contactY - 8, 85, 20, 'F')
-    
+    doc.rect(110, contactY - 8, 85, 20, "F")
+
     doc.setFontSize(14)
     doc.setTextColor(255, 255, 255)
-    doc.text('📞 CONTACT INFO', 120, contactY + 2)
-    
+    doc.text("📞 CONTACT INFO", 120, contactY + 2)
+
     contactY += 25
-    
+
     const contactInfo = [
-      { label: 'Branch:', value: selectedBranch?.phone || 'N/A' },
-      { label: 'Main Office:', value: '0794 478 773' },
-      { label: 'Email:', value: 'info@fivestardrivingschool.co.ke' }
+      { label: "Branch:", value: selectedBranch?.phone || "N/A" },
+      { label: "Main Office:", value: "0794 478 773" },
+      { label: "Email:", value: "info@fivestardrivingschool.co.ke" },
     ]
-    
+
     doc.setFontSize(10)
     contactInfo.forEach((contact) => {
       doc.setTextColor(mediumGray)
@@ -390,17 +460,17 @@ export function EnhancedBookingSystem() {
       doc.text(contact.value, 120, contactY + 8)
       contactY += 15
     })
-    
+
     // Special requests if any
     if (bookingData.specialRequests && bookingData.specialRequests.trim()) {
       currentY += 20
       doc.setFillColor(168, 85, 247) // Purple background
-      doc.rect(15, currentY - 8, 180, 15, 'F')
-      
+      doc.rect(15, currentY - 8, 180, 15, "F")
+
       doc.setFontSize(14)
       doc.setTextColor(255, 255, 255)
-      doc.text('📝 SPECIAL REQUESTS', 25, currentY + 2)
-      
+      doc.text("📝 SPECIAL REQUESTS", 25, currentY + 2)
+
       currentY += 20
       doc.setFontSize(11)
       doc.setTextColor(darkGray)
@@ -408,24 +478,24 @@ export function EnhancedBookingSystem() {
       doc.text(splitText, 25, currentY)
       currentY += splitText.length * 6
     }
-    
+
     // Footer section
     const footerY = 270
     doc.setFillColor(31, 41, 55) // Dark background
-    doc.rect(0, footerY, 210, 27, 'F')
-    
+    doc.rect(0, footerY, 210, 27, "F")
+
     doc.setFontSize(16)
     doc.setTextColor(255, 255, 255)
-    doc.text('Thank you for choosing FIVE ST★R Driving School!', 105, footerY + 10, { align: 'center' })
-    
+    doc.text("Thank you for choosing FIVE ST★R Driving School!", 105, footerY + 10, { align: "center" })
+
     doc.setFontSize(12)
     doc.setTextColor(220, 38, 38)
-    doc.text('🚗 "Driving Is Fun, Driving Is Freedom" 🚗', 105, footerY + 20, { align: 'center' })
-    
+    doc.text('🚗 "Driving Is Fun, Driving Is Freedom" 🚗', 105, footerY + 20, { align: "center" })
+
     // Save the PDF
     doc.save(`FIVE_STAR_Booking_${bookingReference}.pdf`)
   }
-  
+
   const sendMainWhatsAppMessage = () => {
     const selectedCourse = courses.find((c) => c.id === bookingData.course)
     const selectedClassType = classTypes.find((ct) => ct.id === bookingData.classType)
@@ -459,11 +529,11 @@ Please follow up with the student to confirm and finalize the booking details.
     const mainWhatsApp = `https://wa.me/254794478773?text=${encodeURIComponent(message)}`
     window.open(mainWhatsApp, "_blank")
   }
-  
+
   const downloadAndSendWhatsApp = () => {
     // First download the PDF
     downloadBookingPDF()
-    
+
     // Then send WhatsApp message to main office
     setTimeout(() => {
       sendMainWhatsAppMessage()
@@ -513,12 +583,12 @@ Please confirm this booking and contact the student.`
     await new Promise((resolve) => setTimeout(resolve, 2000))
     setIsSubmitting(false)
     setBookingComplete(true)
-    
+
     // Automatically send booking to main WhatsApp number
     setTimeout(() => {
       sendMainWhatsAppMessage()
     }, 500)
-    
+
     // Also send to branch WhatsApp for backup
     setTimeout(() => {
       sendWhatsAppMessage()
@@ -584,7 +654,7 @@ Please confirm this booking and contact the student.`
                     ✅ Booking automatically sent to main office WhatsApp: 0794 478 773
                   </p>
                 </div>
-                
+
                 <Button
                   className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white"
                   onClick={downloadBookingPDF}
@@ -1082,14 +1152,16 @@ Please confirm this booking and contact the student.`
                         <DialogTitle>Confirm Your Booking</DialogTitle>
                         <DialogDescription>
                           Please review your booking details before confirming. You will receive a booking confirmation
-                          and the booking will be automatically sent to both the main office (0794 478 773) and your selected branch.
+                          and the booking will be automatically sent to both the main office (0794 478 773) and your
+                          selected branch.
                         </DialogDescription>
                       </DialogHeader>
 
                       <div className="py-4">
                         <p className="text-sm text-gray-600 mb-4">
                           By confirming this booking, you agree to our terms and conditions. You will receive a
-                          downloadable confirmation and booking notifications will be automatically sent to the main office and your selected branch.
+                          downloadable confirmation and booking notifications will be automatically sent to the main
+                          office and your selected branch.
                         </p>
 
                         <div className="flex space-x-3">
