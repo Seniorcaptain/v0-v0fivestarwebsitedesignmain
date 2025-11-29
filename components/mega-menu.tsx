@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -31,6 +33,24 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    const targetId = href.replace("#", "")
+    const element = document.getElementById(targetId)
+    if (element) {
+      const navHeight = 80 // Height of the fixed navigation
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+      const offsetPosition = elementPosition - navHeight
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      })
+    }
+    setActiveMenu(null)
+    setIsOpen(false)
+  }
 
   const handleMouseEnter = (menuTitle: string) => {
     if (timeoutRef.current) {
@@ -212,7 +232,8 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                 >
                   <a
                     href={item.href}
-                    className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl transition-all duration-300 relative group font-semibold ${
+                    onClick={(e) => scrollToSection(e, item.href)}
+                    className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl transition-all duration-300 relative group font-semibold cursor-pointer ${
                       isScrolled
                         ? "text-gray-700 hover:text-red-600 hover:bg-red-50"
                         : "text-white hover:text-yellow-300 hover:bg-white/10"
@@ -251,6 +272,9 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                                 <Card
                                   key={index}
                                   className="border-2 border-gray-100 hover:border-red-300 hover:shadow-xl transition-all duration-300 cursor-pointer group bg-gradient-to-br from-white to-gray-50"
+                                  onClick={(e) =>
+                                    scrollToSection(e as unknown as React.MouseEvent<HTMLAnchorElement>, "#courses")
+                                  }
                                 >
                                   <CardContent className="p-5">
                                     <div className="flex items-start justify-between gap-4">
@@ -262,7 +286,7 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                                               {course.title}
                                             </h4>
                                             {course.popular && (
-                                              <Badge className="bg-red-500 text-white text-xs">🔥 Popular</Badge>
+                                              <Badge className="bg-red-500 text-white text-xs">Popular</Badge>
                                             )}
                                           </div>
                                           <p className="text-sm text-gray-600 mb-3">{course.description}</p>
@@ -284,6 +308,13 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                                         <Button
                                           size="sm"
                                           className="mt-2 bg-gradient-to-r from-red-500 to-blue-500 hover:from-red-600 hover:to-blue-600 text-white"
+                                          onClick={(e) => {
+                                            e.stopPropagation()
+                                            scrollToSection(
+                                              e as unknown as React.MouseEvent<HTMLAnchorElement>,
+                                              "#courses",
+                                            )
+                                          }}
                                         >
                                           Learn More
                                         </Button>
@@ -303,6 +334,9 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                                 <div
                                   key={index}
                                   className="flex items-center justify-between p-4 rounded-xl bg-white hover:shadow-lg cursor-pointer transition-all group border border-gray-100"
+                                  onClick={(e) =>
+                                    scrollToSection(e as unknown as React.MouseEvent<HTMLAnchorElement>, "#courses")
+                                  }
                                 >
                                   <div className="flex items-center space-x-3">
                                     {category.icon && <category.icon className="w-5 h-5 text-red-500" />}
@@ -316,6 +350,15 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                                 </div>
                               ))}
                             </div>
+                            <Button
+                              className="w-full mt-6 bg-gradient-to-r from-red-500 to-blue-500 hover:from-red-600 hover:to-blue-600 text-white"
+                              onClick={(e) =>
+                                scrollToSection(e as unknown as React.MouseEvent<HTMLAnchorElement>, "#courses")
+                              }
+                            >
+                              View All Courses
+                              <ArrowRight className="w-4 h-4 ml-2" />
+                            </Button>
                           </div>
                         </div>
                       )}
@@ -338,6 +381,9 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                                     ? "border-green-300 bg-gradient-to-br from-green-50 to-emerald-50"
                                     : "border-gray-100"
                                 }`}
+                                onClick={(e) =>
+                                  scrollToSection(e as unknown as React.MouseEvent<HTMLAnchorElement>, "#branches")
+                                }
                               >
                                 <CardContent className="p-5">
                                   <div className="flex items-start justify-between mb-3">
@@ -355,6 +401,7 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                                     <a
                                       href={`tel:${branch.phone}`}
                                       className="text-sm font-semibold text-green-600 hover:text-green-700"
+                                      onClick={(e) => e.stopPropagation()}
                                     >
                                       {branch.phone}
                                     </a>
@@ -363,6 +410,10 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                                     size="sm"
                                     variant="outline"
                                     className="w-full border-green-500 text-green-600 hover:bg-green-50 bg-transparent"
+                                    onClick={(e) => {
+                                      e.stopPropagation()
+                                      scrollToSection(e as unknown as React.MouseEvent<HTMLAnchorElement>, "#branches")
+                                    }}
                                   >
                                     <Navigation className="w-3 h-3 mr-2" />
                                     Get Directions
@@ -374,7 +425,8 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                           <div className="mt-6 text-center">
                             <a
                               href="#branches"
-                              className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold"
+                              onClick={(e) => scrollToSection(e, "#branches")}
+                              className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold cursor-pointer"
                             >
                               View All Branches on Map
                               <ArrowRight className="w-4 h-4" />
@@ -395,6 +447,9 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                               <Card
                                 key={index}
                                 className="border-2 border-gray-100 hover:border-blue-300 hover:shadow-xl transition-all duration-300 cursor-pointer group text-center"
+                                onClick={(e) =>
+                                  scrollToSection(e as unknown as React.MouseEvent<HTMLAnchorElement>, "#courses")
+                                }
                               >
                                 <CardContent className="p-6">
                                   <div className="text-4xl mb-3">{pricing.icon}</div>
@@ -408,7 +463,8 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                           <div className="mt-6 text-center">
                             <a
                               href="#courses"
-                              className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold"
+                              onClick={(e) => scrollToSection(e, "#courses")}
+                              className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold cursor-pointer"
                             >
                               View Detailed Pricing
                               <ArrowRight className="w-4 h-4" />
@@ -421,7 +477,7 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                       {item.title === "About" && item.content && (
                         <div>
                           <div className="text-center mb-6">
-                            <h3 className="text-2xl font-bold text-gray-900 mb-2">About FIVE ST★R</h3>
+                            <h3 className="text-2xl font-bold text-gray-900 mb-2">About FIVE STAR</h3>
                             <p className="text-gray-600">Learn more about Kenya's premier driving school</p>
                           </div>
                           <div className="grid md:grid-cols-2 gap-6">
@@ -429,7 +485,8 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                               <a
                                 key={index}
                                 href={link.href}
-                                className="flex items-center space-x-4 p-5 rounded-2xl bg-gradient-to-br from-gray-50 to-blue-50 hover:shadow-xl transition-all group border-2 border-gray-100 hover:border-blue-200"
+                                onClick={(e) => scrollToSection(e, link.href)}
+                                className="flex items-center space-x-4 p-5 rounded-2xl bg-gradient-to-br from-gray-50 to-blue-50 hover:shadow-xl transition-all group border-2 border-gray-100 hover:border-blue-200 cursor-pointer"
                               >
                                 <div className="w-14 h-14 bg-gradient-to-r from-red-500 to-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
                                   <link.icon className="w-7 h-7 text-white" />
@@ -448,7 +505,6 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                       )}
                     </div>
                   )}
-                  {/* </CHANGE> */}
                 </div>
               ))}
 
@@ -494,14 +550,14 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
               <a
                 key={item.title}
                 href={item.href}
-                className="flex items-center justify-between p-4 text-xl text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-300 font-semibold border-2 border-gray-100"
-                onClick={() => setIsOpen(false)}
+                className="flex items-center justify-between p-4 text-xl text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-300 font-semibold border-2 border-gray-100 cursor-pointer"
+                onClick={(e) => scrollToSection(e, item.href)}
               >
                 <div className="flex items-center space-x-3">
                   <item.icon className="w-6 h-6" />
                   <span>{item.title}</span>
                 </div>
-                <ChevronDown className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5" />
               </a>
             ))}
             <Button
