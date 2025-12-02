@@ -14,15 +14,11 @@ interface Message {
   agentName?: string
 }
 
-interface Agent {
-  name: string
-  role: string
-  status: "online" | "busy" | "offline"
-  avatar: string
+interface LiveChatWidgetProps {
+  onClose?: () => void
 }
 
-export function LiveChatWidget() {
-  const [isMinimized, setIsMinimized] = useState(false)
+export function LiveChatWidget({ onClose }: LiveChatWidgetProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -35,15 +31,6 @@ export function LiveChatWidget() {
   const [newMessage, setNewMessage] = useState("")
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-
-  const agents: Agent[] = [
-    {
-      name: "Customer Support",
-      role: "Support Agent",
-      status: "online",
-      avatar: "/placeholder.svg?height=40&width=40&text=CS",
-    },
-  ]
 
   const quickReplies = ["Course information", "Pricing details", "Branch locations", "Book a lesson", "Operating hours"]
 
@@ -68,7 +55,6 @@ export function LiveChatWidget() {
       setNewMessage("")
       setIsTyping(true)
 
-      // Simulate agent response
       setTimeout(() => {
         const agentResponse: Message = {
           id: (Date.now() + 1).toString(),
@@ -87,19 +73,28 @@ export function LiveChatWidget() {
     const message = userMessage.toLowerCase()
 
     if (message.includes("price") || message.includes("cost") || message.includes("fee")) {
-      return "Our fees are all-inclusive! B1/B2 car licenses are Ksh 12,500 (SAVE KES 500!), motorcycles are Ksh 6,500 (SAVE KES 500!). This includes 30 practical lessons, unlimited theory, basic mechanics, and a FREE learner's manual. Would you like to know more about any specific course?"
+      return "Our fees are all-inclusive! B1/B2 car licenses are Ksh 12,500, motorcycles are Ksh 6,500. This includes 30 practical lessons, unlimited theory, basic mechanics, and a FREE learner's manual. Would you like to know more about any specific course?"
     }
 
     if (message.includes("location") || message.includes("branch")) {
-      return "We have 14 convenient locations across Nairobi and Kiambu including Roysambu, Zimmerman, Tassia, Kahawa West, and more. Which area would be most convenient for you? I can provide specific branch details and contact information."
+      return "We have convenient locations across Nairobi and Kiambu including Roysambu, Zimmerman, Tassia, Kahawa West, and more. Which area would be most convenient for you? I can provide specific branch details and contact information."
     }
 
     if (message.includes("book") || message.includes("schedule")) {
       return "Great! I can help you book a lesson. We offer Private Classes (with pick & drop), Open Classes, and Refresher sessions. Our hours are Mon-Fri 7:00 AM - 7:00 PM, Sat 8:00 AM - 5:00 PM. Which course interests you?"
     }
 
-    if (message.includes("time") || message.includes("hour") || message.includes("schedule")) {
+    if (
+      message.includes("time") ||
+      message.includes("hour") ||
+      message.includes("schedule") ||
+      message.includes("open")
+    ) {
       return "We're open Monday-Friday 7:00 AM - 7:00 PM, and Saturday 8:00 AM - 5:00 PM. Sunday lessons are available upon request. We offer flexible scheduling to fit your needs!"
+    }
+
+    if (message.includes("refresher")) {
+      return "We offer Weekly Refresher Packages: 8km/5 days (Ksh 4,000), 10km/5 days (Ksh 5,000), 12km/5 days (Ksh 6,000), 14km/5 days (Ksh 7,000), and 16km/5 days (Ksh 8,000). Would you like to book one?"
     }
 
     return "Thank you for your question! For detailed information about our courses, pricing, and scheduling, I'd recommend calling our main office at 0794 478 773 or visiting your nearest branch. Is there anything specific I can help clarify?"
@@ -107,11 +102,13 @@ export function LiveChatWidget() {
 
   const handleQuickReply = (reply: string) => {
     setNewMessage(reply)
-    sendMessage()
+    setTimeout(() => sendMessage(), 100)
   }
 
-  if (isMinimized) {
-    return null
+  const handleClose = () => {
+    if (onClose) {
+      onClose()
+    }
   }
 
   return (
@@ -131,12 +128,7 @@ export function LiveChatWidget() {
                 </div>
               </div>
             </div>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="text-white hover:bg-white/20 p-1"
-              onClick={() => setIsMinimized(true)}
-            >
+            <Button size="sm" variant="ghost" className="text-white hover:bg-white/20 p-1" onClick={handleClose}>
               <X className="w-5 h-5" />
             </Button>
           </div>

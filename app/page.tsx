@@ -184,6 +184,10 @@ export default function HomePage() {
     setShowLiveChat(true)
   }
 
+  const handleLiveChatClose = () => {
+    setShowLiveChat(false)
+  }
+
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
       <MegaMenu isScrolled={isScrolled} />
@@ -212,7 +216,7 @@ export default function HomePage() {
       <GoogleReviewsTestimonials />
       <InteractiveFAQ />
 
-      {showLiveChat && <LiveChatWidget />}
+      {showLiveChat && <LiveChatWidget onClose={handleLiveChatClose} />}
       <ChatSupportToggle onWhatsAppClick={handleWhatsAppClick} onLiveChatClick={handleLiveChatClick} />
     </div>
   )
