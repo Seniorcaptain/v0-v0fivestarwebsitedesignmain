@@ -11,7 +11,7 @@ This is a **Five Star Driving School** website built with Next.js 14 and deploye
 ## Development Commands
 
 ### Essential Commands
-\`\`\`bash
+```bash
 # Install dependencies
 npm install
 
@@ -26,7 +26,7 @@ npm run start
 
 # Run ESLint
 npm run lint
-\`\`\`
+```
 
 ### Development Workflow
 - Use `npm run dev` to start the development server on http://localhost:3000
@@ -45,7 +45,7 @@ npm run lint
 - **Forms**: React Hook Form with Zod validation
 
 ### Project Structure
-\`\`\`
+```
 app/
 ├── globals.css          # Global styles and CSS variables
 ├── layout.tsx          # Root layout with metadata and fonts
@@ -61,7 +61,7 @@ components/
 
 lib/
 └── utils.ts            # Utility functions (cn for className merging)
-\`\`\`
+```
 
 ### Key Component Patterns
 
@@ -74,11 +74,11 @@ lib/
 ### UI Component System
 
 The app uses shadcn/ui components with these import patterns:
-\`\`\`typescript
+```typescript
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-\`\`\`
+```
 
 ### Styling Architecture
 
