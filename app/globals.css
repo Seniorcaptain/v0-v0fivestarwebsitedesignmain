@@ -203,6 +203,16 @@
   animation: pulse-gentle 2s ease-in-out infinite;
 }
 
+/* Added scrollbar-hide utility for thumbnail strip */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

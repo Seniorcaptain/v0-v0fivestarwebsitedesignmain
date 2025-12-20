@@ -4,7 +4,7 @@
 This guide explains how to integrate images from your PIXIESet gallery (https://ian51.pixieset.com/fivestardrivingschoolshoot/) into your website.
 
 ## Folder Structure
-```
+\`\`\`
 /public/images/gallery/
 ├── training/
 │   ├── practical-lesson-*.jpg
@@ -31,7 +31,7 @@ This guide explains how to integrate images from your PIXIESet gallery (https://
     ├── happy-students-*.jpg
     ├── first-time-pass-*.jpg
     └── student-celebration-*.jpg
-```
+\`\`\`
 
 ## Steps to Add Images
 
@@ -50,7 +50,7 @@ This guide explains how to integrate images from your PIXIESet gallery (https://
 - Add new entries to `GALLERY_IMAGES` array
 - Update: id, src (file path), title, description, category, location, date, tags
 - Example:
-  ```typescript
+  \`\`\`typescript
   {
     id: "training-5",
     src: "/images/gallery/training/practical-lesson-05.jpg",
@@ -64,7 +64,7 @@ This guide explains how to integrate images from your PIXIESet gallery (https://
     date: "2024-01-25",
     tags: ["driving", "highway", "practical"],
   }
-  ```
+  \`\`\`
 
 ### 4. Test & Verify
 - Save changes and refresh website
@@ -79,7 +79,7 @@ This guide explains how to integrate images from your PIXIESet gallery (https://
 - **Ratio**: 4:3 aspect ratio recommended
 
 ## Naming Convention
-```
+\`\`\`
 {category}-{type}-{number}.jpg
 
 Examples:
@@ -89,7 +89,7 @@ Examples:
 - events-graduation-ceremony-01.jpg
 - team-instructors-01.jpg
 - success-happy-students-02.jpg
-```
+\`\`\`
 
 ## Categories
 - **training**: Practical lessons, theory classes, classrooms

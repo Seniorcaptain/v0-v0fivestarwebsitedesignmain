@@ -30,6 +30,8 @@ interface Course {
   ageGroup: string
   vehicleType: string
   transmission: string
+  ntsa_category: string
+  class_type: string
   description: string
   features: string[]
   schedule: string[]
@@ -37,8 +39,7 @@ interface Course {
   icon: string
   popular: boolean
   discount?: number
-  ntsa_category: string
-  class_type: string
+  bestSelling?: boolean
 }
 
 export function InteractiveCourseCards() {
@@ -327,13 +328,14 @@ export function InteractiveCourseCards() {
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
         "Inclusive of PDL Assessment & Final Exams",
-        "SAVE KES 500 with NEW NTSA CURRICULUM Offer!",
+        "SAVE KES 2,000 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid B2 License (2 years)", "Passport photos (2)"],
       icon: "🚘",
       popular: false,
-      discount: 500,
+      bestSelling: true,
+      discount: 2000,
     },
     {
       id: "c1-light-trucks",
@@ -418,13 +420,14 @@ export function InteractiveCourseCards() {
         "Comprehensive Assessment & Testing",
         "Inclusive of PDL Assessment & Final Exams",
         "Has Two Seperate Exams",
-        "SAVE KES 500 with NEW NTSA CURRICULUM Offer!",
+        "SAVE KES 2,000 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid National ID", "Passport photos (2)"],
       icon: "🚗🚚",
       popular: false,
-      discount: 500,
+      bestSelling: true,
+      discount: 2000,
     },
     {
       id: "b3-d1-d2-van-license",
@@ -688,9 +691,15 @@ export function InteractiveCourseCards() {
                 </div>
               )}
 
+              {course.bestSelling && !course.popular && (
+                <div className="absolute top-0 right-0 bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-1 text-sm font-bold rounded-bl-lg z-10">
+                  BEST SELLING
+                </div>
+              )}
+
               {course.discount && (
                 <div className="absolute top-0 left-0 bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-1 text-sm font-bold rounded-br-lg z-10">
-                  SAVE KSH {course.discount}
+                  SAVE KSH {course.discount.toLocaleString()}
                 </div>
               )}
 
