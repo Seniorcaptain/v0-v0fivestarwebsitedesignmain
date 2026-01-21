@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Phone, MessageCircle, MapPin, Award, Users, Star, ChevronLeft, ChevronRight } from "lucide-react"
@@ -41,13 +42,6 @@ export function VideoHero() {
       src: "/images/mg-0039.jpeg",
       poster: "/images/mg-0039.jpeg",
       description: "Spacious Toyota Fielder - perfect for comfortable learning experience",
-    },
-    {
-      id: 5,
-      title: "Toyota Corolla Axio",
-      src: "/images/mg-00e17.jpg",
-      poster: "/images/mg-00e17.jpg",
-      description: "Silver Toyota Corolla Axio - reliable training vehicle",
     },
   ]
 
@@ -100,10 +94,14 @@ export function VideoHero() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full">
-        <img
+        <Image
           src={currentVideo.poster || "/placeholder.svg"}
           alt={currentVideo.title}
-          className="w-full h-full object-cover transition-all duration-500"
+          fill
+          priority={currentVideoIndex === 0}
+          quality={85}
+          className="object-cover transition-all duration-500"
+          sizes="100vw"
         />
 
         {/* Video Overlay */}

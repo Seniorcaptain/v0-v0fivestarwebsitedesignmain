@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect, useCallback, useRef } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -484,21 +485,27 @@ export function PhotoGalleryViewer() {
               <div className="w-12 h-12 border-4 border-zinc-700 border-t-orange-500 rounded-full animate-spin" />
             </div>
           )}
-          <img
-            ref={imageRef}
-            src={currentImage.src || "/placeholder.svg"}
-            alt={currentImage.title}
-            className={cn(
-              "max-w-full max-h-full object-contain transition-all duration-300",
-              isLoading ? "opacity-0" : "opacity-100",
-            )}
-            style={{
-              transform: `scale(${zoom}) translate(${panPosition.x / zoom}px, ${panPosition.y / zoom}px)`,
-              transition: isDragging ? "none" : "transform 0.3s ease",
-            }}
-            onLoad={() => setIsLoading(false)}
-            draggable={false}
-          />
+          <div className="relative w-full h-full" style={{ maxWidth: "1200px", maxHeight: "700px" }}>
+            <Image
+              ref={imageRef}
+              src={currentImage.src || "/placeholder.svg"}
+              alt={currentImage.title}
+              fill
+              priority={true}
+              quality={90}
+              className={cn(
+                "object-contain transition-all duration-300",
+                isLoading ? "opacity-0" : "opacity-100",
+              )}
+              style={{
+                transform: `scale(${zoom}) translate(${panPosition.x / zoom}px, ${panPosition.y / zoom}px)`,
+                transition: isDragging ? "none" : "transform 0.3s ease",
+              }}
+              onLoadingComplete={() => setIsLoading(false)}
+              draggable={false}
+              sizes="(max-width: 768px) 100vw, 1200px"
+            />
+          </div>
         </div>
 
         {/* Image Info Overlay */}
@@ -549,10 +556,13 @@ export function PhotoGalleryViewer() {
                     : "opacity-50 hover:opacity-100 hover:scale-105",
                 )}
               >
-                <img
+                <Image
                   src={image.src || "/placeholder.svg"}
                   alt={image.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  quality={60}
+                  className="object-cover"
+                  sizes="100px"
                   loading="lazy"
                 />
                 {index === currentIndex && <div className="absolute inset-0 bg-orange-500/20" />}

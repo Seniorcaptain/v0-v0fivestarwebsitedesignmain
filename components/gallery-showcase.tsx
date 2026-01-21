@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -244,10 +245,14 @@ export function GalleryShowcase() {
             >
               <CardContent className="p-0">
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
+                  <Image
                     src={image.src || "/placeholder.svg"}
                     alt={image.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    fill
+                    quality={80}
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    loading="lazy"
                   />
 
                   {/* Overlay with modern effects */}
@@ -360,11 +365,17 @@ export function GalleryShowcase() {
           <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden">
             {selectedImage && (
               <div className="relative">
-                <img
-                  src={selectedImage.src || "/placeholder.svg"}
-                  alt={selectedImage.title}
-                  className="w-full h-auto max-h-[70vh] object-contain"
-                />
+                <div className="relative w-full" style={{ aspectRatio: "16/10" }}>
+                  <Image
+                    src={selectedImage.src || "/placeholder.svg"}
+                    alt={selectedImage.title}
+                    fill
+                    quality={90}
+                    className="object-contain"
+                    sizes="(max-width: 1280px) 100vw, 1280px"
+                    priority
+                  />
+                </div>
 
                 {/* Navigation Arrows */}
                 <Button

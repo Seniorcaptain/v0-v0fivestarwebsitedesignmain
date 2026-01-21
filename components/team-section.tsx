@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -156,11 +157,15 @@ export function TeamSection() {
               key={member.id}
               className="bg-white border-0 hover:shadow-2xl transition-all duration-500 hover:transform hover:scale-105 group overflow-hidden"
             >
-              <div className="relative">
-                <img
+              <div className="relative w-full h-64 overflow-hidden">
+                <Image
                   src={member.image || "/placeholder.svg"}
                   alt={member.name}
-                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                  fill
+                  quality={80}
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
 
