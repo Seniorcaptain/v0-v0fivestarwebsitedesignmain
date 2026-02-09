@@ -228,8 +228,8 @@ export function InteractiveCourseCards() {
       description:
         "Complete motorcycle training program covering both A2 standard motorcycles and A3 commercial motorcycle taxi & 3-wheelers. Multiple pricing options available for different training needs.",
       features: [
-        "Option 1: A2 Motorcycle - Ksh 6,500 (Test & Theory) - SAVE KES 500!",
-        "Option 2: A2/A3 Motorcycle - Ksh 11,500 (10 Lessons) - SAVE KES 500!",
+        "Option 1: A2 Motorcycle - Ksh 6,500 (Test & Theory)",
+        "Option 2: A2/A3 Motorcycle - Ksh 11,500 (10 Lessons)",
         "Duration: 21 Days",
         "Unlimited Theory Sessions",
         "Motorcycle Safety Training",
@@ -268,13 +268,12 @@ export function InteractiveCourseCards() {
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
         "Inclusive of PDL Assessment & Final Exams",
-        "SAVE KES 500 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid National ID", "Passport photos (2)"],
       icon: "🚗",
       popular: true,
-      discount: 500,
+      discount: 0,
     },
     {
       id: "b2-manual",
@@ -298,7 +297,6 @@ export function InteractiveCourseCards() {
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
         "Inclusive of PDL Assessment & Final Exams",
-        "SAVE KES 500 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid National ID", "Passport photos (2)"],
@@ -328,7 +326,7 @@ export function InteractiveCourseCards() {
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
         "Inclusive of PDL Assessment & Final Exams",
-        "SAVE KES 2,000 with NEW NTSA CURRICULUM Offer!",
+        "SAVE KES 2000 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid B2 License (2 years)", "Passport photos (2)"],
@@ -354,12 +352,40 @@ export function InteractiveCourseCards() {
       features: [
         "30 Practical Lessons (NEW NTSA Curriculum)",
         "Unlimited Digital Theory Sessions",
+        "Enhanced Mechanics Training",
+        "FREE Learner's Manual (2024 Edition)",
+        "NTSA Certified Training (Latest Standards)",
+        "Comprehensive Assessment & Testing",
+        "Inclusive of PDL Assessment & Final Exams",
+      ],
+      schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
+      requirements: ["Minimum age: 18 years and over", "Valid B2 License (2 years)", "Passport photos (2)"],
+      icon: "🚚",
+      popular: false,
+      discount: 500,
+    },
+    {
+      id: "c2-medium-trucks",
+      title: "C2 Medium Trucks License",
+      price: "Ksh 13,000",
+      duration: "3-6 weeks",
+      lessons: 30,
+      category: "commercial",
+      ageGroup: "adult",
+      vehicleType: "truck",
+      transmission: "manual",
+      ntsa_category: "Category C",
+      class_type: "C2 (MEDIUM TRUCKS)",
+      description:
+        "Advanced training for medium truck operation. Ideal for those looking to drive larger commercial vehicles and cargo trucks.",
+      features: [
+        "30 Practical Lessons (NEW NTSA Curriculum)",
+        "Unlimited Digital Theory Sessions",
         "Commercial Vehicle Training (Updated Standards)",
         "FREE Learner's Manual (2024 Edition)",
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
         "Inclusive of PDL Assessment & Final Exams",
-        "SAVE KES 500 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid B2 License (2 years)", "Passport photos (2)"],
@@ -389,7 +415,6 @@ export function InteractiveCourseCards() {
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
         "Inclusive of PDL Assessment & Final Exams",
-        "SAVE KES 500 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid C1 License", "Passport photos (2)"],
@@ -420,7 +445,6 @@ export function InteractiveCourseCards() {
         "Comprehensive Assessment & Testing",
         "Inclusive of PDL Assessment & Final Exams",
         "Has Two Seperate Exams",
-        "SAVE KES 2,000 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid National ID", "Passport photos (2)"],
@@ -444,8 +468,8 @@ export function InteractiveCourseCards() {
       description:
         "Comprehensive van license program covering 7-seater, 14-seater, and 33-seater vehicles. Multiple pricing options available for different training needs.",
       features: [
-        "Option 1: B3/D1/D2 Professional 7 Seater - Ksh 8,000 (Test & Theory) - SAVE KES 500!",
-        "Option 2: B3/D1/D2 14 Seater Van - Ksh 10,500 (10 Lessons) - SAVE KES 500!",
+        "Option 1: B3/D1/D2 Professional 7 Seater - Ksh 8,000 (Test & Theory)",
+        "Option 2: B3/D1/D2 14 Seater Van - Ksh 10,500 (10 Lessons)",
         "Duration: 21 Days (NEW NTSA Curriculum)",
         "Unlimited Digital Theory Sessions",
         "Professional Driving Standards (Updated)",
@@ -696,12 +720,13 @@ export function InteractiveCourseCards() {
                   BEST SELLING
                 </div>
               )}
-
-              {course.discount && (
+              {course.discount && course.id === "b1-b2-combined" && (
                 <div className="absolute top-0 left-0 bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-1 text-sm font-bold rounded-br-lg z-10">
-                  SAVE KSH {course.discount.toLocaleString()}
+                  SAVE KES {course.discount.toLocaleString()}
                 </div>
               )}
+
+
 
               <div className="absolute top-4 right-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center z-10 opacity-90">
                 <Award className="w-6 h-6 text-white" />
