@@ -2,46 +2,62 @@
 
 import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Phone, MessageCircle, MapPin, Award, Users, Star, ChevronLeft, ChevronRight } from "lucide-react"
 
 export function VideoHero() {
+  const router = useRouter()
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(true)
   const [showControls, setShowControls] = useState(false)
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  // Video options - you can add your own videos here
+  // Video options - Optimized hero images with vibrant motion photography
   const videoOptions = [
     {
       id: 1,
-      title: "Fleet Lineup at Stadium",
-      src: "/images/mg-01w22.jpg",
-      poster: "/images/mg-01w22.jpg",
-      description: "Our professional training fleet - Toyota Fielder, Corolla Axio & Mazda 3",
+      title: "Vehicle Motion",
+      src: "/images/vehicle-motion-suv.jpg",
+      poster: "/images/vehicle-motion-suv.jpg",
+      description: "Professional training vehicle in action",
     },
     {
       id: 2,
-      title: "Training Fleet Ready",
-      src: "/images/mg-0050.jpeg",
-      poster: "/images/mg-0050.jpeg",
-      description: "Well-maintained vehicles lined up and ready for student training",
+      title: "Fleet in Action",
+      src: "/images/vehicle-motion-sedan-action.jpg",
+      poster: "/images/vehicle-motion-sedan-action.jpg",
+      description: "Dynamic driving demonstration",
     },
     {
       id: 3,
-      title: "Mazda 3 Training Vehicle",
-      src: "/images/mg-013gfv7.jpg",
-      poster: "/images/mg-013gfv7.jpg",
-      description: "Modern Mazda 3 with full Five Star branding - ready for lessons",
+      title: "Training Fleet Highlight",
+      src: "/images/vehicle-motion-silver.jpg",
+      poster: "/images/vehicle-motion-silver.jpg",
+      description: "Professional training in motion",
     },
     {
       id: 4,
-      title: "Toyota Fielder Wagon",
-      src: "/images/mg-0039.jpeg",
-      poster: "/images/mg-0039.jpeg",
-      description: "Spacious Toyota Fielder - perfect for comfortable learning experience",
+      title: "Complete Fleet Display",
+      src: "/images/fleet-vans-lineup.jpg",
+      poster: "/images/fleet-vans-lineup.jpg",
+      description: "Impressive fleet showcase",
+    },
+    {
+      id: 5,
+      title: "Training in Progress",
+      src: "/images/fleet-training-action.jpg",
+      poster: "/images/fleet-training-action.jpg",
+      description: "Real-world driving training",
+    },
+    {
+      id: 6,
+      title: "Diverse Fleet",
+      src: "/images/full-fleet-showcase.jpeg",
+      poster: "/images/full-fleet-showcase.jpeg",
+      description: "Complete vehicle lineup",
     },
   ]
 
@@ -62,7 +78,7 @@ export function VideoHero() {
   useEffect(() => {
     const autoRotateInterval = setInterval(() => {
       setCurrentVideoIndex((prev) => (prev + 1) % videoOptions.length)
-    }, 10000) // 10 seconds
+    }, 5000) // 5 seconds for faster rotation
 
     return () => clearInterval(autoRotateInterval)
   }, [videoOptions.length])
@@ -90,6 +106,14 @@ export function VideoHero() {
     setIsPlaying(false)
   }
 
+  const handleBookNow = () => {
+    router.push("/book-lesson")
+  }
+
+  const handleWhatsApp = () => {
+    window.open("https://wa.me/254794478773", "_blank")
+  }
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Video Background */}
@@ -98,15 +122,16 @@ export function VideoHero() {
           src={currentVideo.poster || "/placeholder.svg"}
           alt={currentVideo.title}
           fill
-          priority={currentVideoIndex === 0}
-          quality={85}
-          className="object-cover transition-all duration-500"
+          priority={true}
+          quality={80}
+          className="object-cover transition-all duration-300"
           sizes="100vw"
+          loading="eager"
         />
 
-        {/* Video Overlay */}
-        <div className="absolute inset-0 bg-black/50"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-red-600/30 to-blue-600/30"></div>
+        {/* Video Overlay - Vibrant color gradient */}
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-red-600/20 via-blue-600/20 to-transparent"></div>
       </div>
 
       {/* Video Controls */}
@@ -123,11 +148,7 @@ export function VideoHero() {
         </Button>
       </div>
 
-      {/* Video Info Overlay */}
-      <div className="absolute bottom-20 left-4 z-20 bg-black/50 backdrop-blur-sm rounded-lg p-4 max-w-sm">
-        <h3 className="text-white font-semibold text-lg mb-1">{currentVideo.title}</h3>
-        <p className="text-white/80 text-sm">{currentVideo.description}</p>
-      </div>
+
 
       {/* Hero Content */}
       <div className="relative z-10 text-center text-white px-4 max-w-6xl mx-auto">
@@ -152,18 +173,18 @@ export function VideoHero() {
         </div>
 
         {/* Main Heading */}
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in-up">
-          <span className="block text-red-600 mb-2">
-            FIVE ST<span className="text-blue-600">★</span>R
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in-up drop-shadow-lg">
+          <span className="block text-red-500 mb-2 drop-shadow-lg">
+            FIVE ST<span className="text-yellow-400 drop-shadow-lg">★</span>R
           </span>
-          <span className="block bg-gradient-to-r from-red-400 to-blue-400 bg-clip-text text-transparent">
+          <span className="block bg-gradient-to-r from-red-400 via-yellow-300 to-blue-400 bg-clip-text text-transparent drop-shadow-lg">
             Driving School
           </span>
         </h1>
 
         {/* Tagline */}
-        <p className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-yellow-300 animate-fade-in-up">
-          "Driving is Fun"
+        <p className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-yellow-300 animate-fade-in-up drop-shadow-lg">
+          "Get All Your Stars In Driving"
         </p>
 
         {/* Description */}
@@ -192,41 +213,23 @@ export function VideoHero() {
           <p className="text-sm mt-4 text-yellow-200">Includes FREE Learner's Manual + 30 Lessons + Unlimited Theory</p>
         </div>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up">
+        {/* CTA Buttons - Vibrant and prominent */}
+        <div className="flex flex-wrap justify-center gap-4 animate-fade-in-up">
           <Button
             size="lg"
-            className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 text-lg rounded-full font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300"
-            onClick={() => {
-              document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" })
-            }}
+            onClick={handleBookNow}
+            className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-10 py-7 text-xl font-bold rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 border-2 border-red-400 cursor-pointer"
           >
-            Book Your Lesson Now
+            <Phone className="w-6 h-6 mr-3" />
+            Book Classes Now
           </Button>
-
           <Button
             size="lg"
-            variant="outline"
-            className="border-2 border-white text-white hover:bg-white hover:text-red-600 px-8 py-4 text-lg rounded-full font-semibold bg-transparent backdrop-blur-sm transform hover:scale-105 transition-all duration-300"
-            onClick={() => window.open("tel:0794478773", "_self")}
+            onClick={handleWhatsApp}
+            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-7 text-xl font-bold rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 border-2 border-blue-400 cursor-pointer"
           >
-            <Phone className="w-5 h-5 mr-2" />
-            Call: 0794 478 773
-          </Button>
-
-          <Button
-            size="lg"
-            variant="outline"
-            className="border-2 border-green-400 text-green-400 hover:bg-green-400 hover:text-white px-8 py-4 text-lg rounded-full font-semibold bg-transparent backdrop-blur-sm transform hover:scale-105 transition-all duration-300"
-            onClick={() => {
-              window.open(
-                "https://wa.me/254794478773?text=Hi! I'm interested in learning to drive with FIVE ST★R. Can you help me get started?",
-                "_blank",
-              )
-            }}
-          >
-            <MessageCircle className="w-5 h-5 mr-2" />
-            WhatsApp Us
+            <MessageCircle className="w-6 h-6 mr-3" />
+            Chat with Us
           </Button>
         </div>
 
