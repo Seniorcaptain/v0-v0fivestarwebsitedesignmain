@@ -326,6 +326,7 @@ export function InteractiveCourseCards() {
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
         "Inclusive of PDL Assessment & Final Exams",
+        "SAVE KES 2000 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid B2 License (2 years)", "Passport photos (2)"],
@@ -717,6 +718,11 @@ export function InteractiveCourseCards() {
               {course.bestSelling && !course.popular && (
                 <div className="absolute top-0 right-0 bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-1 text-sm font-bold rounded-bl-lg z-10">
                   BEST SELLING
+                </div>
+              )}
+              {course.discount && course.id === "b1-b2-combined" && (
+                <div className="absolute top-0 left-0 bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-1 text-sm font-bold rounded-br-lg z-10">
+                  SAVE KES {course.discount.toLocaleString()}
                 </div>
               )}
 
