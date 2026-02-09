@@ -268,13 +268,12 @@ export function InteractiveCourseCards() {
         "NTSA Certified Training (Latest Standards)",
         "Comprehensive Assessment & Testing",
         "Inclusive of PDL Assessment & Final Exams",
-        "SAVE KES 500 with NEW NTSA CURRICULUM Offer!",
       ],
       schedule: ["Monday - Friday: 7:00 AM - 7:00 PM", "Saturday: 8:00 AM - 5:00 PM", "Pickup and Drop (extra charge)"],
       requirements: ["Minimum age: 18 years and over", "Valid National ID", "Passport photos (2)"],
       icon: "🚗",
       popular: true,
-      discount: 500,
+      discount: 0,
     },
     {
       id: "b2-manual",
@@ -721,11 +720,7 @@ export function InteractiveCourseCards() {
                 </div>
               )}
 
-              {course.discount && (
-                <div className="absolute top-0 left-0 bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-1 text-sm font-bold rounded-br-lg z-10">
-                  SAVE KSH {course.discount.toLocaleString()}
-                </div>
-              )}
+
 
               <div className="absolute top-4 right-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center z-10 opacity-90">
                 <Award className="w-6 h-6 text-white" />
