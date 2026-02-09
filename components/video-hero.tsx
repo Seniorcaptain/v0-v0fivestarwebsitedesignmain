@@ -2,11 +2,13 @@
 
 import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Phone, MessageCircle, MapPin, Award, Users, Star, ChevronLeft, ChevronRight } from "lucide-react"
 
 export function VideoHero() {
+  const router = useRouter()
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(true)
   const [showControls, setShowControls] = useState(false)
@@ -102,6 +104,14 @@ export function VideoHero() {
   const prevVideo = () => {
     setCurrentVideoIndex((prev) => (prev - 1 + videoOptions.length) % videoOptions.length)
     setIsPlaying(false)
+  }
+
+  const handleBookNow = () => {
+    router.push("/book-lesson")
+  }
+
+  const handleWhatsApp = () => {
+    window.open("https://wa.me/254794478773", "_blank")
   }
 
   return (
@@ -207,14 +217,16 @@ export function VideoHero() {
         <div className="flex flex-wrap justify-center gap-4 animate-fade-in-up">
           <Button
             size="lg"
-            className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-10 py-7 text-xl font-bold rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 border-2 border-red-400"
+            onClick={handleBookNow}
+            className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-10 py-7 text-xl font-bold rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 border-2 border-red-400 cursor-pointer"
           >
             <Phone className="w-6 h-6 mr-3" />
             Book Classes Now
           </Button>
           <Button
             size="lg"
-            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-7 text-xl font-bold rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 border-2 border-blue-400"
+            onClick={handleWhatsApp}
+            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-7 text-xl font-bold rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 border-2 border-blue-400 cursor-pointer"
           >
             <MessageCircle className="w-6 h-6 mr-3" />
             Chat with Us
