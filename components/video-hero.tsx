@@ -13,42 +13,49 @@ export function VideoHero() {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  // Video options - Optimized hero images with fast loading
+  // Video options - Optimized hero images with vibrant motion photography
   const videoOptions = [
     {
       id: 1,
-      title: "Complete Fleet Showcase",
-      src: "/images/stadium-venue-trio.jpg",
-      poster: "/images/stadium-venue-trio.jpg",
-      description: "Our professional training fleet at modern venue - Diverse vehicle lineup",
+      title: "Vehicle Motion",
+      src: "/images/vehicle-motion-suv.jpg",
+      poster: "/images/vehicle-motion-suv.jpg",
+      description: "Professional training vehicle in action",
     },
     {
       id: 2,
-      title: "Impressive Fleet Lineup",
-      src: "/images/full-fleet-showcase.jpeg",
-      poster: "/images/full-fleet-showcase.jpeg",
-      description: "10+ well-maintained vehicles ready for student training",
+      title: "Fleet in Action",
+      src: "/images/vehicle-motion-sedan-action.jpg",
+      poster: "/images/vehicle-motion-sedan-action.jpg",
+      description: "Dynamic driving demonstration",
     },
     {
       id: 3,
-      title: "Fleet Long-Line Formation",
-      src: "/images/fleet-long-lineup.jpeg",
-      poster: "/images/fleet-long-lineup.jpeg",
-      description: "Complete organized fleet demonstrating scale and professionalism",
+      title: "Training Fleet Highlight",
+      src: "/images/vehicle-motion-silver.jpg",
+      poster: "/images/vehicle-motion-silver.jpg",
+      description: "Professional training in motion",
     },
     {
       id: 4,
-      title: "Mixed Diversity Fleet",
-      src: "/images/fleet-mixed-lineup.jpeg",
-      poster: "/images/fleet-mixed-lineup.jpeg",
-      description: "Diverse fleet including vans, trucks, and sedans - full training range",
+      title: "Complete Fleet Display",
+      src: "/images/fleet-vans-lineup.jpg",
+      poster: "/images/fleet-vans-lineup.jpg",
+      description: "Impressive fleet showcase",
     },
     {
       id: 5,
-      title: "Branding & Fleet Detail",
-      src: "/images/fleet-duo-branding.jpeg",
-      poster: "/images/fleet-duo-branding.jpeg",
-      description: "Professional branding showcase with blue and white training vehicles",
+      title: "Training in Progress",
+      src: "/images/fleet-training-action.jpg",
+      poster: "/images/fleet-training-action.jpg",
+      description: "Real-world driving training",
+    },
+    {
+      id: 6,
+      title: "Diverse Fleet",
+      src: "/images/full-fleet-showcase.jpeg",
+      poster: "/images/full-fleet-showcase.jpeg",
+      description: "Complete vehicle lineup",
     },
   ]
 
@@ -112,9 +119,9 @@ export function VideoHero() {
           loading="eager"
         />
 
-        {/* Video Overlay */}
-        <div className="absolute inset-0 bg-black/50"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-red-600/30 to-blue-600/30"></div>
+        {/* Video Overlay - Vibrant color gradient */}
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-red-600/20 via-blue-600/20 to-transparent"></div>
       </div>
 
       {/* Video Controls */}
@@ -131,11 +138,7 @@ export function VideoHero() {
         </Button>
       </div>
 
-      {/* Video Info Overlay */}
-      <div className="absolute bottom-20 left-4 z-20 bg-black/50 backdrop-blur-sm rounded-lg p-4 max-w-sm">
-        <h3 className="text-white font-semibold text-lg mb-1">{currentVideo.title}</h3>
-        <p className="text-white/80 text-sm">{currentVideo.description}</p>
-      </div>
+
 
       {/* Hero Content */}
       <div className="relative z-10 text-center text-white px-4 max-w-6xl mx-auto">
@@ -160,18 +163,18 @@ export function VideoHero() {
         </div>
 
         {/* Main Heading */}
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in-up">
-          <span className="block text-red-600 mb-2">
-            FIVE ST<span className="text-blue-600">★</span>R
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in-up drop-shadow-lg">
+          <span className="block text-red-500 mb-2 drop-shadow-lg">
+            FIVE ST<span className="text-yellow-400 drop-shadow-lg">★</span>R
           </span>
-          <span className="block bg-gradient-to-r from-red-400 to-blue-400 bg-clip-text text-transparent">
+          <span className="block bg-gradient-to-r from-red-400 via-yellow-300 to-blue-400 bg-clip-text text-transparent drop-shadow-lg">
             Driving School
           </span>
         </h1>
 
         {/* Tagline */}
-        <p className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-yellow-300 animate-fade-in-up">
-          "Driving is Fun"
+        <p className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-yellow-300 animate-fade-in-up drop-shadow-lg">
+          "Get All Your Stars In Driving"
         </p>
 
         {/* Description */}
@@ -200,41 +203,21 @@ export function VideoHero() {
           <p className="text-sm mt-4 text-yellow-200">Includes FREE Learner's Manual + 30 Lessons + Unlimited Theory</p>
         </div>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up">
+        {/* CTA Buttons - Vibrant and prominent */}
+        <div className="flex flex-wrap justify-center gap-4 animate-fade-in-up">
           <Button
             size="lg"
-            className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 text-lg rounded-full font-semibold shadow-2xl transform hover:scale-105 transition-all duration-300"
-            onClick={() => {
-              document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" })
-            }}
+            className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-10 py-7 text-xl font-bold rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 border-2 border-red-400"
           >
-            Book Your Lesson Now
+            <Phone className="w-6 h-6 mr-3" />
+            Book Classes Now
           </Button>
-
           <Button
             size="lg"
-            variant="outline"
-            className="border-2 border-white text-white hover:bg-white hover:text-red-600 px-8 py-4 text-lg rounded-full font-semibold bg-transparent backdrop-blur-sm transform hover:scale-105 transition-all duration-300"
-            onClick={() => window.open("tel:0794478773", "_self")}
+            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-7 text-xl font-bold rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 border-2 border-blue-400"
           >
-            <Phone className="w-5 h-5 mr-2" />
-            Call: 0794 478 773
-          </Button>
-
-          <Button
-            size="lg"
-            variant="outline"
-            className="border-2 border-green-400 text-green-400 hover:bg-green-400 hover:text-white px-8 py-4 text-lg rounded-full font-semibold bg-transparent backdrop-blur-sm transform hover:scale-105 transition-all duration-300"
-            onClick={() => {
-              window.open(
-                "https://wa.me/254794478773?text=Hi! I'm interested in learning to drive with FIVE ST★R. Can you help me get started?",
-                "_blank",
-              )
-            }}
-          >
-            <MessageCircle className="w-5 h-5 mr-2" />
-            WhatsApp Us
+            <MessageCircle className="w-6 h-6 mr-3" />
+            Chat with Us
           </Button>
         </div>
 
