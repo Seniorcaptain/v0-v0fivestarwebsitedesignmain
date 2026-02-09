@@ -30,7 +30,7 @@ All `<img>` tags have been migrated to Next.js `Image` component across:
 ### 3. Responsive Sizing with `sizes` Prop
 Each image includes tailored `sizes` prop for optimal delivery across devices:
 
-```tsx
+\`\`\`tsx
 // Hero images
 sizes="100vw"
 
@@ -42,7 +42,7 @@ sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
 
 // Photo viewer thumbnails
 sizes="100px"
-```
+\`\`\`
 
 ### 4. Priority & Lazy Loading
 - **Priority Loading:** Hero images (`priority={true}`) load immediately
@@ -52,7 +52,7 @@ sizes="100px"
 ### 5. Next.js Configuration Enhancements
 
 **`next.config.mjs` Updates:**
-```javascript
+\`\`\`javascript
 images: {
   unoptimized: false, // Enable Next.js Image Optimization
   formats: ["image/avif", "image/webp"], // Modern formats
@@ -61,7 +61,7 @@ images: {
   minimumCacheTTL: 60 * 60 * 24 * 365, // 1-year cache
   remotePatterns: [Vercel Blob Storage configuration]
 }
-```
+\`\`\`
 
 ### 6. HTTP Caching Strategy
 - Public images cached for 1 year with immutable flag
@@ -111,7 +111,7 @@ images: {
 ## Implementation Details
 
 ### Video Hero Component
-```tsx
+\`\`\`tsx
 <Image
   src={currentVideo.poster || "/placeholder.svg"}
   alt={currentVideo.title}
@@ -121,11 +121,11 @@ images: {
   className="object-cover transition-all duration-500"
   sizes="100vw"
 />
-```
+\`\`\`
 **Result:** Hero images load instantly with optimal quality
 
 ### Gallery Showcase Component
-```tsx
+\`\`\`tsx
 <Image
   src={image.src || "/placeholder.svg"}
   alt={image.title}
@@ -135,11 +135,11 @@ images: {
   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
   loading="lazy"
 />
-```
+\`\`\`
 **Result:** Gallery loads progressively, optimized per device
 
 ### Photo Gallery Viewer
-```tsx
+\`\`\`tsx
 <Image
   src={image.src || "/placeholder.svg"}
   alt={image.title}
@@ -149,7 +149,7 @@ images: {
   sizes="100px"
   loading="lazy"
 />
-```
+\`\`\`
 **Result:** Thumbnails load quickly without compromising quality
 
 ## Browser Support

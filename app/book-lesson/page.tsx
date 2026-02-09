@@ -22,6 +22,17 @@ export default function BookLessonPage() {
 
   const [submitted, setSubmitted] = useState(false)
 
+  // NEW NTSA CURRICULUM Lesson Types with Pricing
+  const lessonTypesPricing = {
+    "A2/A3 Package": { price: 8000, discount: 0 },
+    "B1 Package": { price: 12000, discount: 0 },
+    "B2 Package": { price: 14000, discount: 0 },
+    "B1 & B2 Combined Package": { price: 28000, discount: 2000 },
+    "C Package": { price: 16000, discount: 0 },
+    "D Package": { price: 18000, discount: 0 },
+    "E Package": { price: 20000, discount: 0 },
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({
@@ -67,14 +78,14 @@ export default function BookLessonPage() {
     "Seasons (Kasarani)",
   ]
 
-  const lessonTypes = [
-    "Automatic Manual",
-    "Manual Transmission",
-    "Refresher Course",
-    "Advanced Training",
-    "HGV/PSV Training",
-    "Express Course",
-  ]
+  const lessonTypes = Object.keys(lessonTypesPricing)
+
+  // Get pricing info for selected lesson type
+  const getSelectedLessonPrice = () => {
+    if (!formData.lessonType) return null
+    const pricing = lessonTypesPricing[formData.lessonType as keyof typeof lessonTypesPricing]
+    return pricing
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-red-50">
@@ -123,16 +134,31 @@ export default function BookLessonPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-blue-600">
                 <Users className="w-5 h-5" />
-                Our Lesson Types
+                NTSA Curriculum Packages
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              {lessonTypes.map((type) => (
-                <div key={type} className="flex items-center gap-2 text-sm">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full" />
-                  {type}
-                </div>
-              ))}
+              {lessonTypes.map((type) => {
+                const pricing = lessonTypesPricing[type as keyof typeof lessonTypesPricing]
+                return (
+                  <div key={type} className="text-sm">
+                    <div className="flex items-start gap-2">
+                      <div className="w-2 h-2 bg-blue-600 rounded-full mt-1 flex-shrink-0" />
+                      <div>
+                        <p className="font-medium text-gray-800">{type}</p>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-gray-600">KES {pricing.price.toLocaleString()}</span>
+                          {pricing.discount > 0 && (
+                            <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">
+                              -KES {pricing.discount.toLocaleString()} Discount
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
             </CardContent>
           </Card>
 
@@ -264,7 +290,7 @@ export default function BookLessonPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Lesson Type *</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Lesson Type (NTSA Curriculum) *</label>
                       <select
                         name="lessonType"
                         value={formData.lessonType}
@@ -273,11 +299,17 @@ export default function BookLessonPage() {
                         className="w-full px-4 py-2 border-2 border-gray-300 rounded-md focus:border-red-600 focus:outline-none"
                       >
                         <option value="">Choose lesson type</option>
-                        {lessonTypes.map((type) => (
-                          <option key={type} value={type}>
-                            {type}
-                          </option>
-                        ))}
+                        {lessonTypes.map((type) => {
+                          const pricing = lessonTypesPricing[type as keyof typeof lessonTypesPricing]
+                          const displayPrice = pricing.discount > 0 
+                            ? `KES ${(pricing.price - pricing.discount).toLocaleString()} (was KES ${pricing.price.toLocaleString()})`
+                            : `KES ${pricing.price.toLocaleString()}`
+                          return (
+                            <option key={type} value={type}>
+                              {type} - {displayPrice}
+                            </option>
+                          )
+                        })}
                       </select>
                     </div>
                   </div>
@@ -319,6 +351,32 @@ export default function BookLessonPage() {
                       </select>
                     </div>
                   </div>
+
+                  {/* Price Summary */}
+                  {getSelectedLessonPrice() && (
+                    <div className="bg-gradient-to-r from-red-50 to-blue-50 p-4 rounded-lg border-2 border-red-200">
+                      <p className="text-sm text-gray-600 mb-2">Selected Package Price:</p>
+                      <div className="flex items-baseline gap-3">
+                        {getSelectedLessonPrice()!.discount > 0 ? (
+                          <>
+                            <span className="text-sm line-through text-gray-500">
+                              KES {getSelectedLessonPrice()!.price.toLocaleString()}
+                            </span>
+                            <span className="text-2xl font-bold text-red-600">
+                              KES {(getSelectedLessonPrice()!.price - getSelectedLessonPrice()!.discount).toLocaleString()}
+                            </span>
+                            <span className="text-sm bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">
+                              SAVE KES {getSelectedLessonPrice()!.discount.toLocaleString()}
+                            </span>
+                          </>
+                        ) : (
+                          <span className="text-2xl font-bold text-blue-600">
+                            KES {getSelectedLessonPrice()!.price.toLocaleString()}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Additional Notes */}

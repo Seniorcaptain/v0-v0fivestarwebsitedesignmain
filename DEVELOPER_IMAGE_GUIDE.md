@@ -7,7 +7,7 @@ Technical documentation for developers implementing image handling and managemen
 ## 1. IMAGE CONFIGURATION STRUCTURE
 
 ### Gallery Config Interface
-```typescript
+\`\`\`typescript
 // lib/gallery-config.ts
 
 export interface GalleryImageConfig {
@@ -24,10 +24,10 @@ export interface GalleryImageConfig {
   date?: string                           // Date taken (YYYY-MM-DD)
   tags?: string[]                         // Search tags (3-5 recommended)
 }
-```
+\`\`\`
 
 ### Adding New Image Entry
-```typescript
+\`\`\`typescript
 // Example: Adding new vehicle photo
 
 const newImage: GalleryImageConfig = {
@@ -50,14 +50,14 @@ export const GALLERY_IMAGES: GalleryImageConfig[] = [
   newImage,
   // ... more images
 ]
-```
+\`\`\`
 
 ---
 
 ## 2. NEXT.JS IMAGE COMPONENT IMPLEMENTATION
 
 ### Basic Usage
-```typescript
+\`\`\`typescript
 import Image from "next/image"
 
 // Hero image with priority
@@ -92,10 +92,10 @@ import Image from "next/image"
   loading="lazy"
   className="object-cover"
 />
-```
+\`\`\`
 
 ### Performance Optimization Props
-```typescript
+\`\`\`typescript
 Interface Image Props {
   src: string              // Image path
   alt: string              // Accessibility text
@@ -110,10 +110,10 @@ Interface Image Props {
   style?: CSSProperties    // Inline styles
   onLoadingComplete?: fn   // Callback when loaded
 }
-```
+\`\`\`
 
 ### Responsive Sizes Configuration
-```typescript
+\`\`\`typescript
 // Mobile-first approach with breakpoints
 
 sizes="
@@ -130,14 +130,14 @@ sizes="300px"
 
 // For thumbnail grid
 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-```
+\`\`\`
 
 ---
 
 ## 3. NEXT.JS CONFIGURATION FOR IMAGES
 
 ### next.config.mjs Settings
-```javascript
+\`\`\`javascript
 const nextConfig = {
   images: {
     unoptimized: false,              // Enable Next.js optimization
@@ -154,24 +154,24 @@ const nextConfig = {
     ],
   },
 }
-```
+\`\`\`
 
 ### Image Optimization Benefits
-```
+\`\`\`
 Format          | Size Reduction | Browser Support
 ----------------|----------------|------------------
 AVIF           | 50% smaller    | Modern browsers
 WebP           | 25-35% smaller | Chrome, Firefox, Edge
 JPEG (optimized) | 10-15% smaller | All browsers
 Original       | Baseline       | Baseline
-```
+\`\`\`
 
 ---
 
 ## 4. VERCEL BLOB STORAGE INTEGRATION
 
 ### Upload Configuration
-```typescript
+\`\`\`typescript
 // Upload images to Vercel Blob Storage
 
 import { put } from '@vercel/blob'
@@ -195,17 +195,17 @@ export async function uploadImage(file: File) {
     }
   }
 }
-```
+\`\`\`
 
 ### Image URL Format
-```
+\`\`\`
 Public URL: /images/images-filename.jpg
 Local Reference: /images/filename.jpg (in src prop)
 Next.js uses local reference, auto-routes to CDN
-```
+\`\`\`
 
 ### Access Control
-```javascript
+\`\`\`javascript
 // Public access (for web display)
 access: 'public'
 
@@ -214,14 +214,14 @@ access: 'private'
 
 // Temporary URLs (if needed)
 const url = blob.downloadUrl
-```
+\`\`\`
 
 ---
 
 ## 5. COMPONENT EXAMPLES
 
 ### Gallery Showcase Component
-```typescript
+\`\`\`typescript
 "use client"
 
 import Image from "next/image"
@@ -270,10 +270,10 @@ export function GalleryShowcase() {
     </div>
   )
 }
-```
+\`\`\`
 
 ### Hero Component with Image
-```typescript
+\`\`\`typescript
 "use client"
 
 import Image from "next/image"
@@ -309,14 +309,14 @@ export function HeroSection() {
     </div>
   )
 }
-```
+\`\`\`
 
 ---
 
 ## 6. DATABASE SCHEMA (If Using Database)
 
 ### Future: Store image metadata in database
-```sql
+\`\`\`sql
 CREATE TABLE gallery_images (
   id UUID PRIMARY KEY,
   filename VARCHAR(255) UNIQUE NOT NULL,
@@ -343,14 +343,14 @@ CREATE TABLE gallery_images (
 CREATE INDEX idx_category ON gallery_images(category);
 CREATE INDEX idx_featured ON gallery_images(featured);
 CREATE INDEX idx_date_taken ON gallery_images(date_taken);
-```
+\`\`\`
 
 ---
 
 ## 7. IMAGE CACHING STRATEGY
 
 ### Client-Side Caching
-```typescript
+\`\`\`typescript
 // Next.js Image automatically caches optimized images
 // Cache location: .next/cache/images/
 // TTL: 365 days (configured in next.config.mjs)
@@ -359,10 +359,10 @@ CREATE INDEX idx_date_taken ON gallery_images(date_taken);
 import { revalidateTag } from 'next/cache'
 
 revalidateTag('gallery-images')
-```
+\`\`\`
 
 ### Server-Side Caching
-```typescript
+\`\`\`typescript
 // Cache gallery images at request time
 export async function getGalleryImages(category?: string) {
   const cacheKey = `gallery-${category || 'all'}`
@@ -381,10 +381,10 @@ export async function getGalleryImages(category?: string) {
   await cache.set(cacheKey, images, 3600)
   return images
 }
-```
+\`\`\`
 
 ### CDN Caching Headers
-```javascript
+\`\`\`javascript
 // In next.config.mjs
 headers: async () => [
   {
@@ -401,14 +401,14 @@ headers: async () => [
     ],
   },
 ]
-```
+\`\`\`
 
 ---
 
 ## 8. PERFORMANCE MONITORING
 
 ### Web Vitals Metrics
-```typescript
+\`\`\`typescript
 // Monitor image performance
 import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals'
 
@@ -426,10 +426,10 @@ img.onload = () => {
   console.log('Image load time:', loadTime, 'ms')
 }
 img.src = '/images/hero.jpg'
-```
+\`\`\`
 
 ### Analytics Integration
-```typescript
+\`\`\`typescript
 // Track image views
 import { trackEvent } from '@/lib/analytics'
 
@@ -445,14 +445,14 @@ export function trackImageView(imageId: string, category: string) {
 useEffect(() => {
   trackImageView(image.id, image.category)
 }, [image.id, image.category])
-```
+\`\`\`
 
 ---
 
 ## 9. ERROR HANDLING & FALLBACKS
 
 ### Image Error Handling
-```typescript
+\`\`\`typescript
 const [imageFailed, setImageFailed] = useState(false)
 
 <Image
@@ -468,10 +468,10 @@ const [imageFailed, setImageFailed] = useState(false)
     <p className="text-gray-600">Image failed to load</p>
   </div>
 )}
-```
+\`\`\`
 
 ### Fallback Image Strategy
-```typescript
+\`\`\`typescript
 const getFallbackImage = (category: string) => {
   const fallbacks: Record<string, string> = {
     vehicles: '/images/placeholder-vehicle.jpg',
@@ -490,14 +490,14 @@ const getFallbackImage = (category: string) => {
   fill
   onError={() => setImageFailed(true)}
 />
-```
+\`\`\`
 
 ---
 
 ## 10. TESTING IMAGES
 
 ### Unit Tests
-```typescript
+\`\`\`typescript
 // Example using Jest + React Testing Library
 
 import { render, screen } from '@testing-library/react'
@@ -518,10 +518,10 @@ describe('GalleryShowcase', () => {
     expect(lazyImages.length).toBeGreaterThan(0)
   })
 })
-```
+\`\`\`
 
 ### Performance Tests
-```typescript
+\`\`\`typescript
 // Lighthouse CI configuration
 {
   "ci": {
@@ -543,14 +543,14 @@ describe('GalleryShowcase', () => {
     }
   }
 }
-```
+\`\`\`
 
 ---
 
 ## 11. ACCESSIBILITY REQUIREMENTS
 
 ### Alt Text Best Practices
-```typescript
+\`\`\`typescript
 // Good: Descriptive, includes relevant details
 alt="White Toyota Corolla Axio training vehicle with Five Star Driving School branding"
 
@@ -561,10 +561,10 @@ alt="photo of vehicle"
 
 // For decorative images only
 alt=""  // Empty alt for purely decorative elements
-```
+\`\`\`
 
 ### ARIA Labels for Complex Images
-```typescript
+\`\`\`typescript
 <figure>
   <Image
     src="/images/fleet.jpg"
@@ -576,16 +576,16 @@ alt=""  // Empty alt for purely decorative elements
     Fleet includes Toyota Fielder wagons and Mazda 3 hatchbacks
   </figcaption>
 </figure>
-```
+\`\`\`
 
 ### Color Contrast for Overlays
-```typescript
+\`\`\`typescript
 // Ensure text over images is readable
 <div className="absolute inset-0 bg-black/40">
   {/* Text with sufficient contrast */}
   <h2 className="text-white text-2xl font-bold">Title</h2>
 </div>
-```
+\`\`\`
 
 ---
 
@@ -593,7 +593,7 @@ alt=""  // Empty alt for purely decorative elements
 
 Before deploying image changes:
 
-```
+\`\`\`
 Code Review:
 ☐ Config syntax verified
 ☐ All image paths correct
@@ -621,7 +621,7 @@ Security:
 ☐ Permissions verified
 ☐ URLs properly configured
 ☐ No path traversal issues
-```
+\`\`\`
 
 ---
 
