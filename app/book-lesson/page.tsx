@@ -365,9 +365,7 @@ export default function BookLessonPage() {
                             <span className="text-2xl font-bold text-red-600">
                               KES {(getSelectedLessonPrice()!.price - getSelectedLessonPrice()!.discount).toLocaleString()}
                             </span>
-                            <span className="text-sm bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">
-                              SAVE KES {getSelectedLessonPrice()!.discount.toLocaleString()}
-                            </span>
+
                           </>
                         ) : (
                           <span className="text-2xl font-bold text-blue-600">
