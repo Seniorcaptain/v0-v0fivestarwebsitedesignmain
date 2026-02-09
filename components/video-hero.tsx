@@ -13,35 +13,42 @@ export function VideoHero() {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  // Video options - you can add your own videos here
+  // Video options - Optimized hero images with fast loading
   const videoOptions = [
     {
       id: 1,
-      title: "Fleet Lineup at Stadium",
-      src: "/images/mg-01w22.jpg",
-      poster: "/images/mg-01w22.jpg",
-      description: "Our professional training fleet - Toyota Fielder, Corolla Axio & Mazda 3",
+      title: "Complete Fleet Showcase",
+      src: "/images/stadium-venue-trio.jpg",
+      poster: "/images/stadium-venue-trio.jpg",
+      description: "Our professional training fleet at modern venue - Diverse vehicle lineup",
     },
     {
       id: 2,
-      title: "Training Fleet Ready",
-      src: "/images/mg-0050.jpeg",
-      poster: "/images/mg-0050.jpeg",
-      description: "Well-maintained vehicles lined up and ready for student training",
+      title: "Impressive Fleet Lineup",
+      src: "/images/full-fleet-showcase.jpeg",
+      poster: "/images/full-fleet-showcase.jpeg",
+      description: "10+ well-maintained vehicles ready for student training",
     },
     {
       id: 3,
-      title: "Mazda 3 Training Vehicle",
-      src: "/images/mg-013gfv7.jpg",
-      poster: "/images/mg-013gfv7.jpg",
-      description: "Modern Mazda 3 with full Five Star branding - ready for lessons",
+      title: "Fleet Long-Line Formation",
+      src: "/images/fleet-long-lineup.jpeg",
+      poster: "/images/fleet-long-lineup.jpeg",
+      description: "Complete organized fleet demonstrating scale and professionalism",
     },
     {
       id: 4,
-      title: "Toyota Fielder Wagon",
-      src: "/images/mg-0039.jpeg",
-      poster: "/images/mg-0039.jpeg",
-      description: "Spacious Toyota Fielder - perfect for comfortable learning experience",
+      title: "Mixed Diversity Fleet",
+      src: "/images/fleet-mixed-lineup.jpeg",
+      poster: "/images/fleet-mixed-lineup.jpeg",
+      description: "Diverse fleet including vans, trucks, and sedans - full training range",
+    },
+    {
+      id: 5,
+      title: "Branding & Fleet Detail",
+      src: "/images/fleet-duo-branding.jpeg",
+      poster: "/images/fleet-duo-branding.jpeg",
+      description: "Professional branding showcase with blue and white training vehicles",
     },
   ]
 
@@ -62,7 +69,7 @@ export function VideoHero() {
   useEffect(() => {
     const autoRotateInterval = setInterval(() => {
       setCurrentVideoIndex((prev) => (prev + 1) % videoOptions.length)
-    }, 10000) // 10 seconds
+    }, 5000) // 5 seconds for faster rotation
 
     return () => clearInterval(autoRotateInterval)
   }, [videoOptions.length])
@@ -98,10 +105,11 @@ export function VideoHero() {
           src={currentVideo.poster || "/placeholder.svg"}
           alt={currentVideo.title}
           fill
-          priority={currentVideoIndex === 0}
-          quality={85}
-          className="object-cover transition-all duration-500"
+          priority={true}
+          quality={80}
+          className="object-cover transition-all duration-300"
           sizes="100vw"
+          loading="eager"
         />
 
         {/* Video Overlay */}
