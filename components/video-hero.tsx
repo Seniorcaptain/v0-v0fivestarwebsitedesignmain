@@ -59,6 +59,48 @@ export function VideoHero() {
       poster: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_3989-ip3zXdZzWWR6DZf0BiQ8kcl8DDXjA.jpg",
       description: "Complete vehicle lineup",
     },
+    {
+      id: 7,
+      title: "White Toyota 737B",
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4047-cbd2k4vikkt5w6j3zoDXnkQz5voTTt.jpg",
+      poster: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4047-cbd2k4vikkt5w6j3zoDXnkQz5voTTt.jpg",
+      description: "Professional student driver vehicle",
+    },
+    {
+      id: 8,
+      title: "Red Toyota Fleet 018",
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4037-zLFHu8ocIKi86dAKFf1R6fGD73ATj1.jpg",
+      poster: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4037-zLFHu8ocIKi86dAKFf1R6fGD73ATj1.jpg",
+      description: "Premium training vehicle",
+    },
+    {
+      id: 9,
+      title: "Red Van Profile",
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4034-zDPrmBGc8TVumAPfBWyv8m7FMiPAeK.jpg",
+      poster: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4034-zDPrmBGc8TVumAPfBWyv8m7FMiPAeK.jpg",
+      description: "Fleet vehicle showcase",
+    },
+    {
+      id: 10,
+      title: "Gray Toyota Student Driver",
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4049-TziUuHZjrHtWWAqi02LmTAM5SlHJk2.jpg",
+      poster: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4049-TziUuHZjrHtWWAqi02LmTAM5SlHJk2.jpg",
+      description: "Modern training vehicle",
+    },
+    {
+      id: 11,
+      title: "White Toyota Training",
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4059-9RWVxjeRTlx1qkFm7fmrEOgoaPWSM7.jpg",
+      poster: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4059-9RWVxjeRTlx1qkFm7fmrEOgoaPWSM7.jpg",
+      description: "Professional fleet member",
+    },
+    {
+      id: 12,
+      title: "Red Toyota Premium",
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4026-0IuNEFJgfLNtl7PFZ2Pu2lZL9mLrjw.jpg",
+      poster: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4026-0IuNEFJgfLNtl7PFZ2Pu2lZL9mLrjw.jpg",
+      description: "Excellence in driver training",
+    },
   ]
 
   const currentVideo = videoOptions[currentVideoIndex]
