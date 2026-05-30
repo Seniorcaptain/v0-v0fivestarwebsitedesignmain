@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     description: "Driving is Fun. Learn from NTSA-certified instructors. 20+ locations, 20,000+ students trained.",
     images: ["/placeholder.svg?height=630&width=1200&text=FIVE ST★R+Driving+School"],
   },
-  generator: "v0.app",
+  generator: "custom",
   viewport: "width=device-width, initial-scale=1",
   themeColor: "#dc2626",
   icons: {
