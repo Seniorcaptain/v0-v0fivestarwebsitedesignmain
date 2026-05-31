@@ -15,7 +15,6 @@ import {
   Users,
   Car,
   Award,
-  MapPin,
   Search,
   Filter,
   Share2,
@@ -322,39 +321,7 @@ export function GalleryShowcase() {
                   </div>
                 </div>
 
-                <div className="p-6">
-                  <h3 className="font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors text-lg">
-                    {image.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-2 leading-relaxed">{image.description}</p>
 
-                  {image.location && (
-                    <div className="flex items-center text-xs text-gray-500 mb-3">
-                      <MapPin className="w-4 h-4 mr-2 text-red-500" />
-                      {image.location}
-                    </div>
-                  )}
-
-                  {/* Tags */}
-                  {image.tags && image.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1">
-                      {image.tags.slice(0, 3).map((tag, tagIndex) => (
-                        <Badge
-                          key={tagIndex}
-                          variant="secondary"
-                          className="text-xs bg-gray-100 text-gray-600 hover:bg-gray-200"
-                        >
-                          #{tag}
-                        </Badge>
-                      ))}
-                      {image.tags.length > 3 && (
-                        <Badge variant="secondary" className="text-xs bg-gray-100 text-gray-600">
-                          +{image.tags.length - 3} more
-                        </Badge>
-                      )}
-                    </div>
-                  )}
-                </div>
               </CardContent>
             </Card>
           ))}
