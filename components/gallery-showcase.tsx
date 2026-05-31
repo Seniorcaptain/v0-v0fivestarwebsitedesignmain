@@ -15,6 +15,7 @@ import {
   Users,
   Car,
   Award,
+  MapPin,
   Search,
   Filter,
   Share2,
