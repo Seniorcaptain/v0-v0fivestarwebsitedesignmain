@@ -25,3 +25,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# security & secrets
+*.pem
+*.key
+secrets/
+.secrets
+leaks.json
+gitleaks.json
+.husky/_/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
