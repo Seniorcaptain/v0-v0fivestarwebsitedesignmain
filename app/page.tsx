@@ -10,13 +10,11 @@ import { GoogleReviewsTestimonials } from "@/components/google-reviews-testimoni
 import { GalleryShowcase } from "@/components/gallery-showcase"
 import { InteractiveFAQ } from "@/components/interactive-faq"
 import { InteractiveMap } from "@/components/interactive-map"
-import { LiveChatWidget } from "@/components/live-chat-widget"
 import { ChatSupportToggle } from "@/components/chat-support-toggle"
 import { AboutSection } from "@/components/about-section"
 
 export default function HomePage() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [showLiveChat, setShowLiveChat] = useState(false)
 
   const branches = [
     {
@@ -180,14 +178,6 @@ export default function HomePage() {
     )
   }
 
-  const handleLiveChatClick = () => {
-    setShowLiveChat(true)
-  }
-
-  const handleLiveChatClose = () => {
-    setShowLiveChat(false)
-  }
-
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
       <MegaMenu isScrolled={isScrolled} />
@@ -216,8 +206,7 @@ export default function HomePage() {
       <GoogleReviewsTestimonials />
       <InteractiveFAQ />
 
-      {showLiveChat && <LiveChatWidget onClose={handleLiveChatClose} />}
-      <ChatSupportToggle onWhatsAppClick={handleWhatsAppClick} onLiveChatClick={handleLiveChatClick} />
+      <ChatSupportToggle onWhatsAppClick={handleWhatsAppClick} />
     </div>
   )
 }

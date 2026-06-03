@@ -3,14 +3,13 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { MessageCircle, Phone, X, Headphones } from "lucide-react"
+import { MessageCircle, Phone, X } from "lucide-react"
 
 interface ChatSupportToggleProps {
   onWhatsAppClick: () => void
-  onLiveChatClick: () => void
 }
 
-export function ChatSupportToggle({ onWhatsAppClick, onLiveChatClick }: ChatSupportToggleProps) {
+export function ChatSupportToggle({ onWhatsAppClick }: ChatSupportToggleProps) {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
@@ -35,17 +34,6 @@ export function ChatSupportToggle({ onWhatsAppClick, onLiveChatClick }: ChatSupp
               >
                 <MessageCircle className="w-4 h-4 mr-2" />
                 WhatsApp Chat
-              </Button>
-
-              <Button
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white justify-start"
-                onClick={() => {
-                  onLiveChatClick()
-                  setIsExpanded(false)
-                }}
-              >
-                <Headphones className="w-4 h-4 mr-2" />
-                Live Chat
               </Button>
 
               <Button
