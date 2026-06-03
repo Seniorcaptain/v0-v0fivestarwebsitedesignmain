@@ -44,9 +44,9 @@ This document outlines the security features implemented for FIVE ST★R Driving
   - Generic error responses (no data leakage)
   - GET requests rejected
 - **Production Note:** Replace in-memory rate limiter with Upstash Redis for scaling:
-  ```bash
+  \`\`\`bash
   npm install @upstash/ratelimit @upstash/redis
-  ```
+  \`\`\`
 
 ### 5. ✅ Dependency Security
 - **File:** `.github/workflows/security-audit.yml`
@@ -135,24 +135,24 @@ This document outlines the security features implemented for FIVE ST★R Driving
 ## Recommended Further Enhancements
 
 1. **Captcha for Forms:** Integrate Cloudflare Turnstile (free, privacy-friendly)
-   ```bash
+   \`\`\`bash
    npm install @marsidev/react-turnstile
-   ```
+   \`\`\`
 
 2. **Upstash Redis Rate Limiting:** For production-grade form protection
-   ```bash
+   \`\`\`bash
    npm install @upstash/ratelimit @upstash/redis
-   ```
+   \`\`\`
 
 3. **Automated Dependency Updates:** Configure Dependabot in GitHub
    - Settings → Code security → Enable Dependabot
 
 4. **Git Hook Protection:** Pre-commit secret scanning
-   ```bash
+   \`\`\`bash
    npm install husky --save-dev
    npx husky install
    npx husky add .husky/pre-commit "npx gitleaks protect --staged"
-   ```
+   \`\`\`
 
 ## References
 
