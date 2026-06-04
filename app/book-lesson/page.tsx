@@ -390,6 +390,50 @@ export default function BookLessonPage() {
                   />
                 </div>
 
+                {/* Payment Information */}
+                {getSelectedLessonPrice() && (
+                  <div className="pt-6 border-t">
+                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg border-2 border-blue-200">
+                      <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <Mail className="w-5 h-5 text-blue-600" />
+                        Payment Instructions
+                      </h3>
+                      
+                      <div className="space-y-4">
+                        <div>
+                          <p className="text-sm font-semibold text-gray-700 mb-2">Amount Due:</p>
+                          <p className="text-2xl font-bold text-red-600">
+                            KES {(getSelectedLessonPrice()!.price - getSelectedLessonPrice()!.discount).toLocaleString()}
+                          </p>
+                        </div>
+
+                        <div className="bg-white p-4 rounded-lg border border-blue-200">
+                          <p className="text-sm font-semibold text-gray-700 mb-3">M-Pesa Payment Details:</p>
+                          <div className="space-y-2">
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm font-medium text-gray-600">Paybill Number:</span>
+                              <span className="text-sm font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded">400200</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm font-medium text-gray-600">Account Number:</span>
+                              <span className="text-sm font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded">40096666</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-white p-4 rounded-lg border border-green-200">
+                          <p className="text-sm font-semibold text-gray-700 mb-3">After Payment:</p>
+                          <ol className="text-sm text-gray-700 space-y-2 list-decimal list-inside">
+                            <li>Send confirmation via WhatsApp to <span className="font-semibold">0794 478 773</span></li>
+                            <li>Or text to <span className="font-semibold">0727 555 558</span></li>
+                            <li>Include your name and lesson details in the message</li>
+                          </ol>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Submit Button */}
                 <div className="pt-6 flex gap-4">
                   <Button
