@@ -17,7 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { CalendarIcon, Phone, CheckCircle, Loader, Download } from "lucide-react"
+import { CalendarIcon, Phone, CheckCircle, Loader, Download, Mail, CreditCard } from "lucide-react"
 import { format } from "date-fns"
 import { formatDateConsistent } from "@/lib/utils"
 
@@ -575,19 +575,51 @@ Please confirm this booking and contact the student.`
                   </div>
 
                   {selectedCourse && (
-                    <div className="mt-6 p-6 bg-gradient-to-r from-red-50 to-blue-50 rounded-2xl">
-                      <h4 className="font-semibold text-gray-900 mb-3">Selected Course Features:</h4>
-                      <div className="grid md:grid-cols-1 gap-2">
-                        {selectedCourse.features.map((feature, index) => (
-                          <div key={index} className="flex items-start">
-                            <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm font-medium">{feature}</span>
+                    <div className="mt-6 space-y-6">
+                      <div className="p-6 bg-gradient-to-r from-red-50 to-blue-50 rounded-2xl">
+                        <h4 className="font-semibold text-gray-900 mb-2">Selected Course:</h4>
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <p className="font-medium">{selectedCourse.name}</p>
+                            <p className="text-sm text-gray-600">{selectedCourse.description}</p>
                           </div>
-                        ))}
+                          <div className="text-right">
+                            <p className="text-2xl font-bold text-red-600">{selectedCourse.price}</p>
+                          </div>
+                        </div>
                       </div>
-                      <div className="mt-4 text-center">
-                        <p className="text-2xl font-bold text-green-600">{selectedCourse.price}</p>
-                        <p className="text-sm text-green-700">Multiple Pricing Options Available</p>
+
+                      {/* Payment Information */}
+                      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg border-2 border-blue-200">
+                        <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                          <CreditCard className="w-5 h-5 text-blue-600" />
+                          Payment Information
+                        </h4>
+                        
+                        <div className="space-y-4">
+                          <div className="bg-white p-4 rounded-lg border border-blue-200">
+                            <p className="text-sm font-semibold text-gray-700 mb-3">M-Pesa Payment Details:</p>
+                            <div className="space-y-2">
+                              <div className="flex justify-between items-center">
+                                <span className="text-sm font-medium text-gray-600">Paybill Number:</span>
+                                <span className="text-sm font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded">400200</span>
+                              </div>
+                              <div className="flex justify-between items-center">
+                                <span className="text-sm font-medium text-gray-600">Account Number:</span>
+                                <span className="text-sm font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded">40096666</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="bg-white p-4 rounded-lg border border-green-200">
+                            <p className="text-sm font-semibold text-gray-700 mb-3">After Payment:</p>
+                            <ol className="text-sm text-gray-700 space-y-2 list-decimal list-inside">
+                              <li>Send confirmation via WhatsApp to <span className="font-semibold">0794 478 773</span></li>
+                              <li>Or text to <span className="font-semibold">0727 555 558</span></li>
+                              <li>Include your name and booking reference in the message</li>
+                            </ol>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}
