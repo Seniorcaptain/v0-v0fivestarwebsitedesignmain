@@ -187,10 +187,26 @@ Please confirm this refresher package booking and contact the student to finaliz
           <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-amber-600 via-orange-500 to-red-600 bg-clip-text text-transparent">
             Weekly Refresher Packages
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium mb-8">
             Perfect for experienced drivers seeking additional practice and skill enhancement. Choose your ideal
             distance and intensity level.
           </p>
+          
+          {/* Payment Info Banner */}
+          <div className="max-w-2xl mx-auto bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 p-6 rounded-lg mb-8">
+            <h3 className="font-bold text-blue-900 mb-4">Same Pricing as Displayed - Easy Payment Process</h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="text-left">
+                <p className="text-sm font-semibold text-gray-700 mb-2">M-Pesa Payment:</p>
+                <p className="text-xs text-gray-600">Paybill: <span className="font-bold">400200</span></p>
+                <p className="text-xs text-gray-600">Account: <span className="font-bold">40096666</span></p>
+              </div>
+              <div className="text-left">
+                <p className="text-sm font-semibold text-gray-700 mb-2">After Payment:</p>
+                <p className="text-xs text-gray-600">Send confirmation to:<br/><span className="font-bold">0794 478 773 or 0727 555 558</span></p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Packages Grid */}
@@ -326,6 +342,22 @@ Please confirm this refresher package booking and contact the student to finaliz
                               onChange={(e) => setBookingData((prev) => ({ ...prev, notes: e.target.value }))}
                               className="mt-1 h-20"
                             />
+                          </div>
+
+                          {/* Payment Information */}
+                          <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+                            <p className="text-sm font-semibold text-gray-700 mb-3">M-Pesa Payment Details:</p>
+                            <div className="space-y-2">
+                              <div className="flex justify-between items-center">
+                                <span className="text-sm font-medium text-gray-600">Paybill:</span>
+                                <span className="text-sm font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded">400200</span>
+                              </div>
+                              <div className="flex justify-between items-center">
+                                <span className="text-sm font-medium text-gray-600">Account:</span>
+                                <span className="text-sm font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded">40096666</span>
+                              </div>
+                            </div>
+                            <p className="text-xs text-gray-600 mt-3">After payment, send confirmation via WhatsApp to 0794 478 773 or 0727 555 558</p>
                           </div>
 
                           <Button

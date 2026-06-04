@@ -93,8 +93,14 @@ export default function BookLessonPage() {
       <div className="bg-gradient-to-r from-red-600 to-blue-600 text-white py-16 px-4">
         <div className="container mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Book Your Lesson</h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto">
-            Start your journey to becoming a confident driver with Five Star Driving School
+          <p className="text-xl text-white/90 max-w-3xl mx-auto mb-6">
+            Schedule your driving lesson with our expert instructors across 20+ locations
+          </p>
+          <div className="inline-block bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full border border-white/30 mb-4">
+            <p className="text-lg font-bold text-yellow-300">🎉 Our Fee is All Inclusive 🎉</p>
+          </div>
+          <p className="text-md text-white/80 max-w-2xl mx-auto">
+            Includes a FREE Learner&apos;s Manual when you choose refresher booking
           </p>
         </div>
       </div>
@@ -134,8 +140,9 @@ export default function BookLessonPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-blue-600">
                 <Users className="w-5 h-5" />
-                NTSA Curriculum Packages
+                NEW NTSA Curriculum
               </CardTitle>
+              <CardDescription className="text-xs text-amber-600 mt-2">Payment Details Available After Selection</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
               {lessonTypes.map((type) => {
@@ -312,6 +319,13 @@ export default function BookLessonPage() {
                         })}
                       </select>
                     </div>
+                  </div>
+
+                  {/* Note about Private Classes */}
+                  <div className="bg-amber-50 border-l-4 border-amber-600 p-4 rounded">
+                    <p className="text-sm text-amber-800">
+                      <span className="font-semibold">Note:</span> For Private Class bookings, Terms & Conditions apply. Contact our team at 0794 478 773 or 0727 555 558 for custom packages and pricing.
+                    </p>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4">
