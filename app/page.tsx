@@ -160,6 +160,17 @@ export default function HomePage() {
       county: "Nairobi" as const,
       constituency: "Kasarani",
     },
+    {
+      name: "Thika Branch",
+      phone: "0142 229 588",
+      location: "Thika",
+      address: "Thika Arcade Building, 2nd Flr Rm K12, Thika",
+      coordinates: { lat: -1.0393, lng: 37.0702 },
+      hours: "Mon-Fri: 7AM-7PM, Sat: 8AM-5PM",
+      services: ["All Vehicle Types", "Community Classes"],
+      county: "Kiambu" as const,
+      constituency: "Thika Town",
+    },
   ]
 
   useEffect(() => {
