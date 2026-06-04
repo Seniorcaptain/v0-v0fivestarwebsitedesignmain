@@ -47,6 +47,18 @@ export function ChatSupportToggle({ onWhatsAppClick }: ChatSupportToggleProps) {
                 <Phone className="w-4 h-4 mr-2" />
                 Call: 0794 478 773
               </Button>
+
+              <Button
+                variant="outline"
+                className="w-full border-gray-300 text-gray-700 hover:border-red-500 hover:text-red-600 hover:bg-red-50 justify-start bg-transparent"
+                onClick={() => {
+                  window.open("tel:0727555558", "_self")
+                  setIsExpanded(false)
+                }}
+              >
+                <Phone className="w-4 h-4 mr-2" />
+                Call: 0727 555 558
+              </Button>
             </div>
           </CardContent>
         </Card>
