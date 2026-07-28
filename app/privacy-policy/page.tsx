@@ -1,8 +1,15 @@
+import type { Metadata } from "next"
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-export const metadata = {
-  title: 'Privacy Policy - FIVE ST★R Driving School',
-  description: 'Privacy policy and data protection information for FIVE ST★R Driving School',
+export const metadata: Metadata = {
+  title: 'Privacy Policy - FIVE ST★R Driving School Kenya',
+  description: 'Privacy policy and GDPR/Kenya DPA compliance information. Learn how we protect your personal data at FIVE ST★R Driving School.',
+  keywords: 'privacy policy, data protection, GDPR compliance, Kenya data protection',
+  openGraph: {
+    title: 'Privacy Policy - FIVE ST★R Driving School',
+    description: 'Our commitment to protecting your personal information and data privacy.',
+    url: 'https://fivestardrivingschools.com/privacy-policy',
+  },
 }
 
 export default function PrivacyPolicy() {
