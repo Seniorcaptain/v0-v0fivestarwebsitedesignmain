@@ -1,8 +1,7 @@
 "use client"
 
 import type { Metadata } from "next"
-import React from "react"
-import { useState } from "react"
+import { StreamlinedRegistration } from "@/components/streamlined-registration"
 
 export const metadata: Metadata = {
   title: "Book Your Driving Lesson | FIVE ST★R Driving School Kenya",
@@ -14,208 +13,28 @@ export const metadata: Metadata = {
     url: "https://fivestardrivingschools.com/book-lesson",
   },
 }
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Phone, Mail, MapPin, Clock, CheckCircle2, Calendar, Users, Zap } from "lucide-react"
 
 export default function BookLessonPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    branch: "",
-    lessonType: "",
-    preferredDate: "",
-    preferredTime: "",
-    notes: "",
-  })
-
-  const [submitted, setSubmitted] = useState(false)
-
-  // NEW NTSA CURRICULUM Lesson Types with Pricing
-  const lessonTypesPricing = {
-    "A2/A3 Package": { price: 8000, discount: 0 },
-    "B1 Package": { price: 12000, discount: 0 },
-    "B2 Package": { price: 14000, discount: 0 },
-    "B1 & B2 Combined Package": { price: 28000, discount: 2000 },
-    "C Package": { price: 16000, discount: 0 },
-    "D Package": { price: 18000, discount: 0 },
-    "E Package": { price: 20000, discount: 0 },
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Here you would typically send the form data to your backend
-    console.log("Form submitted:", formData)
-    setSubmitted(true)
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        branch: "",
-        lessonType: "",
-        preferredDate: "",
-        preferredTime: "",
-        notes: "",
-      })
-      setSubmitted(false)
-    }, 3000)
-  }
-
-  const branches = [
-    "Roysambu (Head Office)",
-    "Zimmerman",
-    "Tassia / Nyayo Estate",
-    "Kahawa West",
-    "Utawala",
-    "Utawala B",
-    "Kahawa Wendani",
-    "Sunton",
-    "Maziwa/Kiamumbi",
-    "Ruiru",
-    "Kahawa Sukari",
-    "Juja",
-    "Seasons (Kasarani)",
-  ]
-
-  const lessonTypes = Object.keys(lessonTypesPricing)
-
-  // Get pricing info for selected lesson type
-  const getSelectedLessonPrice = () => {
-    if (!formData.lessonType) return null
-    const pricing = lessonTypesPricing[formData.lessonType as keyof typeof lessonTypesPricing]
-    return pricing
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-red-50">
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-red-600 to-blue-600 text-white py-16 px-4">
+      <div className="bg-gradient-to-r from-red-600 to-blue-600 text-white py-12 px-4">
         <div className="container mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Book Your Lesson</h1>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto mb-6">
-            Schedule your driving lesson with our expert instructors across 20+ locations
-          </p>
-          <div className="inline-block bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full border border-white/30 mb-4">
-            <p className="text-lg font-bold text-yellow-300">🎉 Our Fee is All Inclusive 🎉</p>
-          </div>
-          <p className="text-md text-white/80 max-w-2xl mx-auto">
-            Includes a FREE Learner&apos;s Manual when you choose refresher booking
+          <h1 className="text-4xl md:text-5xl font-bold mb-3">Book Your Lesson</h1>
+          <p className="text-lg text-white/90 max-w-2xl mx-auto">
+            Quick, simple registration. No hidden fees. Start learning today.
           </p>
         </div>
       </div>
 
+      {/* Main Content */}
       <div className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {/* Why Book With Us */}
-          <Card className="border-2 border-red-200 shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-red-600">
-                <CheckCircle2 className="w-5 h-5" />
-                Why Book With Us
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex gap-2">
-                <Zap className="w-4 h-4 text-red-600 flex-shrink-0 mt-1" />
-                <p className="text-sm">Professional instructors with years of experience</p>
-              </div>
-              <div className="flex gap-2">
-                <Zap className="w-4 h-4 text-red-600 flex-shrink-0 mt-1" />
-                <p className="text-sm">Modern, well-maintained vehicles</p>
-              </div>
-              <div className="flex gap-2">
-                <Zap className="w-4 h-4 text-red-600 flex-shrink-0 mt-1" />
-                <p className="text-sm">Flexible scheduling to fit your needs</p>
-              </div>
-              <div className="flex gap-2">
-                <Zap className="w-4 h-4 text-red-600 flex-shrink-0 mt-1" />
-                <p className="text-sm">Multiple branches across Nairobi and Kiambu</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Lesson Types */}
-          <Card className="border-2 border-blue-200 shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-blue-600">
-                <Users className="w-5 h-5" />
-                NEW NTSA Curriculum
-              </CardTitle>
-              <CardDescription className="text-xs text-amber-600 mt-2">Payment Details Available After Selection</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              {lessonTypes.map((type) => {
-                const pricing = lessonTypesPricing[type as keyof typeof lessonTypesPricing]
-                return (
-                  <div key={type} className="text-sm">
-                    <div className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full mt-1 flex-shrink-0" />
-                      <div>
-                        <p className="font-medium text-gray-800">{type}</p>
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs text-gray-600">KES {pricing.price.toLocaleString()}</span>
-                          {pricing.discount > 0 && (
-                            <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">
-                              -KES {pricing.discount.toLocaleString()} Discount
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )
-              })}
-            </CardContent>
-          </Card>
-
-          {/* Quick Contact */}
-          <Card className="border-2 border-green-200 shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-green-600">
-                <Phone className="w-5 h-5" />
-                Need Help?
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <p className="text-sm font-semibold text-gray-700 mb-1">Call Us</p>
-                <p className="text-sm text-gray-600">0794 478 773</p>
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-gray-700 mb-1">WhatsApp</p>
-                <a
-                  href="https://wa.me/254794478773"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-green-600 hover:text-green-700 font-medium"
-                >
-                  Chat with us
-                </a>
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-gray-700 mb-1">Hours</p>
-                <p className="text-sm text-gray-600">Mon-Fri: 7AM-7PM</p>
-                <p className="text-sm text-gray-600">Sat: 8AM-5PM</p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Booking Form */}
-        <Card className="max-w-2xl mx-auto shadow-2xl border-2 border-red-200">
-          <CardHeader className="bg-gradient-to-r from-red-600 to-blue-600 text-white rounded-t-lg">
+        {/* Streamlined Registration Form */}
+        <StreamlinedRegistration />
+      </div>
+    </div>
+  )
+}
             <CardTitle className="flex items-center gap-2">
               <Calendar className="w-5 h-5" />
               Fill in Your Details
