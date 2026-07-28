@@ -1,8 +1,19 @@
 "use client"
 
+import type { Metadata } from "next"
 import React from "react"
-
 import { useState } from "react"
+
+export const metadata: Metadata = {
+  title: "Book Your Driving Lesson | FIVE ST★R Driving School Kenya",
+  description: "Schedule your NTSA-certified driving lesson with expert instructors. 15+ locations, flexible scheduling, all-inclusive pricing. Book now - automatic & manual cars available.",
+  keywords: "book driving lesson Kenya, NTSA certified instructor, driving lessons Nairobi, automatic driving, manual transmission training",
+  openGraph: {
+    title: "Book Your Driving Lesson | FIVE ST★R Driving School",
+    description: "Schedule with our NTSA-certified instructors. Multiple locations, flexible times, transparent pricing.",
+    url: "https://fivestardrivingschools.com/book-lesson",
+  },
+}
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
