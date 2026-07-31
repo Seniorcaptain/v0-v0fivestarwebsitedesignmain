@@ -182,13 +182,6 @@ export default function HomePage() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const handleWhatsAppClick = () => {
-    window.open(
-      "https://wa.me/254794478773?text=Hi! I'm interested in learning to drive with FIVE ST★R Driving School. Can you please provide me with more information about your courses and pricing?",
-      "_blank",
-    )
-  }
-
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
       <MegaMenu isScrolled={isScrolled} />
@@ -217,7 +210,7 @@ export default function HomePage() {
       <GoogleReviewsTestimonials />
       <InteractiveFAQ />
 
-      <ChatSupportToggle onWhatsAppClick={handleWhatsAppClick} />
+      <ChatSupportToggle />
     </div>
   )
 }

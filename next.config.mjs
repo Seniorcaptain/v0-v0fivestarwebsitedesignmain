@@ -2,10 +2,15 @@
 const nextConfig = {
   poweredByHeader: false,
   eslint: {
-    ignoreDuringBuilds: true,
+    // Re-enabled now that app/book-lesson/page.tsx no longer has a fatal parse error.
+    // If you add eslint-config-next as a devDependency, `next lint` will start
+    // catching issues like this before they ship instead of silently passing.
+    ignoreDuringBuilds: false,
   },
   typescript: {
-    ignoreBuildErrors: true,
+    // Re-enabled: a full `tsc --noEmit` pass is clean as of this change.
+    // Keep this false — it's what would have caught the book-lesson bug earlier.
+    ignoreBuildErrors: false,
   },
   images: {
     unoptimized: false,
@@ -28,6 +33,17 @@ const nextConfig = {
     ],
   },
   headers: async () => [
+    {
+      // Previously only in the unused next.config.ts — wasn't actually being applied.
+      source: "/:path*",
+      headers: [
+        { key: "X-DNS-Prefetch-Control", value: "on" },
+        { key: "X-Frame-Options", value: "SAMEORIGIN" },
+        { key: "X-Content-Type-Options", value: "nosniff" },
+        { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+        { key: "Permissions-Policy", value: "geolocation=(), microphone=(), camera=()" },
+      ],
+    },
     {
       source: "/images/:path*",
       headers: [
