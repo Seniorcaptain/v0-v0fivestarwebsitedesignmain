@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState, useRef, useEffect } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -207,7 +208,7 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center space-x-2">
-              <a href="#" className="flex flex-col items-start group">
+              <Link href="/" className="flex flex-col items-start group">
                 <div className="flex items-center font-bold text-2xl leading-none transition-transform group-hover:scale-105">
                   <span className={isScrolled ? "text-red-600" : "text-white"}>FIVE ST</span>
                   <span className={isScrolled ? "text-blue-600" : "text-yellow-300"}>★</span>
@@ -218,7 +219,7 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                 >
                   Driving School
                 </div>
-              </a>
+              </Link>
             </div>
 
             {/* Desktop Menu */}
@@ -478,7 +479,7 @@ export function MegaMenu({ isScrolled }: MegaMenuProps) {
                         <div>
                           <div className="text-center mb-6">
                             <h3 className="text-2xl font-bold text-gray-900 mb-2">About FIVE STAR</h3>
-                            <p className="text-gray-600">Learn more about Kenya's premier driving school</p>
+                            <p className="text-gray-600">Learn more about Kenya&apos;s premier driving school</p>
                           </div>
                           <div className="grid md:grid-cols-2 gap-6">
                             {item.content.links?.map((link, index) => (
