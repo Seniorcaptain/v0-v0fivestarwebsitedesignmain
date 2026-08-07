@@ -17,6 +17,8 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Clock, MapPin, Zap, CheckCircle } from "lucide-react"
+import { branches } from "@/lib/branches"
+import { ScrollReveal } from "@/components/scroll-reveal"
 
 interface RefresherPackage {
   id: string
@@ -108,18 +110,6 @@ export function RefresherPackages() {
     },
   ]
 
-  const branches = [
-    { id: "roysambu", name: "Roysambu", whatsapp: "254794478773" },
-    { id: "zimmerman", name: "Zimmerman", whatsapp: "254797719618" },
-    { id: "tassia", name: "Tassia", whatsapp: "254796247793" },
-    { id: "kahawa-west", name: "Kahawa West", whatsapp: "254707297889" },
-    { id: "utawala", name: "Utawala", whatsapp: "254717772212" },
-    { id: "kahawa-wendani", name: "Kahawa Wendani", whatsapp: "254790161009" },
-    { id: "sunton", name: "Sunton", whatsapp: "254748429757" },
-    { id: "thika", name: "Thika", whatsapp: "254712345678" },
-    { id: "kiambu", name: "Kiambu", whatsapp: "254723456789" },
-  ]
-
   const handleBookingSubmit = () => {
     if (!bookingData.name || !bookingData.phone || !bookingData.branch || !selectedPackage) {
       alert("Please fill in all required fields")
@@ -127,6 +117,8 @@ export function RefresherPackages() {
     }
 
     setIsSubmitting(true)
+
+    const selectedBranch = branches.find((b) => b.id === bookingData.branch)
 
     // Create WhatsApp message
     const message = `🚗 REFRESHER PACKAGE BOOKING - FIVE ST★R DRIVING SCHOOL
@@ -139,7 +131,7 @@ ID Number: ${bookingData.idNumber || "N/A"}
 📦 REFRESHER PACKAGE:
 Package: ${selectedPackage.distance} for ${selectedPackage.days} Days
 Price: ${selectedPackage.priceFormatted}
-Branch: ${bookingData.branch}
+Branch: ${selectedBranch?.name ?? bookingData.branch}
 Preferred Date: ${bookingData.date || "Flexible"}
 
 📝 Additional Notes:
@@ -149,7 +141,6 @@ Please confirm this refresher package booking and contact the student to finaliz
 
 🌟 "Driving Is Fun, Driving Is Freedom" 🌟`
 
-    const selectedBranch = branches.find((b) => b.id === bookingData.branch)
     const whatsappLink = `https://wa.me/254794478773?text=${encodeURIComponent(message)}`
 
     setTimeout(() => {
@@ -175,16 +166,16 @@ Please confirm this refresher package booking and contact the student to finaliz
   }
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-br from-gray-50 via-white to-blue-50">
+    <section className="py-20 px-4 bg-gray-50">
       <div className="container mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <ScrollReveal className="text-center mb-16">
           <div className="mb-4">
             <div className="inline-flex items-center bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg">
               ⚡ BOOST YOUR SKILLS
             </div>
           </div>
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-amber-600 via-orange-500 to-red-600 bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-red-600 bg-clip-text text-transparent">
             Weekly Refresher Packages
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium mb-8">
@@ -207,7 +198,7 @@ Please confirm this refresher package booking and contact the student to finaliz
               </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Packages Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
@@ -317,7 +308,7 @@ Please confirm this refresher package booking and contact the student to finaliz
                               <SelectContent>
                                 {branches.map((branch) => (
                                   <SelectItem key={branch.id} value={branch.id}>
-                                    {branch.name}
+                                    {branch.shortName}
                                   </SelectItem>
                                 ))}
                               </SelectContent>
@@ -374,7 +365,7 @@ Please confirm this refresher package booking and contact the student to finaliz
                             <CheckCircle className="w-8 h-8 text-green-600" />
                           </div>
                           <p className="text-gray-600 mb-4">
-                            Check your WhatsApp for the main office message. They'll contact you shortly to confirm.
+                            Check your WhatsApp for the main office message. They&apos;ll contact you shortly to confirm.
                           </p>
                           <Button onClick={() => setShowBookingDialog(false)} className="w-full">
                             Done
