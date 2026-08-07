@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Star, ChevronLeft, ChevronRight, Quote, MapPin, Calendar } from "lucide-react"
+import { ScrollReveal } from "@/components/scroll-reveal"
 
 interface GoogleReview {
   id: string
@@ -276,16 +277,18 @@ export function GoogleReviewsTestimonials() {
   const totalReviews = reviews.length
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section className="py-20 px-4 bg-white">
       <div className="container mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-red-600 bg-clip-text text-transparent">
-            Student Success Stories
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto font-medium mb-8">
-            Real reviews from over 20,000 students who successfully learned to drive with FIVE STAR
-          </p>
+          <ScrollReveal>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-red-600 bg-clip-text text-transparent">
+              Student Success Stories
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto font-medium mb-8">
+              Real reviews from over 20,000 students who successfully learned to drive with FIVE STAR
+            </p>
+          </ScrollReveal>
 
           {/* Google Reviews Summary */}
           <div className="flex items-center justify-center space-x-6 mb-8">
