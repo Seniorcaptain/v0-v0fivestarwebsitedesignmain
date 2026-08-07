@@ -31,6 +31,7 @@ interface Branch {
   services?: string[]
   county: "Nairobi" | "Kiambu"
   constituency: string
+  distance?: number
 }
 
 interface InteractiveMapProps {
