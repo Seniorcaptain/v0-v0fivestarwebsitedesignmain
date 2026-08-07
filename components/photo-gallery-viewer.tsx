@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState, useEffect, useCallback, useRef } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -108,6 +109,14 @@ export function PhotoGalleryViewer() {
 
   const currentImage = GALLERY_IMAGES[currentIndex]
 
+  // Zoom functions
+  const zoomIn = () => setZoom((prev) => Math.min(prev + 0.5, 4))
+  const zoomOut = () => setZoom((prev) => Math.max(prev - 0.5, 1))
+  const resetZoom = () => {
+    setZoom(1)
+    setPanPosition({ x: 0, y: 0 })
+  }
+
   // Navigation functions
   const goToNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % GALLERY_IMAGES.length)
@@ -125,14 +134,6 @@ export function PhotoGalleryViewer() {
     setCurrentIndex(index)
     resetZoom()
     setIsLoading(true)
-  }
-
-  // Zoom functions
-  const zoomIn = () => setZoom((prev) => Math.min(prev + 0.5, 4))
-  const zoomOut = () => setZoom((prev) => Math.max(prev - 0.5, 1))
-  const resetZoom = () => {
-    setZoom(1)
-    setPanPosition({ x: 0, y: 0 })
   }
 
   // Fullscreen toggle
@@ -318,11 +319,11 @@ export function PhotoGalleryViewer() {
       {/* Top Control Bar */}
       <header className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-8 py-4 bg-gradient-to-b from-black/80 to-transparent">
         <div className="flex items-center gap-4">
-          <a href="/" className="flex items-center gap-2 text-white hover:text-orange-500 transition-colors">
+          <Link href="/" className="flex items-center gap-2 text-white hover:text-orange-500 transition-colors">
             <span className="text-xl font-bold tracking-tight">
               FIVE<span className="text-orange-500">★</span>STAR
             </span>
-          </a>
+          </Link>
           <Badge variant="outline" className="text-zinc-400 border-zinc-700 hidden sm:flex">
             Fleet Gallery
           </Badge>
@@ -435,7 +436,7 @@ export function PhotoGalleryViewer() {
             {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
           </Button>
 
-          <a href="/">
+          <Link href="/">
             <Button
               variant="ghost"
               size="icon"
@@ -443,7 +444,7 @@ export function PhotoGalleryViewer() {
             >
               <X className="w-4 h-4" />
             </Button>
-          </a>
+          </Link>
         </div>
       </header>
 
