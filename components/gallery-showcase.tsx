@@ -27,6 +27,7 @@ import {
 } from "lucide-react"
 import { formatDateConsistent } from "@/lib/utils"
 import { GALLERY_IMAGES } from "@/lib/gallery-config"
+import { ScrollReveal } from "@/components/scroll-reveal"
 
 interface GalleryImage {
   id: string
@@ -120,17 +121,19 @@ export function GalleryShowcase() {
   }
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50">
+    <section className="py-20 px-4 bg-white">
       <div className="container mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
-            Our Gallery
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium mb-8">
-            Discover our world-class facilities, training excellence, and student success stories through our
-            comprehensive photo collection
-          </p>
+          <ScrollReveal>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-red-600 bg-clip-text text-transparent">
+              Our Gallery
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium mb-8">
+              Discover our world-class facilities, training excellence, and student success stories through our
+              comprehensive photo collection
+            </p>
+          </ScrollReveal>
 
           {/* Search and Controls */}
           <div className="flex flex-col md:flex-row gap-4 justify-center items-center max-w-4xl mx-auto">
