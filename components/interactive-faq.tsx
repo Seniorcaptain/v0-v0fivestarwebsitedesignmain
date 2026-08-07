@@ -6,6 +6,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { ChevronDown, ChevronUp, Search, Phone, MessageCircle, HelpCircle } from "lucide-react"
+import { branches } from "@/lib/branches"
+import { ScrollReveal } from "@/components/scroll-reveal"
 
 interface FAQ {
   id: string
@@ -65,7 +67,7 @@ export function InteractiveFAQ() {
       id: "6",
       question: "Can I choose my preferred branch?",
       answer:
-        "We have 20+ locations across Nairobi. You can choose the branch most convenient for you, and even switch between branches if needed.",
+        `We have ${branches.length} locations across Nairobi and Kiambu. You can choose the branch most convenient for you, and even switch between branches if needed.`,
       category: "locations",
       popular: false,
     },
@@ -144,17 +146,17 @@ export function InteractiveFAQ() {
   }
 
   return (
-    <section id="faq" className="py-20 px-4 bg-white">
+    <section id="faq" className="py-20 px-4 bg-gray-50">
       <div className="container mx-auto max-w-4xl">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <ScrollReveal className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-red-600 bg-clip-text text-transparent">
             Frequently Asked Questions
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto font-medium">
             Find answers to common questions about our driving courses, pricing, and services
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Search and Filters */}
         <div className="mb-12">
