@@ -17,9 +17,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { CalendarIcon, Phone, CheckCircle, Loader, Download, Mail, CreditCard } from "lucide-react"
+import { CalendarIcon, Phone, CheckCircle, Loader, Download, CreditCard } from "lucide-react"
 import { format } from "date-fns"
 import { formatDateConsistent } from "@/lib/utils"
+import { branches } from "@/lib/branches"
+import { ScrollReveal } from "@/components/scroll-reveal"
 
 interface TimeSlot {
   time: string
@@ -213,29 +215,6 @@ export function EnhancedBookingSystem() {
     },
   ]
 
-  const branches = [
-    { id: "roysambu", name: "Roysambu", address: "Kamiti Road", phone: "0794478773", whatsapp: "254794478773" },
-    { id: "zimmerman", name: "Zimmerman", address: "Kamiti Road", phone: "0797719618", whatsapp: "254797719618" },
-    { id: "tassia", name: "Tassia", address: "Embakasi", phone: "0796247793", whatsapp: "254796247793" },
-    { id: "kahawa-west", name: "Kahawa West", address: "Kiambu Road", phone: "0707297889", whatsapp: "254707297889" },
-    { id: "utawala", name: "Utawala", address: "Eastern Bypass", phone: "0717772212", whatsapp: "254717772212" },
-    {
-      id: "kahawa-wendani",
-      name: "Kahawa Wendani",
-      address: "Kiambu Road",
-      phone: "0790161009",
-      whatsapp: "254790161009",
-    },
-    { id: "sunton", name: "Sunton", address: "Kasarani", phone: "0748429757", whatsapp: "254748429757" },
-    { id: "thika", name: "Thika", address: "Thika Town", phone: "0712345678", whatsapp: "254712345678" },
-    { id: "kiambu", name: "Kiambu", address: "Kiambu Town", phone: "0723456789", whatsapp: "254723456789" },
-    { id: "ruiru", name: "Ruiru", address: "Ruiru Town", phone: "0734567890", whatsapp: "254734567890" },
-    { id: "juja", name: "Juja", address: "Juja Town", phone: "0745678901", whatsapp: "254745678901" },
-    { id: "githurai", name: "Githurai", address: "Githurai 44", phone: "0756789012", whatsapp: "254756789012" },
-    { id: "kasarani", name: "Kasarani", address: "Kasarani Area", phone: "0767890123", whatsapp: "254767890123" },
-    { id: "pipeline", name: "Pipeline", address: "Pipeline Estate", phone: "0778901234", whatsapp: "254778901234" },
-  ]
-
   const timeSlots: TimeSlot[] = [
     { time: "08:00 AM", available: true },
     { time: "09:00 AM", available: true },
@@ -256,13 +235,8 @@ export function EnhancedBookingSystem() {
   }
 
   const downloadBookingPDF = () => {
-    // Use browser print functionality instead of jsPDF
+    // Use browser print functionality to let the student save/print their confirmation
     window.print()
-    doc.setTextColor(255, 255, 255)
-    doc.text("Thank you for choosing FIVE ST★R Driving School!", 105, footerY + 10, { align: "center" })
-
-    doc.setFontSize(12)
-
   }
 
   const sendMainWhatsAppMessage = () => {
@@ -297,16 +271,6 @@ Please follow up with the student to confirm and finalize the booking details.
 
     const mainWhatsApp = `https://wa.me/254794478773?text=${encodeURIComponent(message)}`
     window.open(mainWhatsApp, "_blank")
-  }
-
-  const downloadAndSendWhatsApp = () => {
-    // First download the PDF
-    downloadBookingPDF()
-
-    // Then send WhatsApp message to main office
-    setTimeout(() => {
-      sendMainWhatsAppMessage()
-    }, 500)
   }
 
   const sendWhatsAppMessage = () => {
@@ -477,20 +441,20 @@ Please confirm this booking and contact the student.`
   }
 
   return (
-    <section id="booking" className="py-20 px-4 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section id="booking" className="py-20 px-4 bg-gray-50">
       <div className="container mx-auto max-w-4xl">
-        <div className="text-center mb-12">
+        <ScrollReveal className="text-center mb-12">
           <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-red-600 bg-clip-text text-transparent">
             Book Your Lesson
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto font-medium">
-            Schedule your driving lesson with our expert instructors across 20+ locations
+            Schedule your driving lesson with our expert instructors across {branches.length} locations
           </p>
           <div className="mt-6 p-4 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl border-2 border-yellow-300">
             <p className="text-2xl font-bold text-orange-800">🎉 Our Fee is All Inclusive 🎉</p>
-            <p className="text-lg text-orange-700 mt-2">Includes a FREE Learner's Manual</p>
+            <p className="text-lg text-orange-700 mt-2">Includes a FREE Learner&apos;s Manual</p>
           </div>
-        </div>
+        </ScrollReveal>
 
         <div className="flex justify-center mb-12">
           <div className="flex items-center space-x-4">
@@ -702,7 +666,6 @@ Please confirm this booking and contact the student.`
                               setBookingData((prev) => ({ ...prev, date }))
                             }}
                             disabled={(date) => date < new Date()}
-                            initialFocus
                           />
                         </PopoverContent>
                       </Popover>
@@ -929,7 +892,7 @@ Please confirm this booking and contact the student.`
                     <div className="mt-4 pt-4 border-t border-gray-200">
                       <div className="text-center">
                         <p className="text-2xl font-bold text-green-600">Our Fee is All Inclusive</p>
-                        <p className="text-lg text-green-700">Includes FREE Learner's Manual</p>
+                        <p className="text-lg text-green-700">Includes FREE Learner&apos;s Manual</p>
                       </div>
                     </div>
                   </div>
