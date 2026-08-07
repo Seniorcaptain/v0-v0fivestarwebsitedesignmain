@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Award, Shield, Users, Clock, MapPin, Phone, MessageCircle, Car, BookOpen, Target } from "lucide-react"
+import { branches } from "@/lib/branches"
+import { ScrollReveal } from "@/components/scroll-reveal"
 
 export function AboutSection() {
   const whyChooseUsFeatures = [
@@ -91,7 +93,7 @@ export function AboutSection() {
   return (
     <section id="about" className="py-20 px-4 bg-white">
       <div className="container mx-auto">
-        <div className="text-center mb-16">
+        <ScrollReveal className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-red-600 bg-clip-text text-transparent">
             About{" "}
             <span className="text-red-600">
@@ -99,10 +101,10 @@ export function AboutSection() {
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium leading-relaxed">
-            Kenya's premier driving school with over 20,000+ successful graduates. We've been teaching safe, confident
+            Kenya&apos;s premier driving school with over 20,000+ successful graduates. We&apos;ve been teaching safe, confident
             driving across Nairobi for years, making driving education accessible and enjoyable.
           </p>
-        </div>
+        </ScrollReveal>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
           <div>
@@ -113,12 +115,12 @@ export function AboutSection() {
                   FIVE ST<span className="text-blue-600">★</span>R
                 </span>{" "}
                 Driving School was founded with a simple mission: to make quality driving education accessible to
-                everyone in Nairobi. What started as a single location has grown into a network of 20+ branches serving
-                communities across the city.
+                everyone in Nairobi. What started as a single location has grown into a network of {branches.length}{" "}
+                branches serving communities across the city.
               </p>
               <p>
                 Our commitment to excellence has helped over 20,000+ students successfully obtain their driving
-                licenses. We believe that learning to drive should be fun, safe, and stress-free, which is why we've
+                licenses. We believe that learning to drive should be fun, safe, and stress-free, which is why we&apos;ve
                 developed our comprehensive training programs with student success as our top priority.
               </p>
               <p>
@@ -126,7 +128,7 @@ export function AboutSection() {
                 <span className="text-red-600">
                   FIVE ST<span className="text-blue-600">★</span>R
                 </span>{" "}
-                stands as one of Kenya's most trusted driving schools, known for our professional instructors, modern
+                stands as one of Kenya&apos;s most trusted driving schools, known for our professional instructors, modern
                 fleet, and industry-leading pass rates. We continue to innovate and expand to serve more communities
                 across Nairobi.
               </p>
@@ -188,7 +190,7 @@ export function AboutSection() {
               ?
             </h3>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Discover what makes us Kenya's most trusted driving school
+              Discover what makes us Kenya&apos;s most trusted driving school
             </p>
           </div>
 
