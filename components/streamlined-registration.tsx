@@ -4,8 +4,8 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { CheckCircle2, ArrowRight, AlertCircle } from "lucide-react"
+import { branches } from "@/lib/branches"
 
 interface FormData {
   fullName: string
@@ -27,21 +27,7 @@ const COURSES = [
   { id: "e", name: "E Heavy Truck License", price: "20,000 KES", lessons: "30 lessons" },
 ]
 
-const BRANCHES = [
-  "Roysambu (Head Office)",
-  "Zimmerman",
-  "Tassia / Nyayo Estate",
-  "Kahawa West",
-  "Utawala",
-  "Utawala B",
-  "Kahawa Wendani",
-  "Sunton",
-  "Maziwa/Kiamumbi",
-  "Ruiru",
-  "Kahawa Sukari",
-  "Juja",
-  "Seasons (Kasarani)",
-]
+const BRANCHES = branches.map((b) => b.shortName)
 
 export function StreamlinedRegistration() {
   const [formData, setFormData] = useState<FormData>({
@@ -77,6 +63,27 @@ export function StreamlinedRegistration() {
 
     if (!validateForm()) return
 
+    const course = COURSES.find((c) => c.id === formData.courseType)
+
+    const message = `🌟 NEW REGISTRATION - FIVE ST★R DRIVING SCHOOL 🌟
+
+👤 STUDENT DETAILS:
+• Name: ${formData.fullName}
+• Phone: ${formData.phone}
+• Email: ${formData.email}
+• Experience: ${formData.experience || "Not specified"}
+
+🎓 COURSE:
+• ${course?.name ?? "Not selected"}
+• ${course?.price ?? ""}
+
+📍 Branch: ${formData.branch}
+📅 Preferred Start Date: ${formData.preferredDate}
+
+Please follow up with the student to confirm and finalize the schedule.`
+
+    window.open(`https://wa.me/254794478773?text=${encodeURIComponent(message)}`, "_blank")
+
     setSubmitted(true)
     setTimeout(() => {
       setFormData({
@@ -106,9 +113,9 @@ export function StreamlinedRegistration() {
             <h3 className="text-2xl font-bold text-gray-900 mb-3">Registration Confirmed</h3>
             <p className="text-gray-700 mb-2">Thank you for registering with FIVE STAR Driving School!</p>
             <p className="text-sm text-gray-600">
-              We will contact you within 24 hours to confirm your lesson schedule.
+              We&apos;ve opened WhatsApp with your details pre-filled — send it to reach our team, and we&apos;ll
+              confirm your lesson schedule within 24 hours.
             </p>
-            <p className="text-xs text-gray-500 mt-6">Redirecting to home page...</p>
           </CardContent>
         </Card>
       ) : (
