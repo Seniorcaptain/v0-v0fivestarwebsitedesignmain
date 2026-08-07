@@ -79,11 +79,11 @@ export default function PrivacyPolicy() {
 
           <Card>
             <CardHeader>
-              <CardTitle>4. Your Rights Under Kenya's Data Protection Act 2019</CardTitle>
+              <CardTitle>4. Your Rights Under Kenya&apos;s Data Protection Act 2019</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-gray-700">
-                Under Kenya's Data Protection Act 2019, you have the following rights:
+                Under Kenya&apos;s Data Protection Act 2019, you have the following rights:
               </p>
               <ul className="list-disc pl-6 space-y-2 text-gray-700">
                 <li><strong>Right of Access:</strong> Request a copy of the personal data we hold about you</li>
