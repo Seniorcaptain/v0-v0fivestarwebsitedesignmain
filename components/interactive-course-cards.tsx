@@ -19,6 +19,8 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Car, Clock, Users, Award, Calendar, CreditCard, CheckCircle, Filter, Zap, Truck, Download } from "lucide-react"
 import { formatDateConsistent } from "@/lib/utils"
+import { ScrollReveal } from "@/components/scroll-reveal"
+import { TiltCard } from "@/components/tilt-card"
 
 interface Course {
   id: string
@@ -76,7 +78,6 @@ export function InteractiveCourseCards() {
 
     // Set up colors
     const redColor = "#dc2626"
-    const blueColor = "#2563eb"
     const grayColor = "#6b7280"
 
     // Title
@@ -544,16 +545,16 @@ export function InteractiveCourseCards() {
   }
 
   return (
-    <section id="courses" className="py-20 px-4 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section id="courses" className="py-20 px-4 bg-white">
       <div className="container mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <ScrollReveal className="text-center mb-16">
           <div className="mb-4">
             <div className="inline-flex items-center bg-gradient-to-r from-red-600 to-orange-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
               🆕 LATEST UPDATE
             </div>
           </div>
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-red-600 via-orange-500 to-blue-600 bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-red-600 bg-clip-text text-transparent">
             NEW NTSA CURRICULUM
           </h2>
           <div className="bg-gradient-to-r from-red-50 to-blue-50 rounded-2xl p-6 mx-auto max-w-4xl mb-6">
@@ -562,7 +563,7 @@ export function InteractiveCourseCards() {
             </p>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto font-medium">
               Experience our updated curriculum featuring enhanced practical training, digital theory modules, and
-              comprehensive assessment methods aligned with Kenya's new driving education requirements.
+              comprehensive assessment methods aligned with Kenya&apos;s new driving education requirements.
             </p>
           </div>
           <div className="mt-6 inline-flex items-center bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-full px-8 py-4 shadow-lg">
@@ -609,7 +610,7 @@ export function InteractiveCourseCards() {
               All courses inclusive of PDL Assessment & Final Exams
             </span>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Filters */}
         <div className="mb-12">
@@ -703,9 +704,9 @@ export function InteractiveCourseCards() {
         {/* Course Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredCourses.map((course) => (
+            <TiltCard key={course.id} className="rounded-xl">
             <Card
-              key={course.id}
-              className={`bg-white border-0 hover:shadow-2xl transition-all duration-500 hover:transform hover:scale-105 group overflow-hidden relative cursor-pointer ${
+              className={`bg-white border-0 hover:shadow-2xl transition-shadow duration-500 group overflow-hidden relative cursor-pointer ${
                 course.popular ? "ring-2 ring-red-500" : ""
               }`}
             >
@@ -1046,6 +1047,7 @@ export function InteractiveCourseCards() {
                 </div>
               </CardContent>
             </Card>
+            </TiltCard>
           ))}
         </div>
 
