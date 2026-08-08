@@ -395,7 +395,7 @@ export function InteractiveCourseCards() {
       discount: 500,
     },
     {
-      id: "c2-medium-trucks",
+      id: "c2-medium-trucks-c1-upgrade",
       title: "C2 Medium Trucks License",
       price: "Ksh 13,000",
       duration: "3-6 weeks",
