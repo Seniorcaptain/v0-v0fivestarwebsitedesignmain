@@ -1,0 +1,245 @@
+// Single source of truth for all branch data.
+//
+// Previously this list was hand-copied into four different files
+// (app/page.tsx, enhanced-booking-system.tsx, refresher-packages.tsx,
+// streamlined-registration.tsx) and had drifted out of sync in each —
+// different branch counts, made-up placeholder phone numbers, and
+// branches that don't exist on the map. Update it here once and every
+// component that imports it stays in sync.
+
+export interface Branch {
+  id: string
+  /** Full display name, e.g. for the map / branch finder */
+  name: string
+  /** Shorter label for compact UI like select dropdowns */
+  shortName: string
+  /** Human-readable phone, e.g. "0794 478 773" */
+  phone: string
+  /** Digits only, no spaces — for tel: links */
+  phoneCompact: string
+  /** International format for wa.me links, e.g. "254794478773" */
+  whatsapp: string
+  location: string
+  address: string
+  coordinates: { lat: number; lng: number }
+  hours?: string
+  services?: string[]
+  county: "Nairobi" | "Kiambu"
+  constituency: string
+}
+
+export const branches: Branch[] = [
+  {
+    id: "roysambu",
+    name: "Head Office - Roysambu",
+    shortName: "Roysambu (Head Office)",
+    phone: "0794 478 773",
+    phoneCompact: "0794478773",
+    whatsapp: "254794478773",
+    location: "Jeda Plaza, Roysambu",
+    address: "Jeda Plaza, Roysambu, Lumumba Drive, 2nd Floor, Rm K12",
+    coordinates: { lat: -1.2281, lng: 36.8219 },
+    hours: "Mon-Fri: 7AM-7PM, Sat: 8AM-5PM",
+    services: ["Automatic Cars", "Manual Cars", "Administrative Services"],
+    county: "Nairobi",
+    constituency: "Roysambu",
+  },
+  {
+    id: "zimmerman",
+    name: "Zimmerman Branch",
+    shortName: "Zimmerman",
+    phone: "0797 719 618",
+    phoneCompact: "0797719618",
+    whatsapp: "254797719618",
+    location: "Zimmerman",
+    address: "Near Ocean Hardware, Zimmerman",
+    coordinates: { lat: -1.2167, lng: 36.8833 },
+    hours: "Mon-Fri: 7AM-7PM, Sat: 8AM-5PM",
+    services: ["Automatic Cars", "Manual Cars", "Practical Lessons"],
+    county: "Nairobi",
+    constituency: "Roysambu",
+  },
+  {
+    id: "tassia",
+    name: "Tassia / Nyayo Estate Branch",
+    shortName: "Tassia / Nyayo Estate",
+    phone: "0796 247 793",
+    phoneCompact: "0796247793",
+    whatsapp: "254796247793",
+    location: "Tassia / Nyayo Estate",
+    address: "Near Footbridge, Tassia / Nyayo Estate",
+    coordinates: { lat: -1.3167, lng: 36.8833 },
+    hours: "Mon-Fri: 7AM-7PM, Sat: 8AM-5PM",
+    services: ["All Vehicle Types", "Weekend Classes"],
+    county: "Nairobi",
+    constituency: "Embakasi South",
+  },
+  {
+    id: "kahawa-west",
+    name: "Kahawa West Branch",
+    shortName: "Kahawa West",
+    phone: "0707 297 889",
+    phoneCompact: "0707297889",
+    whatsapp: "254707297889",
+    location: "Kahawa West",
+    address: "Mukuyu Plaza, Kahawa West",
+    coordinates: { lat: -1.1833, lng: 36.9167 },
+    hours: "Mon-Fri: 7AM-7PM, Sat: 8AM-5PM",
+    services: ["Automatic Cars", "Manual Cars"],
+    county: "Nairobi",
+    constituency: "Ruaraka",
+  },
+  {
+    id: "utawala",
+    name: "Utawala Branch",
+    shortName: "Utawala",
+    phone: "0717 772 212",
+    phoneCompact: "0717772212",
+    whatsapp: "254717772212",
+    location: "Utawala",
+    address: "Benedicta Junction, Utawala",
+    coordinates: { lat: -1.3, lng: 36.95 },
+    hours: "Mon-Fri: 7AM-7PM, Sat: 8AM-5PM",
+    services: ["All Vehicle Types", "Express Courses"],
+    county: "Nairobi",
+    constituency: "Embakasi East",
+  },
+  {
+    id: "utawala-b",
+    name: "Utawala B Branch",
+    shortName: "Utawala B",
+    phone: "0708 819 667",
+    phoneCompact: "0708819667",
+    whatsapp: "254708819667",
+    location: "Utawala B",
+    address: "Opposite AP Training Centre Gate, Utawala",
+    coordinates: { lat: -1.301, lng: 36.951 },
+    hours: "Mon-Fri: 7AM-7PM, Sat: 8AM-5PM",
+    services: ["All Vehicle Types", "Flexible Timing"],
+    county: "Nairobi",
+    constituency: "Embakasi East",
+  },
+  {
+    id: "kahawa-wendani",
+    name: "Kahawa Wendani Branch",
+    shortName: "Kahawa Wendani",
+    phone: "0790 161 009",
+    phoneCompact: "0790161009",
+    whatsapp: "254790161009",
+    location: "Kahawa Wendani",
+    address: "Next to Magunas Supermarket, Kahawa Wendani",
+    coordinates: { lat: -1.1667, lng: 36.9333 },
+    hours: "Mon-Fri: 7AM-7PM, Sat: 8AM-5PM",
+    services: ["Automatic Cars", "Manual Cars", "Vans"],
+    county: "Kiambu",
+    constituency: "Ruiru",
+  },
+  {
+    id: "sunton",
+    name: "Sunton Branch",
+    shortName: "Sunton",
+    phone: "0748 429 757",
+    phoneCompact: "0748429757",
+    whatsapp: "254748429757",
+    location: "Sunton",
+    address: "Opposite Murema Primary School, Sunton",
+    coordinates: { lat: -1.25, lng: 36.8167 },
+    hours: "Mon-Fri: 7AM-7PM, Sat: 8AM-5PM",
+    services: ["All Vehicle Types", "Flexible Timing"],
+    county: "Nairobi",
+    constituency: "Kasarani",
+  },
+  {
+    id: "maziwa-kiamumbi",
+    name: "Maziwa/Kiamumbi Branch",
+    shortName: "Maziwa/Kiamumbi",
+    phone: "0740 541 154",
+    phoneCompact: "0740541154",
+    whatsapp: "254740541154",
+    location: "Maziwa/Kiamumbi",
+    address: "Opposite PCEA Kahawa Farmers, Maziwa/Kiamumbi",
+    coordinates: { lat: -1.18, lng: 36.92 },
+    hours: "Mon-Fri: 7AM-7PM, Sat: 8AM-5PM",
+    services: ["All Vehicle Types", "Community Classes"],
+    county: "Kiambu",
+    constituency: "Ruiru",
+  },
+  {
+    id: "ruiru",
+    name: "Ruiru Branch",
+    shortName: "Ruiru",
+    phone: "0727 654 977",
+    phoneCompact: "0727654977",
+    whatsapp: "254727654977",
+    location: "Ruiru",
+    address: "National Bank Building, Ruiru",
+    coordinates: { lat: -1.1463, lng: 36.9618 },
+    hours: "Mon-Fri: 7AM-7PM, Sat: 8AM-5PM",
+    services: ["All Vehicle Types", "Commercial Training"],
+    county: "Kiambu",
+    constituency: "Ruiru",
+  },
+  {
+    id: "kahawa-sukari",
+    name: "Kahawa Sukari Branch",
+    shortName: "Kahawa Sukari",
+    phone: "0790 356 991",
+    phoneCompact: "0790356991",
+    whatsapp: "254790356991",
+    location: "Kahawa Sukari",
+    address: "Baraka House next to Quickmart, Kahawa Sukari",
+    coordinates: { lat: -1.17, lng: 36.93 },
+    hours: "Mon-Fri: 7AM-7PM, Sat: 8AM-5PM",
+    services: ["All Vehicle Types", "Quick Courses"],
+    county: "Nairobi",
+    constituency: "Kasarani",
+  },
+  {
+    id: "juja",
+    name: "Juja Branch",
+    shortName: "Juja",
+    phone: "0790 248 830",
+    phoneCompact: "0790248830",
+    whatsapp: "254790248830",
+    location: "Juja",
+    address: "Next to Daykan College, Juja",
+    coordinates: { lat: -1.1009, lng: 37.012 },
+    hours: "Mon-Fri: 7AM-7PM, Sat: 8AM-5PM",
+    services: ["All Vehicle Types", "Student Packages"],
+    county: "Kiambu",
+    constituency: "Juja",
+  },
+  {
+    id: "seasons-kasarani",
+    name: "Seasons (Kasarani) Branch",
+    shortName: "Seasons (Kasarani)",
+    phone: "0745 791 009",
+    phoneCompact: "0745791009",
+    whatsapp: "254745791009",
+    location: "Seasons, Kasarani",
+    address: "Seasons Stage, Kasarani",
+    coordinates: { lat: -1.2167, lng: 36.8833 },
+    hours: "Mon-Fri: 7AM-7PM, Sat: 8AM-5PM",
+    services: ["All Vehicle Types", "Evening Classes"],
+    county: "Nairobi",
+    constituency: "Kasarani",
+  },
+  {
+    id: "thika",
+    name: "Thika Branch",
+    shortName: "Thika",
+    phone: "0142 229 588",
+    phoneCompact: "0142229588",
+    whatsapp: "254142229588",
+    location: "Thika",
+    address: "Thika Arcade Building, 2nd Flr Rm K12, Thika",
+    coordinates: { lat: -1.0393, lng: 37.0702 },
+    hours: "Mon-Fri: 7AM-7PM, Sat: 8AM-5PM",
+    services: ["All Vehicle Types", "Community Classes"],
+    county: "Kiambu",
+    constituency: "Thika Town",
+  },
+]
+
+/** Main office WhatsApp number — used as the fallback contact for site-wide inquiries. */
+export const HEAD_OFFICE_WHATSAPP = branches[0].whatsapp
